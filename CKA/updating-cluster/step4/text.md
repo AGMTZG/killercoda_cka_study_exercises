@@ -8,6 +8,7 @@ The kubelet must match the control-plane version. Steps include:
 - Restarting the kubelet to apply the upgrade.
 - Put the kubelet package on hold.
 - Uncordoning the node to allow new pods to schedule.
+- Make sure that the control plane is updated to 1.33.5-1.1
 
 <details>
 <summary>Show commands / answers</summary>
@@ -29,6 +30,9 @@ sudo apt-mark hold kubelet
 
 # Uncordon the node after upgrade
 kubectl uncordon control-plane
+
+# We check if the controlplane has been updated:
+kubectl get nodes
 ```
 
 </p>
