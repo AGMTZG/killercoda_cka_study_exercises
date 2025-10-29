@@ -1,10 +1,10 @@
 #!/bin/bash
 
 NODE=$(hostname)
-if [[ "$NODE" == "control-plane" ]]; then
-    echo "Connected to control-plane"
+if [[ "$NODE" == "controlplane" ]]; then
+    echo "Connected to controlplane"
 else
-    echo "You are not on the control-plane node"
+    echo "You are not on the controlplane node"
     exit 1
 fi
 
