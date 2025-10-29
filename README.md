@@ -1,15 +1,8 @@
-# CKA Killercoda Interactive Labs
-
-<p align="center">
-  <img src="https://training.linuxfoundation.org/wp-content/uploads/2019/03/logo_cka_whitetext-300x293.png" alt="Certified Kubernetes Administrator" width="300"/>
-</p>
-
+# Killercoda Interactive Labs
 ## About
 
-This repository contains **interactive Kubernetes labs** designed for CKA preparation using **Killercoda**.  
-Each scenario allows you to practice Kubernetes concepts hands-on, directly in your browser, without installing anything locally.  
-
-You can also check out the **original repository** with the same exercises, but organized by topics: [cka_study_exercises](https://github.com/AGMTZG/cka_study_exercises)
+This collection contains **interactive labs** using **Killercoda**.
+Each scenario allows you to practice concepts hands-on, directly in your browser, without installing anything locally.
 
 ---
 
@@ -29,7 +22,7 @@ You can also check out the **original repository** with the same exercises, but 
 ---
 
 <p align="center">
-If these labs help you on your journey to become a Certified Kubernetes Administrator, consider supporting my work 💙
+If these labs help you on your journey, consider supporting my work 💙
 </p>
 
 <p align="center">
