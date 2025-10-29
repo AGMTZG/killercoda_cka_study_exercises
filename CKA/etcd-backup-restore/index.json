@@ -1,0 +1,22 @@
+{
+  "title": "Backup and Restore etcd in a Kubernetes Cluster",
+  "description": "Learn how to perform an etcd backup and restore in Kubernetes using etcdctl.",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      { "title": "Identify the etcd instance", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "Create a backup snapshot of etcd", "text": "step2/text.md", "verify": "step2/verify.sh" },
+      { "title": "Simulate a disaster recovery", "text": "step3/text.md", "verify": "step3/verify.sh" },
+      { "title": "Restore etcd from the backup snapshot", "text": "step4/text.md", "verify": "step4/verify.sh" },
+      { "title": "Update the etcd manifest to use restored data", "text": "step5/text.md", "verify": "step5/verify.sh" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
