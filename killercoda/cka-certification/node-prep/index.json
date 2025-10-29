@@ -1,5 +1,6 @@
 {
   "title": "Node Preparation for Kubeadm Setup",
+  "description": "Learn how to prepare a node before installing a kubernetes cluster",
   "details": {
     "intro": {
       "text": "intro.md"
