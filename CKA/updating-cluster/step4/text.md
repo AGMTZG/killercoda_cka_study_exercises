@@ -1,6 +1,6 @@
 ### Upgrade kubelet on the control-plane node
 
-The kubelet must match the control-plane version. Steps include:
+The kubelet must match the controlplane version. Steps include:
 
 - Draining the node to safely evict pods.
 - Ensure the kubelet package is not on hold.
@@ -15,8 +15,8 @@ The kubelet must match the control-plane version. Steps include:
 <p>
 
 ```bash
-# Drain the control-plane node
-kubectl drain control-plane --ignore-daemonsets
+# Drain the controlplane node
+kubectl drain controlplane --ignore-daemonsets
 
 # Upgrade kubelet
 sudo apt-mark unhold kubelet
@@ -29,7 +29,7 @@ sudo systemctl restart kubelet
 sudo apt-mark hold kubelet
 
 # Uncordon the node after upgrade
-kubectl uncordon control-plane
+kubectl uncordon controlplane
 
 # We check if the controlplane has been updated:
 kubectl get nodes

@@ -8,3 +8,10 @@ else
     echo "kubectl version is $KUBECTL_VER, expected $TARGET_VER"
     exit 1
 fi
+
+if apt-mark showhold | grep -q "^kubectl$"; then
+  echo "kubectl is on hold"
+else
+  echo "kubectl is not on hold"
+  exit 1
+fi

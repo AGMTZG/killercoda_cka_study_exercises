@@ -3,7 +3,7 @@
 Kubeadm orchestrates upgrades in Kubernetes. Upgrading kubeadm first is critical because:
 
 - It ensures compatibility with the desired cluster version.
-- Provides the tools necessary to safely upgrade control-plane components.
+- Provides the tools necessary to safely upgrade controlplane components.
 - Prevents version mismatches during the upgrade.
 
 In this step: before upgrading kubeadm, you must:

@@ -20,9 +20,9 @@ fi
 
 if apt-mark showhold | grep -q "^kubelet$"; then
   echo "kubelet is on hold"
-  exit 1
 else
   echo "kubelet is not on hold"
+  exit 1
 fi
 
 SCHEDULABLE=$(kubectl get node control-plane -o jsonpath='{.spec.unschedulable}')
