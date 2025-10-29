@@ -1,12 +1,11 @@
 #!/bin/bash
 
-APISERVER_STATUS=$(kubectl get pod kube-apiserver-controlplane -n kube-system -o jsonpath='{.status.phase}')
-CONTROLLER_STATUS=$(kubectl get pod kube-controller-manager-controlplane -n kube-system -o jsonpath='{.status.phase}')
+PODS=$(kubectl get pods -n kube-system --no-headers | grep -E "kube-apiserver-controlplane|kube-controller-manager-controlplane")
 
-if [[ "$APISERVER_STATUS" == "Running" && "$CONTROLLER_STATUS" == "Running" ]]; then
-    echo "Disaster recovery simulation successful: pods have been recreated and are running."
+if [ -z "$PODS" ]; then
+  echo "done"
 else
-    echo "Pods are not yet running. Current status:"
-    kubectl get pod kube-apiserver-controlplane kube-controller-manager-controlplane -n kube-system
-    exit 1
+  echo "Some control-plane pods are still running:"
+  echo "$PODS"
+  exit 1
 fi
