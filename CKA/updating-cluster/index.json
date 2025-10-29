@@ -1,0 +1,42 @@
+{
+  "title": "CKA Lab: Updating the Control Plane",
+  "description": "Learn how to safely upgrade a Kubernetes cluster using kubeadm, including updating kubeadm, the control-plane, kubelet, and kubectl while maintaining cluster stability.",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      { 
+        "title": "Connect to the control-plane and verify node status", 
+        "text": "step1/text.md", 
+        "verify": "step1/verify.sh" 
+      },
+      { 
+        "title": "Update kubeadm to the target version", 
+        "text": "step2/text.md", 
+        "verify": "step2/verify.sh" 
+      },
+      { 
+        "title": "Check upgrade plan and apply control-plane upgrade", 
+        "text": "step3/text.md", 
+        "verify": "step3/verify.sh" 
+      },
+      { 
+        "title": "Upgrade kubelet on the control-plane node", 
+        "text": "step4/text.md", 
+        "verify": "step4/verify.sh" 
+      },
+      { 
+        "title": "Upgrade kubectl to match the cluster version", 
+        "text": "step5/text.md", 
+        "verify": "step5/verify.sh" 
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
