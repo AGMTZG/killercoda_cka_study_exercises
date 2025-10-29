@@ -1,10 +1,12 @@
 ### Upgrade kubectl
 
-Finally, upgrade your local `kubectl` to ensure it matches the cluster version:
+Finally, upgrade your local `kubectl` to ensure it matches the cluster version.
 
-- Avoids version conflicts when interacting with the cluster.
-- Ensures all commands work as expected.
-- Maintains compatibility with new features and APIs.
+In this step, you will do:
+
+- Ensure the kubectl package is not on hold.
+- Update kubectl to the target version 1.33.5-1.1
+- Put the kubectl package on hold.
 
 <details>
 <summary>Show commands / answers</summary>

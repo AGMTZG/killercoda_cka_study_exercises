@@ -8,3 +8,10 @@ else
     echo "Control-plane version is $CONTROL_VER, expected $TARGET_VER"
     exit 1
 fi
+
+if apt-mark showhold | grep -q "^kubeadm$"; then
+  echo "kubeadm is on hold"
+  exit 1
+else
+  echo "kubeadm is not on hold"
+fi
