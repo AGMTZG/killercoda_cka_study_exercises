@@ -1,5 +1,5 @@
 {
-  "title": "CKA Lab: Updating the Control Plane",
+  "title": "Updating the Control Plane",
   "description": "Learn how to safely upgrade a Kubernetes cluster using kubeadm, including updating kubeadm, the control-plane, kubelet, and kubectl while maintaining cluster stability.",
   "details": {
     "intro": {
