@@ -9,7 +9,7 @@ fi
 
 if apt-mark showhold | grep -q "^kubeadm$"; then
   echo "kubeadm is on hold"
-  exit 1
 else
   echo "kubeadm is not on hold"
+  exit 1
 fi
