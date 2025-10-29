@@ -1,3 +1,7 @@
+### Updating the Control Plane
+
+In this scenario, you’ll learn how to safely upgrade a Kubernetes cluster using kubeadm, including updating kubeadm, the control-plane, kubelet, and kubectl
+
 You are the administrator of a Kubernetes cluster currently running version 1.33.2. You want to upgrade the control plane node to version 1.33.5-1.1 using kubeadm.
 
 Tasks:

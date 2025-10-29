@@ -16,3 +16,5 @@ Your Tasks:
   - The new etcd data directory will be in: /mnt/etcd-data
 
 - Verify that the cluster is functional by checking the nodes and pods.
+
+Press **Next** to start preparing the node.
