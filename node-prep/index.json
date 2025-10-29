@@ -1,0 +1,21 @@
+{
+  "title": "Node Preparation for Kubeadm Setup",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      { "title": "Disable swap", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "Load kernel modules", "text": "step2/text.md", "verify": "step2/verify.sh" },
+      { "title": "Set sysctl parameters", "text": "step3/text.md", "verify": "step3/verify.sh" },
+      { "title": "Verify hostname and network", "text": "step4/text.md", "verify": "step4/verify.sh" },
+      { "title": "Open required ports", "text": "step5/text.md", "verify": "step5/verify.sh" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
