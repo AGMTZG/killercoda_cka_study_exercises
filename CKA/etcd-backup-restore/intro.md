@@ -2,7 +2,7 @@
 
 In this scenario, you’ll learn how to **back up and restore the etcd datastore** used by Kubernetes.
 
-Your company has a Kubernetes cluster with a single control plane node. You’ve been asked to perform a backup of the etcd datastore and later simulate a disaster recovery scenario by restoring the cluster from that backup.
+Your organization operates a Kubernetes cluster with a single control plane node. You are required to create a backup of the etcd datastore and later perform a disaster recovery test by restoring the cluster from that backup.
 
 Your Tasks:
 
@@ -10,7 +10,7 @@ Your Tasks:
 
 - Create a snapshot backup of etcd and save it to /backup/etcd-snapshot.db.
 
-- Delete pods kube-apiserver-controlplane and kube-controller-manager-controlplane in namespace kube-system
+- Simulate a disaster scenario by removing the static pod manifest files for kube-apiserver-controlplane and kube-controller-manager-controlplane, then delete their corresponding pods from the kube-system namespace.
 
 - Restore etcd using the snapshot previously created.
   - The new etcd data directory will be in: /mnt/etcd-data

@@ -1,6 +1,6 @@
 ### Identify the etcd instance
 
-Learn how to locate the running etcd instance in your Kubernetes control plane, and gather key configuration details such as certificate paths, data directory, and endpoints.
+Learn how to locate the running etcd instance in your Kubernetes control plane and gather key configuration details such as certificate paths, data directory, and endpoints by inspecting its startup flags.
 
 <details>
 <summary>Show commands / answers</summary>
