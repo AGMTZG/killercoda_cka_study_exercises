@@ -50,6 +50,7 @@ WantedBy=multi-user.target
 sudo systemctl daemon-reload
 sudo systemctl start containerd
 sudo systemctl enable containerd
+sudo systemctl status containerd
 ```
 
 </p>
