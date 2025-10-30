@@ -16,5 +16,7 @@ Your tasks:
 
 - Initialize the Kubernetes cluster specifying containerd as the CRI and verify that the node appears as Ready
 
+Note: Docker will be uninstalled from the environment. Please wait until the process completes.
+
 References:
 [Kubernetes kubeadm setup guide](https://kubernetes.io/docs/reference/setup-tools/kubeadm/)
