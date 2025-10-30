@@ -2,13 +2,16 @@
 
 Finally, we need to initialize the Kubernetes cluster using kubeadm, specifying containerd as the container runtime.
 
+Note:
+Use the --ignore-preflight-errors=NumCPU flag because the instance does not have enough CPU resources to initialize the cluster.
+
 <details>
 <summary>Show commands / answers</summary>
 <p>
 
 ```bash
 # We initialize the kubernetes cluster
-sudo kubeadm init --cri-socket=unix:///var/run/containerd/containerd.sock
+sudo kubeadm init --cri-socket=unix:///var/run/containerd/containerd.sock --ignore-preflight-errors=NumCPU
 
 # To start using kubectl as a regular user
 mkdir -p $HOME/.kube
