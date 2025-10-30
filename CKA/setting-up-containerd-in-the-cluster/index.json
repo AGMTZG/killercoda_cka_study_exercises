@@ -1,0 +1,23 @@
+{
+  "title": "Setting Up Containerd in the Cluster",
+  "description": "Learn how to install and configure containerd as the container runtime for Kubernetes",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      { "title": "SSH into the EC2 instance", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "Install containerd", "text": "step2/text.md", "verify": "step2/verify.sh" },
+      { "title": "Configure containerd with systemd cgroup driver", "text": "step3/text.md", "verify": "step3/verify.sh" },
+      { "title": "Install kubeadm, kubelet, and kubectl", "text": "step4/text.md", "verify": "step4/verify.sh" },
+      { "title": "Initialize the Kubernetes cluster with containerd", "text": "step5/text.md", "verify": "step5/verify.sh" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  },
+  "startup": "startup.sh"
+}

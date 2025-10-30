@@ -22,5 +22,7 @@ sudo sed -i 's|/var/lib/etcd|/mnt/etcd-data|g' /etc/kubernetes/manifests/etcd.ya
 
 # Wait for etcd Pod to restart automatically
 kubectl get pods -n kube-system | grep etcd
+```
+
 </p>
 </details>
