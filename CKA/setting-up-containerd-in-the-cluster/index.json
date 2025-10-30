@@ -4,7 +4,7 @@
   "details": {
     "intro": {
       "text": "intro.md",
-      "foreground": "startup.sh",
+      "foreground": "startup.sh"
     },
     "steps": [
       { "title": "SSH into the EC2 instance", "text": "step1/text.md", "verify": "step1/verify.sh" },
