@@ -10,7 +10,7 @@ Your Tasks:
 
 - Create a snapshot backup of etcd and save it to /backup/etcd-snapshot.db.
 
-- Simulate a disaster scenario by removing the static pod manifest files for kube-apiserver-controlplane and kube-controller-manager-controlplane, then delete their corresponding pods from the kube-system namespace.
+- Simulate a disaster scenario by removing the static pod manifest files for kube-apiserver-controlplane and kube-controller-manager-controlplane.
 
 - Restore etcd using the snapshot previously created.
   - The new etcd data directory will be in: /mnt/etcd-data
