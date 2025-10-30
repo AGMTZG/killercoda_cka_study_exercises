@@ -20,4 +20,4 @@ if command -v containerd &> /dev/null; then
 else
     echo "containerd binary not found in PATH."
     exit 1
-fii
+fi
