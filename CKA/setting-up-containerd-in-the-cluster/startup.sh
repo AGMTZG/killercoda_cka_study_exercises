@@ -1,12 +1,20 @@
 #!/bin/bash
 set -e
 
-sudo systemctl stop docker || true
-sudo systemctl stop docker.socket || true
-sudo systemctl stop containerd || true
-sudo apt purge -y docker.io docker-compose containerd
-sudo apt autoremove -y
-sudo rm -rf /var/lib/docker
-sudo rm -rf /var/lib/containerd
-sudo rm -f /etc/containerd/config.toml
-sudo apt update
+systemctl stop docker || true
+
+systemctl stop docker.socket || true
+
+systemctl stop containerd || true
+
+apt-get purge -y docker.io docker-compose containerd || true
+
+apt-get autoremove -y || true
+
+rm -rf /var/lib/docker
+
+rm -rf /var/lib/containerd
+
+rm -f /etc/containerd/config.toml
+
+apt-get update
