@@ -6,7 +6,7 @@ Your manager created an EC2 instance with an Ubuntu AMI in AWS. He tasked you, a
 
 Your tasks:
 
-- SSH into the EC2 instance (public IP: 10.0.0.1).
+- SSH into the EC2 instance.
 
 - Install containerd.
 

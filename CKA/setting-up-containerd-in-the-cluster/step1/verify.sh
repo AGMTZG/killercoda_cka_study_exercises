@@ -1,8 +1,9 @@
 #!/bin/bash
-if whoami | grep -q "ubuntu"; then
-  echo "SSH verified"
-  exit 0
+
+NODE=$(hostname)
+if [[ "$NODE" == "ubuntu" ]]; then
+    echo "Connected to ubuntu"
 else
-  echo "You are not logged in as ubuntu"
-  exit 1
+    echo "You are not on the ubuntu node"
+    exit 1
 fi
