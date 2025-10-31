@@ -7,11 +7,11 @@
       "foreground": "startup.sh"
     },
     "steps": [
-      { "title": "Stop existing services and reset the cluster", "text": "steps/step1/text.md", "verify": "steps/step1/verify.sh" },
-      { "title": "Remove residual Kubernetes and CNI directories", "text": "steps/step2/text.md", "verify": "steps/step2/verify.sh" },
-      { "title": "Clear iptables rules and delete virtual network interfaces", "text": "steps/step3/text.md", "verify": "steps/step3/verify.sh" },
-      { "title": "Install and configure CRI-O", "text": "steps/step4/text.md", "verify": "steps/step4/verify.sh" },
-      { "title": "Initialize Kubernetes cluster with kubeadm using CRI-O", "text": "steps/step5/text.md", "verify": "steps/step5/verify.sh" }
+      { "title": "Stop existing services and reset the cluster", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "Remove residual Kubernetes and CNI directories", "text": "step2/text.md", "verify": "step2/verify.sh" },
+      { "title": "Clear iptables rules and delete virtual network interfaces", "text": "step3/text.md", "verify": "step3/verify.sh" },
+      { "title": "Install and configure CRI-O", "text": "step4/text.md", "verify": "step4/verify.sh" },
+      { "title": "Initialize Kubernetes cluster with kubeadm using CRI-O", "text": "step5/text.md", "verify": "step5/verify.sh" }
     ],
     "finish": {
       "text": "finish.md"
