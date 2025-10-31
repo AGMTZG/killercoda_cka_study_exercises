@@ -3,7 +3,7 @@
   "description": "Prepare a control-plane node for a fresh Kubernetes cluster using CRI-O as the container runtime.",
   "details": {
     "intro": {
-      "text": "intro.json",
+      "text": "intro.md",
       "foreground": "startup.sh"
     },
     "steps": [
@@ -14,7 +14,7 @@
       { "title": "Initialize Kubernetes cluster with kubeadm using CRI-O", "text": "steps/step5/text.md", "verify": "steps/step5/verify.sh" }
     ],
     "finish": {
-      "text": "finish.json"
+      "text": "finish.md"
     }
   },
   "backend": {
