@@ -46,7 +46,7 @@ OOMScoreAdjust=-999
 [Install]
 WantedBy=multi-user.target
 
-# Save the service file, then start and enable the Containerd service:
+# Save the service file, then start and enable the Containerd service. This will create the .sock file used for communication with Kubernetes:
 sudo systemctl daemon-reload
 sudo systemctl start containerd
 sudo systemctl enable containerd
