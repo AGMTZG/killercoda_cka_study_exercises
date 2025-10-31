@@ -5,6 +5,8 @@ Finally, we need to initialize the Kubernetes cluster using kubeadm, specifying 
 Note:
 Use the --ignore-preflight-errors=NumCPU flag because the instance does not have enough CPU resources to initialize the cluster.
 
+Important: Since we haven’t specified a CNI plugin during kubeadm init, the node will appear as ‘NotReady’ when checked with kubectl get nodes -o wide. You can still verify that the node is using the correct container runtime.
+
 <details>
 <summary>Show commands / answers</summary>
 <p>
