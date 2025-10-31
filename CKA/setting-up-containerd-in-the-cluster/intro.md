@@ -1,7 +1,9 @@
 # Containerd Cluster Setup
 
+**Introduction**: </br> 
 In this scenario, you will learn how to install and configure containerd manually to be used as the container runtime for Kubernetes.
 
+**Scenario**: </br>
 Your manager created an EC2 instance with an Ubuntu AMI in AWS. He tasked you, as the cluster manager, with installing kubeadm using containerd as the container runtime.
 
 Your tasks:

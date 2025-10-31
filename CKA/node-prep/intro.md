@@ -1,7 +1,9 @@
 ### Node Preparation for Kubeadm Setup
 
+**Introduction**: </br>
 In this scenario, you’ll learn how to prepare a node before installing a kubernetes cluster.
 
+**Scenario**: </br>
 Your manager has informed you that you need to prepare a node in order to install a Kubernetes cluster using the Calico CNI.
 
 Your task includes:

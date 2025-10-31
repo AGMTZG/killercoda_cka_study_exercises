@@ -1,7 +1,9 @@
 ### Backup and Restore etcd in a Kubernetes Cluster
 
+**Introduction**: </br>
 In this scenario, you’ll learn how to **back up and restore the etcd datastore** used by Kubernetes.
 
+**Scenario**: </br>
 Your organization operates a Kubernetes cluster with a single control plane node. You are required to create a backup of the etcd datastore and later perform a disaster recovery test by restoring the cluster from that backup.
 
 Your Tasks:
