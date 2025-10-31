@@ -3,17 +3,17 @@ set -e
 
 iptables_empty=true
 
-if [ -n "$(sudo iptables -S)" ]; then
+if [ "$(sudo iptables -S | grep -v '^-' | wc -l)" -ne 0 ]; then
     echo "Error: Filter table rules still exist"
     iptables_empty=false
 fi
 
-if [ -n "$(sudo iptables -t nat -S)" ]; then
+if [ "$(sudo iptables -t nat -S | grep -v '^-' | wc -l)" -ne 0 ]; then
     echo "Error: NAT table rules still exist"
     iptables_empty=false
 fi
 
-if [ -n "$(sudo iptables -t mangle -S)" ]; then
+if [ "$(sudo iptables -t mangle -S | grep -v '^-' | wc -l)" -ne 0 ]; then
     echo "Error: Mangle table rules still exist"
     iptables_empty=false
 fi

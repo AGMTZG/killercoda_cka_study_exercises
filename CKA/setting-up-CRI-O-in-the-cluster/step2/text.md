@@ -11,7 +11,7 @@ Remove leftover directories from previous Kubernetes installations. These direct
 sudo rm -rf /etc/cni/net.d
 
 # Contains kubelet state, including pod data, volume mounts, and other node-specific information.
-sudo rm -rf /var/lib/kubelet/*
+sudo rm -rf /var/lib/kubelet/
 
 # Contains kubelet state, including pod data, volume mounts, and other node-specific information.
 sudo rm -rf /var/lib/etcd/
