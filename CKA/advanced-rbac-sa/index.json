@@ -1,0 +1,21 @@
+{
+  "title": "Advanced RBAC: Creating a ServiceAccount and Modifying Kubeconfig",
+  "description": "Create a ServiceAccount with restricted permissions and configure its kubeconfig using a token.",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      { "title": "Create the Namespace, ServiceAccount, and generate the ServiceAccount Token", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "Create and bind the Role to the ServiceAccount", "text": "step2/text.md", "verify": "step2/verify.sh" },
+      { "title": "Create a Kubeconfig for deploybot", "text": "step3/text.md", "verify": "step3/verify.sh" },
+      { "title": "Validate deploybot’s Permissions", "text": "step4/text.md", "verify": "step4/verify.sh" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}

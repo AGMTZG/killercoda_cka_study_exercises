@@ -1,6 +1,6 @@
 ### Configure kubeconfig for alice
 
-Now that you have the signed certificate (alice.crt) and the private key (alice.key), you’ll set up a dedicated kubeconfig file so that alice can securely authenticate to the cluster.
+Now that you have the signed certificate (alice.crt) and private key (alice.key), create a dedicated kubeconfig file so Alice can securely connect to the cluster. Then, set up a new context named alice-context in the namespace projectx.
 
 Ensure that the paths specified in client-certificate and client-key point to the exact locations where the alice.crt and alice.key files are stored on your system.
 
@@ -19,29 +19,31 @@ Once you have the correct file paths or encoded values, modify the kubeconfig, u
 
 ```bash
 # Now we will modify the kubeconfig for alice.
-# First, locate your cluster API server and CA cert.
+# Creating a new cluster is optional. However, if you choose to create one, you’ll need to obtain the API server endpoint.
 kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}'
 
-# Modify the kubeconfig, usually in: ~/.kube/config
+# Get the cluster CA certificate and encode it (if you decided to create a new cluster).
+base64 /etc/kubernetes/pki/ca.crt
+
+# Modify the kubeconfig(no need to create a new one, just add the lines), usually in: ~/.kube/config
 apiVersion: v1
 kind: Config
-clusters:
-- name: kubernetes
+clusters:  # Optional, you can use the default one as the cluster
+- name: kubernetes 
   cluster:
-    server: https://<apiserver:6443>
-    certificate-authority: /etc/kubernetes/pki/ca.crt
+    server: https://<apiserver:6443>  # Api server endpoint
+    certificate-authority: /etc/kubernetes/pki/ca.crt   #  CA certificate
 contexts:
 - name: alice-context
   context:
     user: alice
-    cluster: kubernetes
+    cluster: kubernetes # If you created a new cluster, add it here.
     namespace: projectx
 users:
 - name: alice
   user:
     client-certificate: alice.crt
     client-key: alice.key
-current-context: alice-context
 ```
 
 </p>

@@ -2,7 +2,7 @@
 
 Now that alice’s kubeconfig is configured, let’s verify that she can only perform the actions allowed by her Role (`alice-developer`) in the `projectx` namespace.
 
-Use her kubeconfig to attempt operations on pods:
+Use her kubeconfig to attempt operations on pods.
 
 
 <details>
@@ -13,11 +13,20 @@ Use her kubeconfig to attempt operations on pods:
 # We switch context
 kubectl config use-context alice-context
 
-# Try to create a pod
+# Try to create a pod (allowed)
 kubectl create pod nginx --image=nginx --port=80
 
-# Try to create a deployment
+# Try to create a deployment (denied)
 kubectl create deployment nginx --image=nginx --replicas=3 --port=80
+
+# Check if alice can list pods (allowed)
+kubectl auth can-i list pods -n projectx --as alice
+
+# Check if alice can create pods (allowed)
+kubectl auth can-i create pods -n projectx --as alice
+
+# Check if alice can get secrets (denied)
+kubectl auth can-i get secrets -n projectx --as alice
 ```
 
 </p>
