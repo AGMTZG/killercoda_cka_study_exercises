@@ -1,5 +1,5 @@
 {
-  "title": "Pod Scheduling — Affinity, Taints, and Tolerations",
+  "title": "Pod Scheduling — Affinity, Taints, and Tolerations part 1",
   "description": "Learn how to schedule pods in Kubernetes using affinity rules, taints, and tolerations with hands-on verification in each step.",
   "details": {
     "intro": {

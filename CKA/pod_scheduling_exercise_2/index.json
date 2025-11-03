@@ -1,0 +1,23 @@
+{
+  "title": "Pod Scheduling — Affinity, Taints, and Tolerations: Part 2",
+  "description": "Continue learning how to control pod placement in Kubernetes using affinity rules, taints, and tolerations, with hands-on verification in this next step.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "background": "startup.sh"
+    },
+    "steps": [
+      {
+        "title": "Affinity, Taints, and Tolerations",
+        "text": "step1/text.md",
+        "verify": "step1/verify.sh"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-2nodes"
+  }
+}
