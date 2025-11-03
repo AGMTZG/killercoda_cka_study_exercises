@@ -1,0 +1,22 @@
+{
+  "title": "Advanced RBAC: Creating a Role, RoleBinding, and Modifying Kubeconfig",
+  "description": "Set up a new Kubernetes user named 'alice' with limited access to a specific namespace using RBAC and custom kubeconfig.",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      { "title": "Generate and upload a certificate request for alice", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "Approve and retrieve the signed certificate", "text": "step2/text.md", "verify": "step2/verify.sh" },
+      { "title": "Create the Role with pod permissions and bind alice to the Role using RoleBinding", "text": "step3/text.md", "verify": "step3/verify.sh" },
+      { "title": "Configure kubeconfig for alice", "text": "step4/text.md", "verify": "step4/verify.sh" },
+      { "title": "Validate alice’s permissions", "text": "step5/text.md", "verify": "step5/verify.sh" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
