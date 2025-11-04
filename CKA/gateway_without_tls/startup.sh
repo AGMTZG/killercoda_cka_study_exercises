@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 echo -e "\033[91m[INFO] Installing MetalLB...\033[0m"
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.9/config/manifests/metallb-native.yaml
 echo -e "\033[91m[INFO] Waiting for MetalLB pods to become ready...\033[0m"
