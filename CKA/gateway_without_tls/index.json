@@ -1,0 +1,16 @@
+{
+  "title": "Kubernetes Gateway — Migrating from Ingress to Gateway (No TLS)",
+  "description": "Learn how to migrate existing Ingress configurations to the Kubernetes Gateway API using HTTP routes without TLS.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "foreground": "startup.sh"
+    },
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
