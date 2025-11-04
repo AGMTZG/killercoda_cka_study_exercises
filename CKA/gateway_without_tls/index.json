@@ -8,6 +8,20 @@
     },
     "finish": {
       "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "metallb.yaml",
+          "target": "/root",
+          "chmod": "+w"
+        },
+        {
+          "file": "setup.yaml",
+          "target": "/root",
+          "chmod": "+w"
+        }
+      ]
     }
   },
   "backend": {
