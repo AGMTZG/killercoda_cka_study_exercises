@@ -16,11 +16,7 @@ kubectl apply -f https://raw.githubusercontent.com/nginx/nginx-gateway-fabric/v2
 echo -e "\033[92m[INFO] Installing NGINX Ingress Controller...\033[0m"
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
 echo -e "\033[92m[INFO] Waiting for ingress-nginx controller to be ready. This may take several minutes...\033[0m"
-while ! kubectl get pods -n ingress-nginx \
-       | grep -E "controller-.* 1/1 Ready" > /dev/null; do
-    echo -e "\033[92m[INFO] Ingress controller still starting, please wait...\033[0m"
-    sleep 60
-done
+kubectl wait --namespace ingress-nginx --for=condition=Ready pod --selector=app.kubernetes.io/component=controller --timeout=180s || true
 echo -e "\033[92m[INFO] Ingress controller is ready! \033[0m"
 echo -e "\033[93m[INFO] Installing setup...\033[0m"
 envsubst < /root/setup.yaml | kubectl apply -f -
