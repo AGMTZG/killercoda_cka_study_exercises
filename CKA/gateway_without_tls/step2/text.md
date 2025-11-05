@@ -2,11 +2,11 @@
 
 In this step, you’ll create routing rules that define how HTTP traffic is forwarded from the Gateway to the appropriate backend services. Each HTTPRoute corresponds to a specific hostname and references the previously created Gateway.
 
-You’ll create one route per hostname — app.company.local and orders.company.local.
+You’ll create one route per hostname: `app.company.local` and `orders.company.local`.
 
-For app.company.local, the HTTPRoute named http-app routes / to web-app and /dashboard to dashboard-app, using URLRewrite filters, because the NGINX image doesn’t include the endpoint /dashboard.
+For `app.company.local`, the HTTPRoute named `http-app` routes `/` to `web-app` and `/dashboard` to `dashboard-app`, using URLRewrite filters, because the NGINX image doesn’t include the endpoint /dashboard.
 
-For orders.company.local, the HTTPRoute named http-orders routes / to orders-app and /reports to reports-app, also applying URL rewrites for consistent paths.
+For `orders.company.local`, the HTTPRoute named `http-orders` routes `/` to orders-app and `/reports` to `reports-app`, also applying URL rewrites for consistent paths.
 
 This setup ensures clear, organized routing for each domain and its backend services.
 

@@ -16,11 +16,11 @@ You are given a Kubernetes cluster with multiple applications deployed, each wit
 
 Current setup includes:
 
-- web-app and dashboard-app accessible via app.company.local
+- `web-app` and `dashboard-app` accessible via `app.company.local`
 
-- orders-app and reports-app accessible via orders.company.local
+- `orders-app` and `reports-app` accessible via `orders.company.local`
 
-- An Ingress named company-ingress routing traffic to the appropriate services based on path prefixes.
+- An Ingress named `company-ingress` routing traffic to the appropriate services based on path prefixes.
 
 Objectives:
 

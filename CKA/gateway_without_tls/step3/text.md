@@ -4,7 +4,7 @@ Since we’re migrating from Ingress to Gateway, you need to remove the old Ingr
 
 Note: You can delete the entire Ingress-NGINX namespace to automatically remove all its resources. This process may take a few moments to complete.
 
-Because this setup runs on localhost, you must also update your /etc/hosts file to properly resolve the endpoints.
+Because this setup runs on localhost, you must also update your `/etc/hosts` file to properly resolve the endpoints.
 
 |Host                  | Path        | Backend Service |
 |----------------------|-------------|-----------------|
