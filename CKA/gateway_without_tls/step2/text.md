@@ -1,6 +1,6 @@
 ### Create HTTPRoutes for Each Hostname
 
-In this step, you’ll create routing rules that define how HTTP traffic is forwarded from the Gateway to the appropriate backend services. Each HTTPRoute corresponds to a specific hostname and references the previously created Gateway.
+In this step, you’ll create routing rules that define how HTTP traffic is forwarded from the Gateway `my-gateway` to the appropriate backend services. Each HTTPRoute corresponds to a specific hostname and references the previously created Gateway.
 
 You’ll create one route per hostname: `app.company.local` and `orders.company.local`.
 

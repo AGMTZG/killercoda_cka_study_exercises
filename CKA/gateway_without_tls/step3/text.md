@@ -23,9 +23,14 @@ You can test your Gateway configuration using curl commands against these endpoi
 # Delete the Ingress namespace (this will remove all Ingress-related resources)
 kubectl delete ns ingress-nginx
 
+# We check the external ip from the gateway
+kubectl get gateway
+
 # Update the /etc/hosts file to resolve the application domains locally
-echo "127.0.0.1   app.company.local" | sudo tee -a /etc/hosts
-echo "127.0.0.1   orders.company.local" | sudo tee -a /etc/hosts
+sudo vim /etc/hosts
+
+echo "<external ip from gateway>   app.company.local" | sudo tee -a /etc/hosts
+echo "<external ip from gateway>   orders.company.local" | sudo tee -a /etc/hosts
 
 # Test the Gateway endpoints
 curl http://app.company.local/
