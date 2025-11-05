@@ -1,0 +1,262 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: home
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: home
+  template:
+    metadata:
+      labels:
+        app: home
+    spec:
+      containers:
+      - name: home-container
+        image: httpd:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /usr/local/apache2/htdocs/
+          name: home-content
+      volumes:
+      - name: home-content
+        configMap:
+          name: home-content
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: home-content
+data:
+  index.html: |
+    <html><body><h1>Welcome to home page</h1></body></html>
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: home-svc
+spec:
+  selector:
+    app: home
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sales
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sales
+  template:
+    metadata:
+      labels:
+        app: sales
+    spec:
+      containers:
+      - name: sales-container
+        image: httpd:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /usr/local/apache2/htdocs/
+          name: sales-content
+      volumes:
+      - name: sales-content
+        configMap:
+          name: sales-content
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sales-content
+data:
+  index.html: |
+    <html><body><h1>Welcome to sales page</h1></body></html>
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: sales-svc
+spec:
+  selector:
+    app: sales
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contact
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contact
+  template:
+    metadata:
+      labels:
+        app: contact
+    spec:
+      containers:
+      - name: contact-container
+        image: httpd:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /usr/local/apache2/htdocs/
+          name: contact-content
+      volumes:
+      - name: contact-content
+        configMap:
+          name: contact-content
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: contact-content
+data:
+  index.html: |
+    <html><body><h1>Welcome to contact page</h1></body></html>
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: contact-svc
+spec:
+  selector:
+    app: contact
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: about-us
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: about-us
+  template:
+    metadata:
+      labels:
+        app: about-us
+    spec:
+      containers:
+      - name: about-us-container
+        image: httpd:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /usr/local/apache2/htdocs/
+          name: about-us-content
+      volumes:
+      - name: about-us-content
+        configMap:
+          name: about-us-content
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: about-us-content
+data:
+  index.html: |
+    <html><body><h1>Welcome to about us page</h1></body></html>
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: about-us-svc
+spec:
+  selector:
+    app: about-us
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - app.home.local
+    - app.contact.local
+    secretName: multi-cert
+  rules:
+  - host: app.home.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: home-svc
+            port:
+              number: 80
+      - path: /sales
+        pathType: Prefix
+        backend:
+          service:
+            name: sales-svc
+            port:
+              number: 80
+  - host: app.contact.local
+    http:
+      paths:
+      - path: /contact
+        pathType: Prefix
+        backend:
+          service:
+            name: contact-svc
+            port:
+              number: 80
+      - path: /about
+        pathType: Prefix
+        backend:
+          service:
+            name: about-us-svc
+            port:
+
+              number: 80

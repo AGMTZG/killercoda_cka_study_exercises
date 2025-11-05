@@ -30,7 +30,7 @@ Objectives:
 
 - Define the necessary GatewayClass, Gateway, and HTTPRoute resources to replicate the routing behavior of the original Ingress.
 
-Ensure the following routing (all of them have the nginx image and serve in port 80):
+Ensure the following routing (All deployments use the NGINX image and expose port 80):
 
 |Host                  | Path        | Backend Service |
 |----------------------|-------------|-----------------|

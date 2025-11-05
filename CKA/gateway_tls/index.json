@@ -1,0 +1,36 @@
+{
+  "title": "Kubernetes Gateway — Migrating from Ingress to Gateway (with TLS)",
+  "description": "Learn how to migrate existing Ingress configurations to the Kubernetes Gateway API using HTTPS routes secured with TLS certificates.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "foreground": "startup.sh"
+    },
+    "steps": [
+      { "title": "Create and Configure TLS Certificates and Secrets", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "Verify the Gateway Controller and Create the Gateway Resource", "text": "step2/text.md", "verify": "step2/verify.sh" },
+      { "title": "Create HTTPSRoutes for Each Hostname", "text": "step3/text.md", "verify": "step3/verify.sh" },
+      { "title": "Test the Secure Gateway and Clean Up the Old Ingress", "text": "step4/text.md", "verify": "step4/verify.sh" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "metallb.yaml",
+          "target": "/root",
+          "chmod": "+w"
+        },
+        {
+          "file": "setup.yaml",
+          "target": "/root",
+          "chmod": "+w"
+        }
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}

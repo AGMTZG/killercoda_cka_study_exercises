@@ -17,7 +17,7 @@ The `http-app` listener will handle requests for `app.company.local`, while `htt
 <p>
 
 ```bash
-# First, check if the Gateway controller is installed and accepted by Kubernetes.
+# First, check if the Gateway controller was installed and accepted by Kubernetes.
 kubectl get gatewayclass
 
 # If the Gateway controller is in the OK state, you can continue.
