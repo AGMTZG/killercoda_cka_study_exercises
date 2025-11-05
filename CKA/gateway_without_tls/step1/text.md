@@ -1,13 +1,15 @@
 ### Verify the Gateway Controller and Create the Gateway Resource
 
-After the environment finishes initializing, verify that the NGINX Gateway Controller is installed and accepted by Kubernetes. After that, create a Gateway resource named my-gateway that defines listeners for the following endpoints.
+After the environment finishes initializing, verify that the NGINX Gateway Controller is installed and accepted by Kubernetes. Then, create a Gateway resource named my-gateway that defines two listeners — http-app and http-orders — corresponding to the application and orders domains.
+The http-app listener will handle requests for app.company.local, while http-orders will handle requests for orders.company.local, both listening on port 80
 
-|Host                  | Path        | Backend Service | Listeners name     | port | image |
-|----------------------|-------------|-----------------|--------------------|------|-------|
-|app.company.local     |  /	         | web-app         | http-app           | 80   | nginx |
-|app.company.local	   |  /dashboard | dashboard-app   | http-app           | 80   | nginx |
-|orders.company.local  |  /          | orders-app      | http-orders        | 80   | nginx |
-|orders.company.local  |  /reports   | reports-app     | http-orders        | 80   | nginx |
+|Host                  | Path        | Backend Service |
+|----------------------|-------------|-----------------|
+|app.company.local     |  /	         | web-app         |
+|app.company.local	   |  /dashboard | dashboard-app   |
+|orders.company.local  |  /          | orders-app      |
+|orders.company.local  |  /reports   | reports-app     |
+
 
 
 <details>

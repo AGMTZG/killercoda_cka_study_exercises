@@ -10,13 +10,12 @@ For orders.company.local, the HTTPRoute named http-orders routes / to orders-app
 
 This setup ensures clear, organized routing for each domain and its backend services.
 
-
-|Host                  | Path        | Backend Service | Listeners name     | port | image |
-|----------------------|-------------|-----------------|--------------------|------|-------|
-|app.company.local     |  /	         | web-app         | http-app           | 80   | nginx |
-|app.company.local	   |  /dashboard | dashboard-app   | http-app           | 80   | nginx |
-|orders.company.local  |  /          | orders-app      | http-orders        | 80   | nginx |
-|orders.company.local  |  /reports   | reports-app     | http-orders        | 80   | nginx |
+|Host                  | Path        | Backend Service |
+|----------------------|-------------|-----------------|
+|app.company.local     |  /	         | web-app         |
+|app.company.local	   |  /dashboard | dashboard-app   |
+|orders.company.local  |  /          | orders-app      |
+|orders.company.local  |  /reports   | reports-app     |
 
 <details>
 <summary>Show commands / answers</summary>

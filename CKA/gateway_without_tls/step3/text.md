@@ -6,12 +6,12 @@ Note: You can delete the entire Ingress-NGINX namespace to automatically remove 
 
 Because this setup runs on localhost, you must also update your /etc/hosts file to properly resolve the endpoints.
 
-|Host                  | Path        | Backend Service | Listeners name     | port | image |
-|----------------------|-------------|-----------------|--------------------|------|-------|
-|app.company.local     |  /	         | web-app         | http-app           | 80   | nginx |
-|app.company.local	   |  /dashboard | dashboard-app   | http-app           | 80   | nginx |
-|orders.company.local  |  /          | orders-app      | http-orders        | 80   | nginx |
-|orders.company.local  |  /reports   | reports-app     | http-orders        | 80   | nginx |
+|Host                  | Path        | Backend Service |
+|----------------------|-------------|-----------------|
+|app.company.local     |  /	         | web-app         |
+|app.company.local	   |  /dashboard | dashboard-app   |
+|orders.company.local  |  /          | orders-app      |
+|orders.company.local  |  /reports   | reports-app     |
 
 You can test your Gateway configuration using curl commands against these endpoints.
 

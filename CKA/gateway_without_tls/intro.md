@@ -30,14 +30,14 @@ Objectives:
 
 - Define the necessary GatewayClass, Gateway, and HTTPRoute resources to replicate the routing behavior of the original Ingress.
 
-Ensure the following routing:
+Ensure the following routing (all of them have the nginx image and serve in port 80):
 
-|Host                  | Path        | Backend Service | Listeners name     | port | image |
-|----------------------|-------------|-----------------|--------------------|------|-------|
-|app.company.local     |  /	         | web-app         | http-app           | 80   | nginx |
-|app.company.local	   |  /dashboard | dashboard-app   | http-app           | 80   | nginx |
-|orders.company.local  |  /          | orders-app      | http-orders        | 80   | nginx |
-|orders.company.local  |  /reports   | reports-app     | http-orders        | 80   | nginx |
+|Host                  | Path        | Backend Service |
+|----------------------|-------------|-----------------|
+|app.company.local     |  /	         | web-app         |
+|app.company.local	   |  /dashboard | dashboard-app   |
+|orders.company.local  |  /          | orders-app      |
+|orders.company.local  |  /reports   | reports-app     |
 
 - Validate that all applications are accessible via their respective hostnames and paths, using curl or a browser.
 
