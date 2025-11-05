@@ -18,10 +18,8 @@ echo -e "\033[92m[INFO] Installing NGINX Ingress Controller...\033[0m"
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
 echo -e "\033[92m[INFO] Waiting for ingress-nginx controller to be ready. This may take several minutes...\033[0m"
 kubectl wait --namespace ingress-nginx --for=condition=Ready pod --selector=app.kubernetes.io/component=controller --timeout=180s || true
-while [ $(kubectl get endpoints ingress-nginx-controller-admission -n ingress-nginx -o jsonpath='{.subsets}') = "" ]; do
-    echo -e "\033[92m[INFO]  Webhook not ready yet, sleeping 5s... \033[0m"
-    sleep 5
-done
+echo -e "\033[92m[INFO]  Please wait 10 seconds... \033[0m"
+sleep 10
 echo -e "\033[92m[INFO] Ingress controller is ready! \033[0m"
 echo -e "\033[93m[INFO] Installing setup...\033[0m"
 envsubst < /root/setup.yaml | kubectl apply -f -
