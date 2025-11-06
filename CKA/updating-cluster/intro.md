@@ -1,5 +1,7 @@
 ### Updating the Control Plane
 
+Note: From now on, this scenario will use a plain Ubuntu node. In the foreground, it will install kubeadm v1.33.2. This approach is necessary because Killercoda has updated all clusters to v1.34, making it impossible to perform a downgrade.
+
 **Introduction**: </br>
 In this scenario, you’ll learn how to safely upgrade a Kubernetes cluster using kubeadm, including updating kubeadm, the control-plane, kubelet, and kubectl
 
