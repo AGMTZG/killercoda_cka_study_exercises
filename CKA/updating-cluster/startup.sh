@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 swapoff -a
 modprobe -a br_netfilter overlay
