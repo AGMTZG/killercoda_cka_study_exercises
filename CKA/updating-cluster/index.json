@@ -8,7 +8,7 @@
     },
     "steps": [
       { 
-        "title": "Connect to the control-plane and verify node status", 
+        "title": "Connect to the controlplane and verify node status", 
         "text": "step1/text.md", 
         "verify": "step1/verify.sh" 
       },
@@ -18,12 +18,12 @@
         "verify": "step2/verify.sh" 
       },
       { 
-        "title": "Check upgrade plan and apply control-plane upgrade", 
+        "title": "Check upgrade plan and apply controlplane upgrade", 
         "text": "step3/text.md", 
         "verify": "step3/verify.sh" 
       },
       { 
-        "title": "Upgrade kubelet on the control-plane node", 
+        "title": "Upgrade kubelet on the controlplane node", 
         "text": "step4/text.md", 
         "verify": "step4/verify.sh" 
       },

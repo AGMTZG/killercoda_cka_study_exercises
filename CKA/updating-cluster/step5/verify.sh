@@ -1,7 +1,7 @@
 #!/bin/bash
 
 KUBECTL_VER=$(kubectl version --client --output=json | jq -r '.clientVersion.gitVersion')
-TARGET_VER="v1.33.5"
+TARGET_VER="v1.34.1"
 
 if [[ "$KUBECTL_VER" == "$TARGET_VER" ]]; then
     echo "kubectl upgraded to $TARGET_VER"

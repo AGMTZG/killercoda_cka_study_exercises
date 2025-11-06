@@ -1,4 +1,4 @@
-### Update kubeadm to the target version 1.33.5-1.1
+### Update kubeadm to the target version
 
 Kubeadm orchestrates upgrades in Kubernetes. Upgrading kubeadm first is critical because:
 
@@ -11,7 +11,9 @@ In this step: before upgrading kubeadm, you must:
 - Ensure the kubeadm package is not on hold.
 - Update the package list on the machine.
 - Check the available versions of kubeadm.
-- Ensure the kubeadm package is at version 1.33.5-1.1 before proceeding.
+- Ensure the kubeadm package is at the most recent version(in my case is 1.34.1-1.1) before proceeding.
+
+Note: You can use apt-cache madison to see the packages versions.
 
 <details>
 <summary>Show commands / answers</summary>
@@ -25,8 +27,11 @@ sudo apt-mark unhold kubeadm
 sudo apt update
 sudo apt-cache madison kubeadm
 
+kubeadm | 1.34.1-1.1 | https://pkgs.k8s.io/core:/stable:/v1.34/deb  Packages
+kubeadm | 1.34.0-1.1 | https://pkgs.k8s.io/core:/stable:/v1.34/deb  Packages
+
 # Install the target kubeadm version
-sudo apt install kubeadm=1.33.5-1.1
+sudo apt install kubeadm=1.34.1-1.1
 sudo apt-mark hold kubeadm
 ```
 
