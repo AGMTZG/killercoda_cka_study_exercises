@@ -3,8 +3,7 @@
   "description": "Learn how to safely upgrade a Kubernetes cluster using kubeadm, including updating kubeadm, the control-plane, kubelet, and kubectl while maintaining cluster stability.",
   "details": {
     "intro": {
-      "text": "intro.md",
-      "foreground": "startup.sh"
+      "text": "intro.md"
     },
     "steps": [
       { 
@@ -39,5 +38,14 @@
   },
   "backend": {
     "imageid": "ubuntu"
+  },
+  "assets": {
+    "host01": [
+      {
+        "file": "kubernetes.sh",
+        "target": "~/",
+        "chmod": "+w"
+      }
+    ]
   }
 }
