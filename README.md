@@ -17,16 +17,4 @@ Each scenario allows you to practice concepts hands-on, directly in your browser
 ## Notes
 
 - All labs are designed for **interactive learning**; you can see commands, hints, and verification directly in the terminal.  
-- Make sure to follow the steps in order.  
-
----
-
-<p align="center">
-If these labs help you on your journey, consider supporting my work 💙
-</p>
-
-<p align="center">
-  <a href="https://www.buymeacoffee.com/agmtzg" target="_blank">
-    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="200"/>
-  </a>
-</p>
+- Make sure to follow the steps in order.
