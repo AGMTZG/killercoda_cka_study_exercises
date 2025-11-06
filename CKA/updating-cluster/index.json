@@ -35,7 +35,7 @@
     ],
     "assets": {
       "host01": [
-        {"file": "kubernetes.sh", "target": "~/", "chmod": "+w"}
+        {"file": "kubernetes.sh", "target": "~/", "chmod": "+x"}
       ]
     },
     "finish": {
