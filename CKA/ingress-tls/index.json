@@ -1,0 +1,29 @@
+{
+  "title": "Deploy an Ingress with TLS Enabled",
+  "description": "In this scenario, you'll configure a Kubernetes Ingress to securely expose an application over HTTPS using TLS certificates.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "background": "startup.sh"
+    },
+    "steps": [
+      {
+        "title": "Create and Configure a TLS-enabled Ingress",
+        "text": "step1/text.md",
+        "verify": "step1/verify.sh"
+      }
+    ]
+  },
+  "assets": {
+    "host01": [
+      {
+        "file": "deploys.yaml",
+        "target": "~/",
+        "chmod": "+w"
+      }
+    ]
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
