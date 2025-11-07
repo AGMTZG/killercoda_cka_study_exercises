@@ -1,0 +1,28 @@
+{
+  "title": "Horizontal Pod Autoscaler in Kubernetes",
+  "description": "Configure an HPA that automatically scales a Deployment based on CPU utilization.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "background": "startup.sh"
+    },
+    "steps": [
+      { "title": "Create and Configure the HPA", "text": "step1/text.md", "verify": "step1/verify.sh"}
+    ],
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "web-app-deploy.yaml",
+          "target": "~/",
+          "chmod": "+w"
+        }
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
