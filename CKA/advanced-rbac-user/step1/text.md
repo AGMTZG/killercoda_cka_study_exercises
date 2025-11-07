@@ -1,6 +1,7 @@
 ### Generate and Upload a Certificate Request for Alice
 
-You’ll start by creating a private key and a certificate signing request (CSR) for the user alice.
+You will begin by generating a private key named `alice.key` and a certificate signing request (CSR) named `alice.csr` for the user alice.
+Next, encode the CSR in base64 and use it to create a Kubernetes CSR manifest named `alice-certificate`, which can then be applied to the cluster to request a signed certificate for authentication.
 
 Note: The Common Name (CN) in the CSR must exactly match the username defined in the kubeconfig file.
 If they don’t match, authentication will fail when the user tries to access the cluster.

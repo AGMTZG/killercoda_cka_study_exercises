@@ -1,8 +1,8 @@
 ### Validate alice’s permissions
 
-Now that alice’s kubeconfig is configured, let’s verify that she can only perform the actions allowed by her Role (`alice-developer`) in the `projectx` namespace.
+Now that alice’s **kubeconfig** is configured, let’s verify that she can only perform the actions allowed by her Role `alice-developer` in the `projectx` namespace.
 
-Use her kubeconfig to attempt operations on pods.
+Use her **kubeconfig** to attempt operations on pods.
 
 
 <details>

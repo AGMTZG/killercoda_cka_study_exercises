@@ -1,16 +1,16 @@
 ### Configure kubeconfig for alice
 
-Now that you have the signed certificate (alice.crt) and private key (alice.key), create a dedicated kubeconfig file so Alice can securely connect to the cluster. Then, set up a new context named alice-context in the namespace projectx.
+Now that you have the signed certificate `alice.crt` and private key `alice.key`, create a dedicated **kubeconfig** file, or update the existing one, so that Alice can securely connect to the cluster. Then, set up a new context named `alice-context` in the namespace `projectx`.
 
-Ensure that the paths specified in client-certificate and client-key point to the exact locations where the alice.crt and alice.key files are stored on your system.
+Ensure that the paths specified in **client-certificate** and **client-key** point to the exact locations where `the alice.crt` and `alice.key` files are stored on your system.
 
-If instead you prefer to embed the certificate and key directly in the kubeconfig (for example, to make it portable), you must first encode them in base64 and then use the fields client-certificate-data and client-key-data:
+If instead you prefer to embed the certificate and key directly in the **kubeconfig** (for example, to make it portable), you must first encode them in base64 and then use the fields **client-certificate-data** and **client-key-data**:
 
 ```bash
 cat alice.crt | base64 | tr -d "\n"
 cat alice.key | base64 | tr -d "\n"
 ```
-Once you have the correct file paths or encoded values, modify the kubeconfig, usually in ~/.kube/config
+Once you have the correct file paths or encoded values, modify the **kubeconfig**, usually in `~/.kube/config`
 
 
 <details>
@@ -42,8 +42,8 @@ contexts:
 users:
 - name: alice
   user:
-    client-certificate: alice.crt
-    client-key: alice.key
+    client-certificate-data: <encoded base64 alice.crt>
+    client-key-data: <encoded base64 alice.key>
 ```
 
 </p>

@@ -1,8 +1,13 @@
 #!/bin/bash
-if [ -f "alice.crt" ]; then
-  echo "alice.crt found and certificate approved."
-  exit 0
+
+CSR_NAME="alice-certificate"
+STATUS=$(kubectl get csr $CSR_NAME -o jsonpath='{.status.conditions[?(@.type=="Approved")].status}')
+
+if [[ "$STATUS" == "True" ]]; then
+  echo "CSR $CSR_NAME has been approved."
 else
-  echo "Certificate not found. Ensure you approved and extracted it correctly."
+  echo "CSR $CSR_NAME has not been approved yet."
   exit 1
 fi
+
+
