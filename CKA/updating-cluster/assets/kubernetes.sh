@@ -15,7 +15,7 @@ apt-get update
 apt-get install -y kubelet=1.34.0-1.1 kubeadm=1.34.0-1.1 kubectl=1.34.0-1.1
 apt-mark hold kubelet kubeadm kubectl
 systemctl enable --now kubelet
-kubeadm init --cri-socket=unix:///var/run/containerd/containerd.sock --ignore-preflight-errors=NumCPU
+kubeadm init --cri-socket=unix:///var/run/containerd/containerd.sock --kubernetes-version=v1.34.0 --ignore-preflight-errors=NumCPU
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
