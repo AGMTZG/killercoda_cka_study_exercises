@@ -10,7 +10,9 @@ If instead you prefer to embed the certificate and key directly in the **kubecon
 cat alice.crt | base64 | tr -d "\n"
 cat alice.key | base64 | tr -d "\n"
 ```
-Once you have the correct file paths or encoded values, modify the **kubeconfig**, usually in `~/.kube/config`
+Once you have the correct file paths or encoded values, add the **client-certificate-data** and **client-key-data** entries under the user section in the **kubeconfig** file.
+
+Save all your changes in `~/.kube/config` (or merge it with your existing kubeconfig).
 
 
 <details>

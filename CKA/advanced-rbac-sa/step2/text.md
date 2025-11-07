@@ -1,7 +1,7 @@
 ### Create and bind the Role to the ServiceAccount
 
-In this step, you’ll create a Role named deploybot-role that grants the list, get, create, update, and delete permissions required to manage ReplicaSets and Deployments.
-Then, you’ll create a RoleBinding named deploybot-role-binding to associate this role with the ServiceAccount you created earlier.
+In this step, you’ll create a Role named `deploybot-role` that grants the **list**, **get**, **create**, **update**, and **delete** permissions required to manage **ReplicaSets** and **Deployments**.
+Then, you’ll create a RoleBinding named `deploybot-role-binding` to associate this role with the ServiceAccount you created earlier.
 
 Note: Unlike user-based authentication, there’s no need to generate a Certificate Signing Request (CSR) — the ServiceAccount token will handle authentication automatically.
 

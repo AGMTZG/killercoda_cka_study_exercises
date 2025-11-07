@@ -1,6 +1,6 @@
 ### Validate deploybot’s Permissions
 
-Confirm that the deploybot ServiceAccount has the correct permissions by checking if it can manage Deployments and ReplicaSets in the appenv namespace using its kubeconfig.
+Confirm that the `deploybot` ServiceAccount has the correct permissions by checking if it can manage **Deployments** and **ReplicaSets** in the `appenv` namespace using its **kubeconfig**.
 
 <details>
 <summary>Show commands / answers</summary>

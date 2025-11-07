@@ -29,6 +29,3 @@ if ! kubectl get rolebinding deploybot-role-binding -n appenv -o yaml | grep -q 
   echo "RoleBinding does not reference the correct ServiceAccount (deploybot)."
   exit 1
 fi
-
-echo "✅ Role 'deploybot-role' and RoleBinding 'deploybot-role-binding' correctly configured in namespace appenv."
-exit 0

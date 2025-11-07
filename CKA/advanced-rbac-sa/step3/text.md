@@ -1,7 +1,9 @@
 ### Create a Kubeconfig for deploybot
 
-Generate a kubeconfig for the deploybot ServiceAccount to access the cluster using its token, and configure a new context named deploybot-context in the namespace appenv associated with this ServiceAccount.
+Generate a new **kubeconfig** or update an existing one for the `deploybot` ServiceAccount to access the cluster using its **token**, and configure a new context named `deploybot-context` in the namespace `appenv` associated with this ServiceAccount.
 If you created a new cluster, include its API server endpoint and CA certificate.
+
+Save the kubeconfig file to `~/.kube/config` (or merge it with your existing kubeconfig).
 
 <details>
 <summary>Show commands / answers</summary>
