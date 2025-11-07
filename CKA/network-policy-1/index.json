@@ -1,0 +1,33 @@
+{
+  "title": "Network Policy Problem: Enable Pod-to-Pod Communication",
+  "description": "Resolve a network restriction issue so that the client pod in the mercury namespace can communicate with backend and logger services using their service names.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "background": "startup.sh"
+    },
+    "steps": [
+      { "title": "Allow Client Pod to Reach Services", "text": "step1/text.md", "verify": "step1/verify.sh" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "setup.yaml",
+          "target": "/root",
+          "chmod": "+w"
+        },
+        {
+          "file": "template.yaml",
+          "target": "~/",
+          "chmod": "+w"
+        }
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}

@@ -17,6 +17,11 @@
   "assets": {
     "host01": [
       {
+        "file": "metallb.yaml",
+        "target": "/root",
+        "chmod": "+w"
+      },
+      {
         "file": "deploys.yaml",
         "target": "~/",
         "chmod": "+w"

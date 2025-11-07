@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ingress-access-client-to-server
+  namespace: mercury
+spec:
+  podSelector:
+    matchLabels:
+      app: client
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: server
+    ports:
+    - protocol: TCP
+      port: 5678
+  - to:
+    - podSelector:
+        matchLabels:
+          app: logger
+    ports:
+    - protocol: TCP
+      port: 9880
