@@ -1,0 +1,22 @@
+{
+  "title": "Create and Verify a Default StorageClass in Kubernetes",
+  "description": "Create a custom StorageClass with specific parameters, set it as default, and verify the default StorageClass in the cluster.",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      {
+        "title": "Create and Verify the StorageClass",
+        "text": "step1/text.md",
+        "verify": "step1/verify.sh"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
