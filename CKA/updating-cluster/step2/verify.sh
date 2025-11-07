@@ -1,10 +1,18 @@
 #!/bin/bash
 
-KUBEADM_VER=$(kubeadm version -o short)
-TARGET_VER="v1.34.1"
-if [[ "$KUBEADM_VER" == "$TARGET_VER" ]]; then
-    echo "kubeadm is at the correct version $TARGET_VER"
+latest_version=$(apt-cache madison kubeadm | head -n 1 | awk '{print $3}')
+
+installed_version=$(kubeadm version -o short)
+if [ "$installed_version" == "$latest_version" ]; then
+    echo "kubeadm updated to: $installed_version"
 else
-    echo "kubeadm version is $KUBEADM_VER, expected $TARGET_VER"
+    echo "Error: kubeadm not updated"
     exit 1
+fi
+
+if apt-mark showhold | grep -q "^kubeadm$"; then
+  echo "kubeadm is on hold"
+else
+  echo "kubeadm is not on hold"
+  exit 1
 fi

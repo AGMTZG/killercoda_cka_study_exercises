@@ -1,20 +1,12 @@
 #!/bin/bash
 
-KUBELET_VER=$(kubelet --version | awk '{print $2}')
-TARGET_VER="v1.34.1"
-if [[ "$KUBELET_VER" == "$TARGET_VER" ]]; then
-    echo "kubelet upgraded to $TARGET_VER"
-else
-    echo "kubelet version is $KUBELET_VER, expected $TARGET_VER"
-    exit 1
-fi
+installed_kubeadm=$(kubeadm version -o short)
+installed_kubelet=$(kubelet --version 2>/dev/null | awk '{print $2}')
 
-CONTROL_VER=$(kubectl get nodes -o jsonpath='{.items[?(@.metadata.name=="ubuntu")].status.nodeInfo.kubeletVersion}')
-TARGET_VER="v1.34.1"
-if [[ "$CONTROL_VER" == "$TARGET_VER" ]]; then
-    echo "Controlplane(ubuntu) upgraded to $TARGET_VER"
+if [ "$installed_kubelet" == "$installed_kubeadm" ]; then
+    echo "kubelet matches kubeadm version"
 else
-    echo "Controlplane(ubuntu) version is $CONTROL_VER, expected $TARGET_VER"
+    echo "kubelet version ($installed_kubelet) does not match kubeadm ($installed_kubeadm)"
     exit 1
 fi
 

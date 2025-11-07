@@ -1,14 +1,14 @@
-### Upgrade kubelet on the control-plane node
+### Upgrade kubelet on the controlplane node
 
 The kubelet must match the controlplane version. Steps include:
 
 - Draining the node to safely evict pods.
 - Ensure the kubelet package is not on hold.
-- Installing the target kubelet version 1.34.1-1.1
+- Installing the kubelet package to the latest version (it must match the one installed with kubeadm).
 - Restarting the kubelet to apply the upgrade.
 - Put the kubelet package on hold.
 - Uncordoning the node to allow new pods to schedule.
-- Make sure that the control plane is updated to 1.34.1-1.1
+
 
 <details>
 <summary>Show commands / answers</summary>

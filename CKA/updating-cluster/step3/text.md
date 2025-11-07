@@ -6,7 +6,6 @@ In this step, you will:
 
 - Check the controlplane upgrade plan
 - Apply the upgrade to the controlplane
-- Put kubeadm package in hold
 
 <details>
 <summary>Show commands / answers</summary>
@@ -18,9 +17,6 @@ sudo kubeadm upgrade plan
 
 # Apply upgrade to the controlplane
 sudo kubeadm upgrade apply 1.34.1
-
-# We lock the kubeadm package
-sudo apt-mark hold kubeadm
 ```
 
 </p>

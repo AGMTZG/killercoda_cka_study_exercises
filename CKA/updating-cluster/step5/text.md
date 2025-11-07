@@ -5,7 +5,7 @@ Finally, upgrade your local `kubectl` to ensure it matches the cluster version.
 In this step, you will:
 
 - Ensure the kubectl package is not on hold.
-- Update kubectl to the target version 1.34.1-1.1
+- Update kubectl to the latest version (it must match the kubelet and kubeadm versions).
 - Put the kubectl package on hold.
 
 <details>
