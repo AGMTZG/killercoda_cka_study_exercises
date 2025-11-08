@@ -38,6 +38,8 @@ Note:
 
 - You can use cert-manager (already installed in the cluster) or OpenSSL to generate the TLS certificates.
 
+- When you create the Ingress, wait until the cluster assigns it an external IP address.
+
 <details>
 <summary>Show commands / answers</summary>
 <p>
@@ -102,16 +104,19 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: alpha
+            name: alpha-service
             port:
               number: 80
       - path: /beta
         pathType: Prefix
         backend:
           service:
-            name: beta
+            name: beta-service
             port:
               number: 80
+
+# Wait for the ingress external ip
+k get ingress -w
 
 # Retrieve the external IP address of the NGINX Ingress Controller LoadBalancer
 kubectl get svc -n ingress-nginx
