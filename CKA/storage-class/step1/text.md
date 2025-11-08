@@ -29,7 +29,9 @@ Finally:
 
   - Run the proper command to determine which StorageClass is the default.
 
-  - Save the command output into /opt/storage/default-sc.txt.
+  - Save the command output into `/opt/storage/default-sc.txt`.
+
+  Note: You can use variations of the command, with or without headers, as long as the output clearly shows the default StorageClass.
 
 <details>
 <summary>Show commands / answers</summary>
@@ -53,8 +55,11 @@ mountOptions:
 - discard
 volumeBindingMode: WaitForFirstConsumer
 
+# Create the /opt/storage folder
+mkdir -p /opt/storage/
+
 # Then create the command
-kubectl get storageclass -o custom-columns=Name:.metadata.name,Default:.metadata.annotations."storageclass\.kubernetes\.io/is-default-class" > /opt/storage/default-sc.txt
+kubectl get storageclass -o custom-columns=NAME:.metadata.name,DEFAULT:.metadata.annotations."storageclass\.kubernetes\.io/is-default-class" | awk 'NR==1 || /true/' > /opt/storage/default-sc.txt
 ```
 
 </p>

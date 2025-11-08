@@ -10,9 +10,12 @@ if [ ! -f /opt/storage/default-sc.txt ]; then
   exit 1
 fi
 
-count=$(grep -c "true" /opt/storage/default-sc.txt || true)
+default_count=$(kubectl get storageclass -o custom-columns=NAME:.metadata.name,DEFAULT:.metadata.annotations."storageclass\.kubernetes\.io/is-default-class" | grep -w "true" | wc -l)
 
-if [ "$count" -ne 1 ]; then
-  echo "Expected exactly one default StorageClass, found $count."
+if [ "$default_count" -eq 1 ]; then
+  echo "Exactly one default StorageClass is configured correctly."
+else
+  echo "Expected exactly one default StorageClass, found $default_count."
+  kubectl get storageclass
   exit 1
 fi
