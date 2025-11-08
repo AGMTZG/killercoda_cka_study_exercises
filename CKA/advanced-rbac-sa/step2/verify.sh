@@ -1,31 +1,40 @@
 #!/bin/sh
 
-if ! kubectl get role deploybot-role -n appenv >/dev/null 2>&1; then
-  echo "Role 'deploybot-role' not found in namespace appenv."
+NAMESPACE="appenv"
+ROLE="deploybot-role"
+ROLEBINDING="deploybot-role-binding"
+SERVICEACCOUNT="deploybot"
+
+if ! kubectl get role "$ROLE" -n "$NAMESPACE" >/dev/null 2>&1; then
+  echo "Role '$ROLE' not found in namespace $NAMESPACE."
   exit 1
 fi
 
-if ! kubectl get role deploybot-role -n appenv -o yaml | grep -q "resources: \[deployments, replicasets\]"; then
-  echo "Role 'deploybot-role' found but missing required resources (deployments, replicasets)."
+for res in deployments replicasets; do
+  if ! kubectl get role "$ROLE" -n "$NAMESPACE" -o yaml | grep -q "^\s*-\s*$res"; then
+    echo "Role '$ROLE' missing resource '$res'."
+    exit 1
+  fi
+done
+
+for verb in get list create update delete; do
+  if ! kubectl get role "$ROLE" -n "$NAMESPACE" -o yaml | grep -q "^\s*-\s*$verb"; then
+    echo "Role '$ROLE' missing verb '$verb'."
+    exit 1
+  fi
+done
+
+if ! kubectl get rolebinding "$ROLEBINDING" -n "$NAMESPACE" >/dev/null 2>&1; then
+  echo "RoleBinding '$ROLEBINDING' not found in namespace $NAMESPACE."
   exit 1
 fi
 
-if ! kubectl get role deploybot-role -n appenv -o yaml | grep -q "verbs: \[get, list, create, update, delete\]"; then
-  echo "Role 'deploybot-role' found but missing one or more required verbs."
+if ! kubectl get rolebinding "$ROLEBINDING" -n "$NAMESPACE" -o yaml | grep -q "name: $ROLE"; then
+  echo "RoleBinding does not reference the correct Role ($ROLE)."
   exit 1
 fi
 
-if ! kubectl get rolebinding deploybot-role-binding -n appenv >/dev/null 2>&1; then
-  echo "RoleBinding 'deploybot-role-binding' not found in namespace appenv."
-  exit 1
-fi
-
-if ! kubectl get rolebinding deploybot-role-binding -n appenv -o yaml | grep -q "name: deploybot-role"; then
-  echo "RoleBinding does not reference the correct Role (deploybot-role)."
-  exit 1
-fi
-
-if ! kubectl get rolebinding deploybot-role-binding -n appenv -o yaml | grep -q "name: deploybot"; then
-  echo "RoleBinding does not reference the correct ServiceAccount (deploybot)."
+if ! kubectl get rolebinding "$ROLEBINDING" -n "$NAMESPACE" -o yaml | grep -q "name: $SERVICEACCOUNT"; then
+  echo "RoleBinding does not reference the correct ServiceAccount ($SERVICEACCOUNT)."
   exit 1
 fi

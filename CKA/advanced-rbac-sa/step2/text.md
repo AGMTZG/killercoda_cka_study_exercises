@@ -14,10 +14,13 @@ Note: Unlike user-based authentication, there’s no need to generate a Certific
 kubectl create role deploybot-role --verb=get,list,create,update,delete --resource=deployments,replicasets -n appenv
 
 # Validate
-kubectl get role deploymanager -n appenv -o yaml
+kubectl get role deploybot-role -n appenv -o yaml
 
 # Now bind the deploymanager Role to the deploybot ServiceAccount
 kubectl create rolebinding deploybot-role-binding --role=deploybot-role --serviceaccount=appenv:deploybot -n appenv
+
+# Validate
+kubectl get rolebinding deploybot-role-binding -n appenv
 ```
 
 </p>
