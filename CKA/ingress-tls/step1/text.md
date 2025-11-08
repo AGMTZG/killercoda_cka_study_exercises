@@ -77,6 +77,9 @@ openssl x509 -req -in example.local.csr -signkey example.local.key -out example.
 
 kubectl create secret tls my-secret --cert=tls.crt --key=tls.key
 
+# Verify which Ingress Controller is installed
+kubectl get ingressclass
+
 # We start creating the ingress
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -110,14 +113,17 @@ spec:
             port:
               number: 80
 
+# Retrieve the external IP address of the NGINX Ingress Controller LoadBalancer
+kubectl get svc -n ingress-nginx
+
 # Update the /etc/hosts file to resolve the application domains locally
 sudo vim /etc/hosts
 
-<external ip from ingress>   example.local
+<external load balancer ip from ingress>   example.local
 
 or
 
-echo "<external ip from ingress>   example.local" | sudo tee -a /etc/hosts
+echo "<external load balancer ip from ingress>   example.local" | sudo tee -a /etc/hosts
 
 # We test
 curl -k https://example.local/alpha

@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        pp: alpha
+        app: alpha
     spec:
       containers:
       - name: alpha
