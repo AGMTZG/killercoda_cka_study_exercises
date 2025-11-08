@@ -38,7 +38,18 @@ Finally:
 <p>
 
 ```bash
-# First we create the storage class yaml
+# First, Remove the annotation from the default storage class
+kubectl get storageclass
+
+NAME                      PROVISIONER                         RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+local-path (default)      rancher.io/local-path               Delete          WaitForFirstConsumer   false                  20d
+
+kubectl edit storageclass local-path
+
+# Remove the annotation
+storageclass.kubernetes.io/is-default-class: "true"
+
+# Next, we create the storage class yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
