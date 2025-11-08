@@ -1,7 +1,7 @@
 #!/bin/bash
 
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
-kubectl create -f deploy.yaml
+kubectl create -f deploys.yaml
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.9/config/manifests/metallb-native.yaml
 kubectl wait --namespace metallb-system --for=condition=ready pod --all --timeout=120s || true
 IP=$(ip -4 addr show enp1s0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | head -n1)
