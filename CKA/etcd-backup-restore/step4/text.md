@@ -19,8 +19,14 @@ Note that restoring etcd only brings back the cluster state, not the deleted man
 sudo kubeadm init phase control-plane apiserver
 sudo kubeadm init phase control-plane controller-manager
 
+# Next, We create the /mnt/ directory
+mkdir -p /mnt/
 
+# We restore the cluster
 ETCDCTL_API=3 etcdutl snapshot restore /backup/etcd-snapshot.db --data-dir /mnt/etcd-data
+
+# If the previous command fails, try the following one instead (note: this version is deprecated)
+ETCDCTL_API=3 etcdctl snapshot restore /backup/etcd-snapshot.db --data-dir /mnt/etcd-data
 
 # Verify the restored directory
 ls /mnt/etcd-data

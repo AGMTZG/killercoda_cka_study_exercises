@@ -4,7 +4,7 @@ In this step, you will simulate a disaster recovery scenario by deleting critica
 
 You will:
 
-- Delete the static pod manifests for the API server and Controller Manager.
+- Delete the static pod manifest files for the **API Server** and **Controller Manager** from the `/etc/kubernetes/manifests` directory
 
 Note: After deleting the static pod manifests, there’s no need to manually delete the corresponding pods from the kube-system namespace. The kubelet automatically terminates them when it no longer finds their manifest files in the configured directory.
 

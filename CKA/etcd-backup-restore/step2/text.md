@@ -1,6 +1,6 @@
 ### Create a backup snapshot of etcd
 
-Now that you know where etcd is running, create a snapshot of the datastore at /backup/etcd-snapshot.db using the information obtained from kubectl describe:
+Now that you know where etcd is running, create a snapshot of the datastore at `/backup/etcd-snapshot.db` using the information obtained from kubectl describe:
 
 ```bash
 --cert-file=/etc/kubernetes/pki/etcd/server.crt

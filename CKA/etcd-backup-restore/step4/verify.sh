@@ -18,18 +18,16 @@ done
 
 sleep 10
 
-APISERVER_STATUS=$(kubectl get pod kube-apiserver-control-plane -n kube-system -o jsonpath='{.status.phase}')
+APISERVER_STATUS=$(kubectl get pod kube-apiserver-controlplane -n kube-system -o jsonpath='{.status.phase}')
 if [[ "$APISERVER_STATUS" != "Running" ]]; then
-    echo "kube-apiserver-control-plane pod is not running yet"
+    echo "kube-apiserver-controlplane pod is not running yet"
     kubectl get pod kube-apiserver-control-plane -n kube-system
     exit 1
 fi
 
-CONTROLLER_STATUS=$(kubectl get pod kube-controller-manager-control-plane -n kube-system -o jsonpath='{.status.phase}')
+CONTROLLER_STATUS=$(kubectl get pod kube-controller-manager-controlplane -n kube-system -o jsonpath='{.status.phase}')
 if [[ "$CONTROLLER_STATUS" != "Running" ]]; then
     echo "kube-controller-manager-control-plane pod is not running yet"
     kubectl get pod kube-controller-manager-control-plane -n kube-system
     exit 1
 fi
-
-echo "Static pods recreated successfully, manifests exist, and etcd restored."
