@@ -1,6 +1,6 @@
 ### Update the etcd manifest to use restored data
 
-Finally, Modify the etcd static Pod manifest to use the new restored data directory /mnt/etcd-data.
+Finally, Modify the etcd static Pod manifest to use the new restored data directory `/mnt/etcd-data`.
 
 <details>
 <summary>Show commands / answers</summary>

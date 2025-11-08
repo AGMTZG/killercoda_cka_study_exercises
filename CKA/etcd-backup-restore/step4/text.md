@@ -10,6 +10,8 @@ Note that restoring etcd only brings back the cluster state, not the deleted man
 
 - The restored data directory will be: `/mnt/etcd-data`
 
+Note: You need to wait until the kubelet has started the API server and the Controller Manager.
+
 <details>
 <summary>Show commands / answers</summary>
 <p>
