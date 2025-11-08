@@ -30,7 +30,10 @@ Requirements
 <p>
 
 ```bash
-# hpa.yaml
+# Check the deployment resources and CPU usage
+kubectl top pods -n production
+
+# Create the Horizontal Pod Autoscaler
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -49,7 +52,7 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 80
+        averageUtilization: 60
   behavior:
     scaleUp:
       policies:
@@ -65,6 +68,10 @@ spec:
       stabilizationWindowSeconds: 120
 
 kubectl create -f hpa.yaml
+
+# Verify the configuration
+kubectl get hpa web-app -n production
+kubectl describe hpa web-app -n production
 ```
 
 </p>
