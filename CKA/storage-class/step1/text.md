@@ -9,7 +9,7 @@ Requirements
 
 - Create a StorageClass named `csi-retain-sc` with the following specifications:
 
-  - Provisioner: `csi-driver.example-vendor.example`
+  - Provisioner: `csi-driver.example-vendor.example` (not dynamic — it does not automatically create PersistentVolumes)
 
   - Reclaim policy: `Retain`
 
