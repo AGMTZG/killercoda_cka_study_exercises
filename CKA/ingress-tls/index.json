@@ -7,26 +7,25 @@
       "background": "startup.sh"
     },
     "steps": [
-      {
-        "title": "Create and Configure a TLS-enabled Ingress",
-        "text": "step1/text.md",
-        "verify": "step1/verify.sh"
-      }
-    ]
-  },
-  "assets": {
-    "host01": [
-      {
-        "file": "metallb.yaml",
-        "target": "/root",
-        "chmod": "+w"
-      },
-      {
-        "file": "deploys.yaml",
-        "target": "~/",
-        "chmod": "+w"
-      }
-    ]
+      { "title": "Create and Configure a TLS-enabled Ingress", "text": "step1/text.md", "verify": "step1/verify.sh" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "metallb.yaml",
+          "target": "/root",
+          "chmod": "+w"
+        },
+        {
+          "file": "deploys.yaml",
+          "target": "~/",
+          "chmod": "+w"
+        }
+      ]
+    }
   },
   "backend": {
     "imageid": "kubernetes-kubeadm-1node"
