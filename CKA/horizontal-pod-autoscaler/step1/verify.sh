@@ -42,3 +42,26 @@ elif [ "$scale_down_stabilization" != "120" ]; then
 else
   echo "Scaling behavior correctly configured (up: +1/30s, down: -1/60s, stabilize: 120s)"
 fi
+
+not_ready_pods=$(kubectl get pods -n production -l app=web-app --no-headers 2>/dev/null | grep -v "Running" | wc -l)
+
+if [ "$not_ready_pods" -gt 0 ]; then
+  echo "Some pods are not in Running state. Please check 'kubectl get pods -n production'"
+  exit 1
+else
+  echo "All web-app pods are running"
+fi
+
+quota_name=$(kubectl get quota -n production -o jsonpath='{.items[0].metadata.name}')
+if [ -z "$quota_name" ]; then
+  echo "No ResourceQuota found in namespace 'production'"
+else
+  over_quota=$(kubectl describe quota "$quota_name" -n production | grep -E 'Used.*Hard' | awk '{if ($2>$3) print $0}' | wc -l)
+  if [ "$over_quota" -gt 0 ]; then
+    echo "ResourceQuota exceeded in namespace 'production'"
+    kubectl describe quota "$quota_name" -n production
+    exit 1
+  else
+    echo "ResourceQuota limits not surpassed"
+  fi
+fi

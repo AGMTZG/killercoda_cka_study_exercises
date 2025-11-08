@@ -25,19 +25,24 @@ Requirements
 
 - Stabilize scaling down for 2 minutes (meaning it will not scale down faster than this window).
 
+- Ensure all pods initialize successfully and that the namespace quota is not exceeded.
+
+Note: The Metrics Server might take a few moments to start. If you see the message “metrics API not available”, wait a bit and try again.
+
 <details>
 <summary>Show commands / answers</summary>
 <p>
 
 ```bash
-# Check the deployment resources and CPU usage
+# Check current CPU and memory metrics
 kubectl top pods -n production
+kubectl top nodes
 
 # Create the Horizontal Pod Autoscaler
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: web-app-hpa
+  name: web-app
   namespace: production
 spec:
   scaleTargetRef:
@@ -69,9 +74,13 @@ spec:
 
 kubectl create -f hpa.yaml
 
-# Verify the configuration
+# Verify HPA configuration and pod behavior
 kubectl get hpa web-app -n production
 kubectl describe hpa web-app -n production
+
+# Check that all pods started and quota was not exceeded
+kubectl get pods -n production
+kubectl describe quota -n production
 ```
 
 </p>
