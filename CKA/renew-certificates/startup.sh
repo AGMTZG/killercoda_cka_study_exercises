@@ -49,24 +49,25 @@ CRITICAL_CERTS=(
   "apiserver"
   "controller-manager"
   "scheduler"
-  "etcd/server"
+  "server"
 )
 
 for cert in "${CRITICAL_CERTS[@]}"; do
-  dir=$(dirname "$cert")
-  [ "$dir" != "." ] && mkdir -p "$PKI_DIR/$dir"
-  openssl genrsa -out ${PKI_DIR}/${cert}.key 2048
-  openssl req -new -key ${PKI_DIR}/${cert}.key -subj "/CN=${cert}" -out ${PKI_DIR}/${cert}.csr
-  if [[ "$cert" == etcd/* ]]; then
-    openssl x509 -req -in ${PKI_DIR}/${cert}.csr \
+  if [[ "$cert" == "server" ]]; then
+    openssl genrsa -out ${ETCD_DIR}/${cert}.key 2048
+    openssl req -new -key ${ETCD_DIR}/${cert}.key -subj "/CN=${cert}" -out ${ETCD_DIR}/${cert}.csr
+    openssl x509 -req -in ${ETCD_DIR}/${cert}.csr \
       -CA ${ETCD_DIR}/ca.crt -CAkey ${ETCD_DIR}/ca.key -CAcreateserial \
-      -out ${PKI_DIR}/${cert}.crt -days 1 -sha256
+      -out ${ETCD_DIR}/${cert}.crt -days 1 -sha256
+    rm -f ${ETCD_DIR}/${cert}.csr
   else
+    openssl genrsa -out ${PKI_DIR}/${cert}.key 2048
+    openssl req -new -key ${PKI_DIR}/${cert}.key -subj "/CN=${cert}" -out ${PKI_DIR}/${cert}.csr
     openssl x509 -req -in ${PKI_DIR}/${cert}.csr \
       -CA ${PKI_DIR}/ca.crt -CAkey ${PKI_DIR}/ca.key -CAcreateserial \
       -out ${PKI_DIR}/${cert}.crt -days 1 -sha256
+    rm -f ${PKI_DIR}/${cert}.csr
   fi
-  rm -f ${PKI_DIR}/${cert}.csr
 done
 
 chown -R root:root ${PKI_DIR}
