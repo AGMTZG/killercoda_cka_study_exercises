@@ -1,6 +1,6 @@
 ### Inspect Certificate Expiration Dates
 
-First, list all the certificates in `/etc/kubernetes/pki` and review their expiration dates.
+First, list all the certificates in `/etc/kubernetes/pki` and `etc/kubernetes/pki/etcd` and review their expiration dates.
 
 <details>
 <summary>Show commands / answers</summary>
@@ -8,16 +8,14 @@ First, list all the certificates in `/etc/kubernetes/pki` and review their expir
 
 ```bash
 
-# To verify individual certificates, use commands like the following:
-sudo openssl x509 -in /etc/kubernetes/pki/apiserver.crt -noout -enddate
-sudo openssl x509 -in /etc/kubernetes/pki/etcd/server.crt -noout -enddate
-sudo openssl x509 -in /etc/kubernetes/pki/controller-manager.crt -noout -enddate
-sudo openssl x509 -in /etc/kubernetes/pki/scheduler.crt -noout -enddate
+# To verify an individual certificate, use a command like the following (replace *** with the certificate file name):
+sudo openssl x509 -in /etc/kubernetes/pki/***.crt -noout -enddate
+sudo openssl x509 -in /etc/kubernetes/pki/etcd/***.crt -noout -enddate
 
-# To check the expiration date of all certificates in the directory at once:
-for cert in /etc/kubernetes/pki/*.crt; do
+# To check the expiration date of all certificates at once:
+for cert in $(find /etc/kubernetes/pki -name "*.crt"); do
     echo "$cert expires on:"
-    sudo openssl x509 -in $cert -noout -enddate
+    sudo openssl x509 -in "$cert" -noout -enddate
 done
 ```
 

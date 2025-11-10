@@ -8,9 +8,7 @@
     },
     "steps": [
       { "title": "Inspect Certificate Expiration Dates", "text": "step1/text.md" },
-      { "title": "Generate a New Private Key", "text": "step2/text.md" },
-      { "title": "Create a Certificate Signing Request (CSR) and sign it using the cluster’s internal CA", "text": "step3/text.md" },
-      { "title": "Replace Old Certificates and Restart Services", "text": "step4/text.md", "verify": "step4/verify.sh" }
+      { "title": "Generate a new private key, CSR, and sign it using the internal Kubernetes CA", "text": "step2/text.md" }
     ],
     "finish": {
       "text": "finish.md"
