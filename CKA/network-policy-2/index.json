@@ -1,0 +1,28 @@
+{
+  "title": "Network Policy Problem: Restore Connectivity",
+  "description": "Review the existing NetworkPolicies to identify and fix the misconfiguration that is blocking network communication. Ensure normal connectivity is reestablished.",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "background": "startup.sh"
+    },
+    "steps": [
+      { "title": "Investigate and Fix NetworkPolicy Configuration",  "text": "step1/text.md", "verify": "step1/verify.sh" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "assets": {
+    "host01": [
+      {
+        "file": "setup.yaml",
+        "target": "/root",
+        "chmod": "+w"
+      }
+    ]
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
