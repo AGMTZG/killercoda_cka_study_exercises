@@ -1,6 +1,6 @@
 {
   "title": "Kubernetes Pod Resource Scheduling",
-  "description": "Learn how Kubernetes schedules Pods based on available resources and how to adjust requests and limits to ensure all replicas are scheduled.",
+  "description": "Understand how Kubernetes schedules Pods based on available resources. Practice calculating requests and limits manually to ensure all replicas can be scheduled without using Vertical Pod Autoscaler (VPA).",
   "details": {
     "intro": {
       "text": "intro.md",
