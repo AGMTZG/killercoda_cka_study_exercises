@@ -35,13 +35,6 @@ for cert in "${NORMAL_CERTS[@]}"; do
   rm -f ${PKI_DIR}/${cert}.csr
 done
 
-openssl genrsa -out ${PKI_DIR}/front-proxy-client.key 2048
-openssl req -new -key ${PKI_DIR}/front-proxy-client.key -subj "/CN=front-proxy-client" -out ${PKI_DIR}/front-proxy-client.csr
-openssl x509 -req -in ${PKI_DIR}/front-proxy-client.csr \
-  -CA ${PKI_DIR}/front-proxy-ca.crt -CAkey ${PKI_DIR}/front-proxy-ca.key -CAcreateserial \
-  -out ${PKI_DIR}/front-proxy-client.crt -days 365 -sha256
-rm -f ${PKI_DIR}/front-proxy-client.csr
-
 ETCD_CERTS=(peer healthcheck-client)
 for cert in "${ETCD_CERTS[@]}"; do
   openssl genrsa -out ${ETCD_DIR}/${cert}.key 2048
