@@ -2,15 +2,15 @@
 
 Now that the Helm chart templates for MongoDB are prepared, the next step is to make the StatefulSet and Headless Service fully configurable. You will create a `values.yaml` file to control:
 
-- **StatefulSet toggle** – Enable or disable the StatefulSet (and its dependent service).
+- **.Values.statefulset.enabled** – Enable or disable the StatefulSet (and its dependent service).
 
-- **Replicas** – Number of MongoDB pods.
+- **.Values.replicaCount** – Number of MongoDB pods.
 
-- **Container image** – Repository, tag, and pull policy.
+- **.Values.image.repository, .Values.image.tag** – Repository and tag.
 
-- **Ports and environment variables** – Fully configurable for flexibility.
+- **.Values.statefulset.port, .Values.service.port ** – Fully configurable for flexibility.
 
-- **Headless Service** – Name and ports, created only if the StatefulSet is enabled.
+- **.Values.service.headlessName** – Name and ports, created only if the StatefulSet is enabled.
 
 The template is provided below to help you create the `values.yaml` file.
 

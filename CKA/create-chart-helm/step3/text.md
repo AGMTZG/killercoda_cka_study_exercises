@@ -10,33 +10,34 @@ Inside the templates/ directory:
 
 **StatefulSet**:
 
-- Make the **statefulset name** dynamic using the release name.
+- Use the values defined in `_helpers.tpl` for the resource name, `metadata.labels`, `spec.selector.matchLabels`, and `template.metadata.labels`.
 
-- Use consistent Helm **labels** for `metadata.labels`, `spec.selector.matchLabels`, and `template.metadata.labels`.
+- Configure **replicas** (`.Values.replicaCount`), **container image** (`.Values.image.repository`) and **tag** (`.Values.image.tag`), **port container** (use with + toYaml for the ports section, `.Values.statefulset.port`) via `values.yaml`.
 
-- Configure **replicas**, **container image** (repository and tag), **port container** (use with + toYaml for the ports section) via `values.yaml`.
-
-- Add a toggle in `values.yaml` to enable or disable the creation of the statefulset at will.
+- Add a toggle (`.Values.statefulset.enabled`) in `values.yaml` to enable or disable the creation of the statefulset at will.
 
 **Headless Service**:
+- Create a named for the headless service (.Values.service.headlessName) via `values.yaml`
 
-- Make ports (use with + toYaml for the ports section) configurable via `values.yaml`.
+- Make ports (use with + toYaml for the ports section, `.Values.service.port`) configurable via `values.yaml`.
 
 - Only create the service if the StatefulSet is enabled.
 
 <details>
-<summary>Click here to see _helpers.tpl</summary>
+<summary>Click here to see helpers.tpl</summary>
+<p>
+
 ```bash
-{{- define "fullstack-app.labels" -}}
-app.kubernetes.io/name: {{ include "fullstack-app.name" . }}
+{{- define "database-app.labels" -}}
+app.kubernetes.io/name: {{ include "database-app.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
-{{- define "fullstack-app.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "fullstack-app.name" . }}
+{{- define "database-app.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "database-app.name" . }}
 {{- end }}
 
-{{- define "fullstack-app.fullname" -}}
+{{- define "database-app.fullname" -}}
 {{ .Release.Name }}-{{ .Chart.Name }}
 {{- end }}
 ```
@@ -81,7 +82,7 @@ spec:
         - name: mongo
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
-            {{- with .Values.service.port }}
+            {{- with .Values.statefulset.port }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
           env:
