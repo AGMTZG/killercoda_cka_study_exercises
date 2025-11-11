@@ -12,6 +12,12 @@
       { "title": "Configure the values.yaml file", "text": "step4/text.md" },
       { "title": "Install the Helm chart", "text": "step5/text.md", "verify": "step5/verify.sh" }
     ],
+    "assets": {
+      "host01": [
+        {"file": "headless-service.yaml", "target": "~/", "chmod": "+w"},
+        {"file": "statefulset.yaml", "target": "~/", "chmod": "+w"}
+      ]
+    },
     "finish": {
       "text": "finish.md"
     }
