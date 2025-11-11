@@ -11,6 +11,10 @@ The updated manifests (**manifest-tls.yaml**), and release status (**status-tls.
 <p>
 
 ```bash
+# Display the default configuration values of the Bitnami Nginx chart
+# and review the TLS section to understand available parameters.
+helm show values bitnami/nginx
+
 # Upgrade the release
 helm upgrade my-nginx-release bitnami/nginx --set tls.enabled=true --set-file tls.cert=./cert.pem --set-file tls.key=./certKeyA.pem
 
