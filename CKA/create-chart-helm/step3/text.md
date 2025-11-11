@@ -1,0 +1,115 @@
+### Modify the Helm Chart Templates
+
+After generating the base chart, tailor it for a MongoDB database:
+
+Inside the templates/ directory:
+
+- Remove default templates: `deployment.yaml`, `service.yaml`, `hpa.yaml`, `httproute.yaml`, `ingress.yaml`, `serviceaccount.yaml`.
+
+- Move all provided YAML files from the `~/` (home directory) into `templates/`.
+
+**StatefulSet**:
+
+- Make the **statefulset name** dynamic using the release name.
+
+- Use consistent Helm **labels** for `metadata.labels`, `spec.selector.matchLabels`, and `template.metadata.labels`.
+
+- Configure **replicas**, **container image** (repository and tag), **port container** (use with + toYaml for the ports section) via `values.yaml`.
+
+- Add a toggle in `values.yaml` to enable or disable the creation of the statefulset at will.
+
+**Headless Service**:
+
+- Make ports (use with + toYaml for the ports section) configurable via `values.yaml`.
+
+- Only create the service if the StatefulSet is enabled.
+
+<details>
+<summary>Click here to see _helpers.tpl</summary>
+```bash
+{{- define "fullstack-app.labels" -}}
+app.kubernetes.io/name: {{ include "fullstack-app.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{- define "fullstack-app.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "fullstack-app.name" . }}
+{{- end }}
+
+{{- define "fullstack-app.fullname" -}}
+{{ .Release.Name }}-{{ .Chart.Name }}
+{{- end }}
+```
+</p>
+</details>
+
+<details>
+<summary>Show commands / answers</summary>
+<p>
+
+```bash
+# Navigate to the templates directory
+cd database-app/templates
+
+# Remove the default templates
+rm deployment.yaml service.yaml hpa.yaml httproute.yaml ingress.yaml serviceaccout.yaml
+
+# Move the provided templates to the templates/ directory
+mv statefulset.yaml headless-service database-app/templates/
+
+# templates/statefulset.yaml
+
+{{- if .Values.statefulset.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "database-app.fullname" . }}
+  labels:
+    {{- include "database-app.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ .Values.service.headlessName }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "database-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "database-app.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: mongo
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            {{- with .Values.service.port }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: mongoadmin
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: 123456789
+{{- end }}
+
+# templates/service.yaml
+
+{{- if .Values.statefulset.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.headlessName }}
+  labels:
+    {{- include "database-app.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
+  selector:
+    {{- include "database-app.selectorLabels" . | nindent 4 }}
+  ports:
+    {{- with .Values.service.port }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+{{- end }}
+```
+
+</p>
+</details>

@@ -1,0 +1,97 @@
+### Configure the values.yaml file
+
+Now that the Helm chart templates for MongoDB are prepared, the next step is to make the StatefulSet and Headless Service fully configurable. You will create a `values.yaml` file to control:
+
+- **StatefulSet toggle** – Enable or disable the StatefulSet (and its dependent service).
+
+- **Replicas** – Number of MongoDB pods.
+
+- **Container image** – Repository, tag, and pull policy.
+
+- **Ports and environment variables** – Fully configurable for flexibility.
+
+- **Headless Service** – Name and ports, created only if the StatefulSet is enabled.
+
+The template is provided below to help you create the `values.yaml` file.
+
+<details>
+<summary>Click here to see .yaml</summary>
+```bash
+{{- if .Values.statefulset.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "database-app.fullname" . }}
+  labels:
+    {{- include "database-app.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ .Values.service.headlessName }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "database-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "database-app.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: mongo
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            {{- with .Values.service.port }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: mongoadmin
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: 123456789
+{{- end }}
+
+# templates/service.yaml
+
+{{- if .Values.statefulset.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.headlessName }}
+  labels:
+    {{- include "database-app.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
+  selector:
+    {{- include "database-app.selectorLabels" . | nindent 4 }}
+  ports:
+    {{- with .Values.service.port }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+{{- end }}
+```
+</p>
+</details>
+
+
+<details>
+<summary>Show commands / answers</summary>
+<p>
+
+```bash
+# Values.yaml
+statefulset:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: mongo
+    tag: "6.0"
+
+service:
+  headlessName: mongo-headless
+  port:
+  - port: 27017
+    targetPort: 27017
+    protocol: TCP
+```
+
+</p>
+</details>
