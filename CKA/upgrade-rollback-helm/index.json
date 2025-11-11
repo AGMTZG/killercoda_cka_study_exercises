@@ -1,0 +1,35 @@
+{
+  "title": "Managing Application Releases Using Helm",
+  "description": "Deploy an application using Helm, perform configuration changes, and safely rollback in a shared Kubernetes environment.",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      { "title": "Deploy the chart to the cluster and verify the release, along with all associated pods and services", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "Upgrade the chart configuration, then inspect the changes and troubleshoot any issues", "text": "step2/text.md", "verify": "step2/verify.sh" },
+      { "title": "Roll back the release to the previous stable version", "text": "step3/text.md", "verify": "step3/verify.sh" },
+      { "title": "Remove the release and clean up all associated resources from the cluster.", "text": "step4/text.md", "verify": "step4/verify.sh" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "cert.pem",
+          "target": "~/",
+          "chmod": "+w"
+        },
+        {
+          "file": "certkeyA.pem",
+          "target": "~/",
+          "chmod": "+w"
+        }
+      ]
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
