@@ -4,7 +4,7 @@ You will start by generating a new Helm chart structure that will serve as the f
 
 Requirements:
 
-- Create a new Helm chart named `database-app.`
+- Create a new Helm chart named `database-app`.
 - Open the file **Chart.yaml** and modify its metadata as follows:
   - Set the **description** field to: `A Helm chart for deploying a database application.`
   - Update the **appVersion** to `1.0.0`
