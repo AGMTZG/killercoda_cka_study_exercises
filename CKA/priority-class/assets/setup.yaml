@@ -1,0 +1,145 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: nebula-phase
+value: 100000
+globalDefault: false
+description: "Pods assigned to nebula phase scheduling"
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: drift-sequence
+value: 50000
+globalDefault: false
+description: "Pods aligned with drift sequence scheduling"
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: echo-frame
+value: 10000
+globalDefault: false
+description: "Pods operating within echo frame scheduling"
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: pulse-node
+value: 1000
+globalDefault: false
+description: "Pods handled under pulse node scheduling"
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: shade-pattern
+value: 500
+globalDefault: false
+description: "Pods associated with shade pattern scheduling"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-nebula-alpha
+spec:
+  priorityClassName: nebula-phase
+  containers:
+  - name: core-unit
+    image: nginx
+    resources:
+      requests:
+        memory: "200Mi"
+      limits:
+        memory: "272Mi"
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-drift-one
+spec:
+  priorityClassName: drift-sequence
+  containers:
+  - name: drift-core
+    image: nginx
+    resources:
+      requests:
+        memory: "200Mi"
+      limits:
+        memory: "272Mi"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-drift-two
+spec:
+  priorityClassName: drift-sequence
+  containers:
+  - name: drift-core
+    image: nginx
+    resources:
+      requests:
+        memory: "200Mi"
+      limits:
+        memory: "272Mi"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-echo-one
+spec:
+  priorityClassName: echo-frame
+  containers:
+  - name: echo-unit
+    image: nginx
+    resources:
+      requests:
+        memory: "200Mi"
+      limits:
+        memory: "272Mi"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-echo-two
+spec:
+  priorityClassName: echo-frame
+  containers:
+  - name: echo-unit
+    image: nginx
+    resources:
+      requests:
+        memory: "200Mi"
+      limits:
+        memory: "272Mi"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-pulse
+spec:
+  priorityClassName: pulse-node
+  containers:
+  - name: pulse-unit
+    image: nginx
+    resources:
+      requests:
+        memory: "200Mi"
+      limits:
+        memory: "272Mi"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-shade
+spec:
+  priorityClassName: shade-pattern
+  containers:
+  - name: shade-core
+    image: nginx
+    resources:
+      requests:
+        memory: "200Mi"
+      limits:
+        memory: "272Mi"
