@@ -1,20 +1,18 @@
 # Killercoda Interactive Labs
-## About
 
-This collection contains **interactive labs** using **Killercoda**.
-Each scenario allows you to practice concepts hands-on, directly in your browser, without installing anything locally.
+## About
+This repository contains **interactive Kubernetes labs** built with Killercoda.  
+Each lab provides a hands-on environment directly in your browser, letting you practice and verify concepts **without installing anything locally**.  
+
+Explore the labs online at [Killercoda AGMTZG](https://www.killercoda.com/agmtzg) or view the source on [GitHub](https://github.com/AGMTZG/Killercoda).
 
 ---
 
 ## How to Use
+1. Log in to the [Killercoda platform](https://www.killercoda.com/).  
+2. Navigate to your labs at [Killercoda AGMTZG](https://www.killercoda.com/agmtzg).  
+3. Follow each step in the lab instructions and verify your work using the provided scripts.  
 
-1. Visit the [Killercoda platform](https://killercoda.com/) and log in.  
-2. Link this GitHub repository to your Killercoda profile.  
-3. Navigate through the labs, follow instructions in each step, and verify your solutions using the provided scripts.  
-
----
-
-## Notes
-
-- All labs are designed for **interactive learning**; you can see commands, hints, and verification directly in the terminal.  
-- Make sure to follow the steps in order.
+**Notes:**  
+- Labs are fully interactive: commands, hints, and verification outputs appear directly in the terminal.  
+- Complete the steps in order to ensure successful learning and verification.
