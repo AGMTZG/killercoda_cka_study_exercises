@@ -1,0 +1,22 @@
+{
+  "title": "Advanced Kustomize Multi-Environment Deployment",
+  "description": "Deploy a microservice database application using Kustomize with environment-specific overlays, patches, ConfigMaps, and Secrets.",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      { "title": "Configure the Dev Environment with Kustomize", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "Configure the Prod Environment with Kustomize", "text": "step2/text.md", "verify": "step2/verify.sh" }
+    ]
+  },
+  "assets": {
+    "host01": [
+      { "file": "statefulset.yaml", "target": "~/app/base/", "chmod": "+w" },
+      { "file": "headless-service.yaml", "target": "~/app/base/", "chmod": "+w" }
+    ]
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
