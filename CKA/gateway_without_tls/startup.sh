@@ -1,18 +1,11 @@
 #!/bin/bash
-set -e
+
 echo -e "\033[91m[INFO] Installing MetalLB...\033[0m"
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.9/config/manifests/metallb-native.yaml
 echo -e "\033[91m[INFO] Waiting for MetalLB pods to become ready...\033[0m"
-for i in {1..36}; do
-  running=$(kubectl get pods -n metallb-system --no-headers 2>/dev/null | grep -c 'Running' || true)
-  total=$(kubectl get pods -n metallb-system --no-headers 2>/dev/null | wc -l || true)
-  if [ "$total" -ge 2 ] && [ "$running" -ge 2 ]; then
-    echo -e "\033[92m[INFO] MetalLB pods are ready!\033[0m"
-    break
-  fi
-  echo -e "\033[91m[WAIT] Waiting for MetalLB components... ($i/36)\033[0m"
-  sleep 5
-done
+kubectl wait --namespace metallb-system --for=condition=ready pod --all --timeout=120s || true
+echo -e "\033[91m[INFO]  Please wait 10 seconds... \033[0m"
+sleep 10
 IP=$(ip -4 addr show enp1s0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | head -n1)
 PREFIX=$(echo $IP | cut -d'.' -f1-3)
 RANGE_START="${PREFIX}.240"

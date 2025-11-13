@@ -2,18 +2,10 @@
 
 echo -e "\033[91m[INFO] Installing MetalLB...\033[0m"
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.9/config/manifests/metallb-native.yaml
-echo "[INFO] Waiting for MetalLB webhook service to become ready..."
-for i in {1..36}; do
-  if kubectl get svc webhook-service -n metallb-system >/dev/null 2>&1; then
-    ip=$(kubectl get svc webhook-service -n metallb-system -o jsonpath='{.spec.clusterIP}' 2>/dev/null)
-    if [ -n "$ip" ]; then
-      echo -e "\033[92m[INFO] Webhook service is ready at $ip\033[0m"
-      break
-    fi
-  fi
-  echo -e "\033[91m[WAIT] Waiting for webhook-service... ($i/36)\033[0m"
-  sleep 5
-done
+echo -e "\033[91m[INFO] Waiting for MetalLB pods to become ready...\033[0m"
+kubectl wait --namespace metallb-system --for=condition=ready pod --all --timeout=120s || true
+echo -e "\033[91m[INFO]  Please wait 10 seconds... \033[0m"
+sleep 10
 IP=$(ip -4 addr show enp1s0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | head -n1)
 PREFIX=$(echo $IP | cut -d'.' -f1-3)
 RANGE_START="${PREFIX}.240"
