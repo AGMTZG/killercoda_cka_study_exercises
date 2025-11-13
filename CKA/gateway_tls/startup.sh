@@ -2,15 +2,16 @@
 
 echo -e "\033[91m[INFO] Installing MetalLB...\033[0m"
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.9/config/manifests/metallb-native.yaml
-echo -e "\033[91m[INFO] Waiting for MetalLB pods to become ready...\033[0m"
+echo "[INFO] Waiting for MetalLB webhook service to become ready..."
 for i in {1..36}; do
-  running=$(kubectl get pods -n metallb-system --no-headers 2>/dev/null | grep -c 'Running' || true)
-  total=$(kubectl get pods -n metallb-system --no-headers 2>/dev/null | wc -l || true)
-  if [ "$total" -ge 2 ] && [ "$running" -ge 2 ]; then
-    echo -e "\033[92m[INFO] MetalLB pods are ready!\033[0m"
-    break
+  if kubectl get svc webhook-service -n metallb-system >/dev/null 2>&1; then
+    ip=$(kubectl get svc webhook-service -n metallb-system -o jsonpath='{.spec.clusterIP}' 2>/dev/null)
+    if [ -n "$ip" ]; then
+      echo -e "\033[92m[INFO] Webhook service is ready at $ip\033[0m"
+      break
+    fi
   fi
-  echo -e "\033[91m[WAIT] Waiting for MetalLB components... ($i/36)\033[0m"
+  echo -e "\033[91m[WAIT] Waiting for webhook-service... ($i/36)\033[0m"
   sleep 5
 done
 IP=$(ip -4 addr show enp1s0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | head -n1)
