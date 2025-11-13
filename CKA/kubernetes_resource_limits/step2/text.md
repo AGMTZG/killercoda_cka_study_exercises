@@ -36,39 +36,63 @@ node01         Ready    <none>          19d   v1.33.2
 
 # You can check the memory and cpu allocation by checking the capacity and allocation section:
 kubectl describe node controlplane
-kubectl describe node node01
 
-Both display this:
+# controlplane
 Capacity:
   cpu:                1
   ephemeral-storage:  19221248Ki
   hugepages-2Mi:      0
-  memory:             2199932Ki
+  memory:             2199936Ki
   pods:               110
 Allocatable:
   cpu:                1
   ephemeral-storage:  18698430040
   hugepages-2Mi:      0
-  memory:             2097532Ki
+  memory:             2097536Ki
   pods:               110
 
-# The difference between capacity and allocatable memory indicates that the node
-# has already reserved some memory for the kubelet and other internal system processes.
-# The allocatable section indicates the portion of node resources that can be allocated to Pods, while the capacity
-# represents the total maximum resources available on the node.
-# For easier reading, convert Ki to Mi for calculations. If you want to see the total memory in GiB,
-# you can convert Mi to Gi.
 
-2199932Ki |   1Mi   = 2199932 / 1024  =  2.148,37109375Mi
-             1024Ki
+# controlplane, let’s calculate how much memory is reserved on the node
 
-2.148,37109375Mi |  1Gi    = 2.148,37109375 / 1024  = 2,098018646240234375Gi
-                   1024Mi
+Capacity, this indicates the total memory of the node:
+
+2199936 Ki  |   1Mi    = 2199936 / 1024 =  2,148.375 Mi
+               1024Ki
+
+Allocatable, this shows the amount of memory available for pods to use
+
+2097536 Ki  |   1Mi    = 2097536 / 1024 =   2,048.375 Mi
+               1024Ki
+
+# For controlplane, 100Mi are being reserving for critical system components.
 
 
-# Therefore, we can confirm that each node has:
-cpu: 1 = 1000m
-memory: = 2,098018646240234375Gi (total memory of the node)
+# We also check node01
+kubectl describe node node01
+
+# Node01
+Capacity:
+  cpu:                1
+  ephemeral-storage:  19221248Ki
+  hugepages-2Mi:      0
+  memory:             1949056Ki
+  pods:               110
+Allocatable:
+  cpu:                1
+  ephemeral-storage:  18698430040
+  hugepages-2Mi:      0
+  memory:             1846656Ki
+  pods:               110
+
+# Capacity
+1949056 Ki |  1Mi     = 1949056 / 1024 = 1,903.375 Mi
+            1024 Ki
+
+# Allocable
+1846656 Ki |  1Mi     = 1846656 / 1024 = 1.803,375 Mi
+            1024 Ki
+
+# For node01, 100Mi are being reserving for critical system components.
 ```
 
 </p>

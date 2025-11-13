@@ -10,9 +10,11 @@ Since your manager asked you not to reduce the number of replicas, the only opti
 So, we need to determine the maximum memory request that can be allocated on the node. 
 
 ```bash
-Each node has:
-cpu: 1 = 1000m
-memory: = 2,098018646240234375Gi (total memory of the node)
+# Controlplane available memory:
+2,048.375 Mi
+
+# Node01 available memory:
+1.803,375 Mi
 
 heavy-deployment pods:
 Limits:
@@ -28,22 +30,18 @@ Requests:
 <p>
 
 ```bash
-# We divide the maximum allocatable memory (in Mi) by the three replicas. Since the problem does not specify that
-# we must use only one node, we can consider both nodes. Otherwise, we would need a node affinity.
+# We divide the maximum allocatable memory (in Mi) by the three replicas.
+# Since the problem does not require using a specific node, we can consider both nodes.
+# Keep in mind that in real production environments, the control plane cannot be treated as a worker node.
 # We can infer that one node will host 2 Pods while the other node will host 1 Pod.
-# To perform the calculations, we should use the allocatable memory, since that represents the total memory available for pods:
+# We will use the control plane node because it has the most available memory, so this node will run 2 Pods, while the other node will host only 1 Pod.
 
-2097532Ki |  1 Mi     =   2097532 / 1024  =  2.048,37109375Mi
-            1024Ki
+2,048.375Mi  / 2 (number of replicas) = 1.024,1875 Mi (maximum limit per replica)
 
-2.048,37109375Mi  / 2 (number of replicas) = 1.024,185546875Mi (maximum request per replica)
+# To avoid resource pressure on the node, memory requests should leave enough room for system components and normal workload variation.
+# Reducing the calculated value by ~30% gives:
 
-# To avoid potential issues—because a Pod could exceed its allocated memory—we should not set the exact value of
-# 1.024,185546875Mi per Pod. Instead, reduce it by 5–10 % as a safety margin.
-# We will apply a 10 % reduction to this value, resulting in a safer memory allocation of ≈ 921,7669921875 Mi
-# per Pod.
-
-1.024,185546875 * .90 = 921,7669921875 Mi per pod
+1.024,1875 * .70 = 716,93125 Mi per pod
 ```
 </p>
 </details>

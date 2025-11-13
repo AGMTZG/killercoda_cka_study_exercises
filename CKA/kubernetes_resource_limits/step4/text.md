@@ -10,6 +10,11 @@ Tasks:
 
 Observe how Kubernetes **schedules** Pods correctly when resources are properly allocated, maintaining cluster stability.Observe how Kubernetes schedules Pods when resources are adjusted properly, ensuring the cluster remains stable.
 
+```bash
+# Request per pod
+716,93125 Mi
+```
+
 <details>
 <summary>Show commands / answers</summary>
 <p>
@@ -45,13 +50,13 @@ spec:
             done
         resources:
           requests:
-            memory: "922Mi"
+            memory: "716Mi"
             cpu: "100m"
           limits:
-            memory: "950Mi"
+            memory: "750Mi"
             cpu: "200m"
 
-# A memory limit of 950 Mi is applied to accommodate potential usage spikes.
+# A limit around 750 Mi provides a reasonable buffer.
 # We apply the new deployment and it should work!
 
 kubectl get deploy -w
