@@ -4,7 +4,7 @@ Since this exercise involves migrating from Ingress to Gateway, you should remov
 
 Note: Deleting the entire ingress-nginx namespace will automatically clean up all related resources. This may take a few moments.
 
-Because the cluster is running locally, you also need to update your /etc/hosts file so that the following hostnames resolve correctly ( you need to add the external ip from the gateway ):
+Because the cluster is running locally, you also need to update your `/etc/hosts` file so that the following hostnames resolve correctly ( you need to add the external ip from the gateway ):
 
 |Host               | Path      | Backend Service |
 |-------------------|-----------|-----------------|
@@ -26,6 +26,10 @@ kubectl get gateway
 
 # Update the /etc/hosts file to resolve the application domains locally
 sudo vim /etc/hosts
+<external ip from gateway>    app.home.local
+<external ip from gateway>    app.contact.local
+
+or
 
 echo "<external ip from gateway>   app.home.local" | sudo tee -a /etc/hosts
 echo "<external ip from gateway>   app.contact.local" | sudo tee -a /etc/hosts

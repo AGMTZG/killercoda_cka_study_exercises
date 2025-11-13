@@ -52,7 +52,7 @@ spec:
         type: PathPrefix
         value: /
     backendRefs:
-    - name: http-svc
+    - name: home-svc
       port: 80
   - matches:
     - path:

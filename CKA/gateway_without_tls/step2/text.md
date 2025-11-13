@@ -39,7 +39,7 @@ spec:
         type: PathPrefix
         value: /
     backendRefs:
-    - name: http-app
+    - name: web-app
       port: 80
   - matches:
     - path:

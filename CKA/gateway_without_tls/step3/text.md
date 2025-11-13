@@ -28,6 +28,10 @@ kubectl get gateway
 
 # Update the /etc/hosts file to resolve the application domains locally
 sudo vim /etc/hosts
+<external ip from gateway>     app.company.local
+<external ip from gateway>     orders.company.local
+
+or
 
 echo "<external ip from gateway>   app.company.local" | sudo tee -a /etc/hosts
 echo "<external ip from gateway>   orders.company.local" | sudo tee -a /etc/hosts
