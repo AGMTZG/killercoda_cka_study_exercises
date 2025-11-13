@@ -9,7 +9,7 @@ Explore the labs online at [Killercoda AGMTZG](https://killercoda.com/agmtzg/cou
 ---
 
 ## How to Use
-1. Log in to the [Killercoda platform](https://www.killercoda.com/).  
+1. Log in to the [Killercoda platform](https://killercoda.com/).  
 2. Navigate to your labs at [Killercoda AGMTZG](https://killercoda.com/agmtzg/course/CKA).  
 3. Follow each step in the lab instructions and verify your work using the provided scripts.  
 
