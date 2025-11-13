@@ -2,13 +2,13 @@
 
 **Introduction** </br>
 
-In this lab, you will learn how to migrate from a Kubernetes Ingress configuration to the Gateway API using HTTP routes without TLS.
+In this lab, you will learn how to migrate from a Kubernetes Ingress configuration to the **Gateway API** using HTTP routes without **TLS**.
 
-The provided environment already includes all necessary components such as MetalLB, NGINX Gateway Fabric, and the NGINX Ingress Controller. You will not install them manually instead, the setup script will automatically prepare everything for you.
+The provided environment already includes all necessary components such as **MetalLB**, **NGINX Gateway Fabric**, and the **NGINX Ingress Controller**. You will not install them manually instead, the setup script will automatically prepare everything for you.
 
-MetalLB is used in this environment to simulate a LoadBalancer service on a bare-metal cluster, allowing the Gateway to function properly.
+**MetalLB** is used in this environment to simulate a LoadBalancer service on a bare-metal cluster, allowing the Gateway to function properly.
 
-The initialization process takes approximately 2 to 4 minutes, as the script installs and configures all dependencies before your Gateway becomes ready.
+The initialization process takes approximately **2-4 minutes**, as the script installs and configures all dependencies before your Gateway becomes ready.
 
 **Scenario** </br>
 
