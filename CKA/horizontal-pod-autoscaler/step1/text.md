@@ -4,7 +4,7 @@ Your team recently noticed performance degradation and pod failures in the **pro
 The issue appeared during peak traffic hours — some `web-app` pods were being **evicted** because the namespace’s **ResourceQuota** was fully consumed.  
 
 Currently, the `production` namespace restricts total CPU and memory usage to keep costs under control.  
-However, the `web-app` deployment uses **fixed replicas and static resource limits**, which causes it to exceed the quota when load increases.
+However, the `web-app` deployment runs with **6 fixed replicas** and **static resource limits**, which causes it to exceed the quota when load increases.
 
 Your task is to implement a **Horizontal Pod Autoscaler (HPA)** named `web-app` that scales the deployment dynamically based on CPU utilization.  
 This approach allows Kubernetes to allocate resources only when needed, maintaining performance without breaching quota restrictions.
