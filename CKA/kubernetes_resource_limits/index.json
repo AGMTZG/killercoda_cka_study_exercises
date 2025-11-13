@@ -14,7 +14,7 @@
     ],
     "assets": {
       "host01": [
-        {"file": "kubernetes.sh", "target": "~/", "chmod": "+x"}
+        {"file": "deploy.yaml", "target": "~/", "chmod": "+w"}
       ]
     },
     "finish": {
