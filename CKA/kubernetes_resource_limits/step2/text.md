@@ -1,14 +1,14 @@
 ### Check Node Resource Capacity
 
-In this step, we will inspect the available resources on each node in a Kubernetes cluster. Understanding node capacity and allocatable resources is crucial for diagnosing why some Pods might remain in a Pending state.
+In this step, we will inspect the available resources on each node in a Kubernetes cluster. Understanding **node capacity** and **allocatable resources** is crucial for diagnosing why some Pods might remain in a Pending state.
 
 Tasks:
 - List all nodes in the cluster to see their status and roles.
-- Describe each node to examine both the Capacity and Allocatable sections.
-- Analyze memory and CPU values to understand the limits for scheduling Pods.
-- Convert memory units from Ki to Mi for easier interpretation, which helps in planning resource requests for your Pods.
+- Describe each node to examine both the **Capacity** and **Allocatable** sections.
+- Analyze memory and **CPU** values to understand the limits for scheduling Pods.
+- Convert memory units from **Ki** to **Mi** for easier interpretation, which helps in planning resource requests for your Pods.
 
-The node reports memory in Ki (Kibibytes), so we need to convert it to Mi (Mebibytes) when comparing with Pod resource requests and limits.
+The node reports memory in **Ki** (Kibibytes), so we need to convert it to **Mi** (Mebibytes) when comparing with Pod resource requests and limits.
 
 ```bash
 heavy-deployment pods:
@@ -20,7 +20,7 @@ Requests:
       memory:     1536Mi
 ```
 
-Note: The capacity section shows the total hardware resources of the node and the allocatable section shows the resources available for Pods after Kubernetes reserves some memory and CPU for system processes.
+Note: The **capacity** section shows the total hardware resources of the node and the **allocatable** section shows the resources available for Pods after Kubernetes reserves some **memory** and **CPU** for system processes.
 
 <details>
 <summary>Show commands / answers</summary>

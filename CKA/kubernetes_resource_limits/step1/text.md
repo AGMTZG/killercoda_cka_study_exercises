@@ -1,14 +1,14 @@
 ### Inspect Pod Scheduling Issues
 
-In this step, you’ll troubleshoot a common production scenario where Pods remain in a Pending state due to resource constraints.
+In this step, you’ll troubleshoot a common production scenario where Pods remain in a **Pending state** due to resource constraints.
 
-In production, it’s common to encounter situations where some Pods cannot be scheduled because nodes don’t have enough CPU or memory. The goal here is to get all three Pods of your `heavy-deployment` running simultaneously. You will also learn how to investigate resource-related scheduling issues.
+In production, it’s common to encounter situations where some Pods cannot be scheduled because nodes don’t have enough CPU or memory. The goal here is to get all 3 Pods of your `heavy-deployment` running simultaneously. You will also learn how to investigate resource-related scheduling issues.
 
 Tasks:
 
 Task:
 
-- Inspect the Deployment heavy-deployment to identify which Pods are running and which are Pending.
+- Inspect the Deployment `heavy-deployment` to identify which Pods are running and which are **Pending**.
 
 - Describe any Pending Pod to view the scheduling events and understand why it cannot be scheduled.
 

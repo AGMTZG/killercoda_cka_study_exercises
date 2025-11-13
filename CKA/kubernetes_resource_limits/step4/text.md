@@ -1,14 +1,14 @@
 ### Update Deployment and Verify
 
-In this step, you will update the Deployment with the optimized memory requests and limits calculated in the previous step. The goal is to ensure that all three Pods are scheduled and running simultaneously without exceeding the available node resources.
+In this step, you will update the **Deployment** with the optimized memory requests and limits calculated in the previous step. The goal is to ensure that all **3 Pods** are **scheduled** and **running** simultaneously without exceeding the available node resources.
 
 Tasks:
 
-- Edit the deploy.yaml file located in the home folder to update the resources.requests and resources.limits for the container.
+- Edit the `deploy.yaml` file located in the home folder to update the **resources.requests** and **resources.limits** for the container.
 - Apply the updated Deployment to the cluster.
-- Verify that all three Pods are running by checking the Deployment and Pod status.
+- Verify that all **3 Pods** are running by checking the Deployment and Pod status.
 
-Observe how Kubernetes schedules Pods correctly when resources are properly allocated, maintaining cluster stability.Observe how Kubernetes schedules Pods when resources are adjusted properly, ensuring the cluster remains stable.
+Observe how Kubernetes **schedules** Pods correctly when resources are properly allocated, maintaining cluster stability.Observe how Kubernetes schedules Pods when resources are adjusted properly, ensuring the cluster remains stable.
 
 <details>
 <summary>Show commands / answers</summary>
