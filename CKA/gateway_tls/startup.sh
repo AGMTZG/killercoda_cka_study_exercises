@@ -26,10 +26,10 @@ echo -e "\033[96m[WAIT] Waiting for Gateway CRDs to be registered...\033[0m"
 for crd in nginxproxies.gateway.nginx.org nginxgateways.gateway.nginx.org; do
   for i in {1..30}; do
     if kubectl get crd "$crd" &>/dev/null; then
-      echo -e "\033[92m[INFO] CRD $crd is available.\033[0m"
+      echo -e "\033[96m[INFO] CRD $crd is available.\033[0m"
       break
     fi
-    echo -e "\033[93m[WAIT] Waiting for CRD $crd... ($i/30)\033[0m"
+    echo -e "\033[96m[WAIT] Waiting for CRD $crd... ($i/30)\033[0m"
     sleep 3
   done
 done
@@ -37,16 +37,9 @@ kubectl apply -f https://raw.githubusercontent.com/nginx/nginx-gateway-fabric/v2
 echo -e "\033[92m[INFO] Installing NGINX Ingress Controller...\033[0m"
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
 echo -e "\033[92m[INFO] Waiting for ingress-nginx controller to be ready...\033[0m"
-for i in {1..60}; do
-  running=$(kubectl get pods -n ingress-nginx -l app.kubernetes.io/component=controller --no-headers 2>/dev/null | grep -c 'Running' || true)
-  total=$(kubectl get pods -n ingress-nginx -l app.kubernetes.io/component=controller --no-headers 2>/dev/null | wc -l || true)
-  if [ "$total" -ge 1 ] && [ "$running" -ge 1 ]; then
-    echo -e "\033[92m[INFO] Ingress controller is ready!\033[0m"
-    break
-  fi
-  echo -e "\033[93m[WAIT] Waiting for ingress-nginx controller... ($i/60)\033[0m"
-  sleep 3
-done
+kubectl wait --namespace ingress-nginx --for=condition=Ready pod --selector=app.kubernetes.io/component=controller --timeout=180s || true
+echo -e "\033[92m[INFO]  Please wait 10 seconds... \033[0m"
+sleep 10
 echo -e "\033[95m[INFO] Installing cert-manager... \033[0m"
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
 echo -e "\033[93m[INFO] Installing setup...\033[0m"
