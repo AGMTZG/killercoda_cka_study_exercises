@@ -2,22 +2,22 @@
 
 **Introduction** </br>
 
-In this lab, you will learn how to migrate from a Kubernetes Ingress configuration to the Gateway API using NGINX Gateway Fabric, and enable TLS using either cert-manager or OpenSSL.
+In this lab, you will learn how to migrate from a Kubernetes Ingress configuration to the **Gateway API** using **NGINX Gateway Fabric**, and enable **TLS** using either **cert-manager** or **OpenSSL**.
 
-The provided environment already includes all required components such as MetalLB, cert-manager, NGINX Gateway Fabric, and the NGINX Ingress Controller.
+The provided environment already includes all required components such as **MetalLB**, **cert-manager**, **NGINX Gateway Fabric**, and the **NGINX Ingress Controller**.
 You won’t need to install these manually — the setup script will automatically configure everything for you.
 
-MetalLB is used to simulate a LoadBalancer service in a bare-metal environment, allowing the Gateway to properly expose services externally.
+**MetalLB** is used to simulate a LoadBalancer service in a bare-metal environment, allowing the Gateway to properly expose services externally.
 
-The initialization process typically takes 2–4 minutes, as the environment installs and configures all dependencies before your Gateway becomes ready.
+The initialization process typically takes **2–4 minutes**, as the environment installs and configures all dependencies before your Gateway becomes ready.
 
-Scenario </br>
+**Scenario** </br>
 
 You are given a Kubernetes cluster with multiple applications deployed, each with its own Deployment, Service, and ConfigMap.
 
-Currently, routing is managed through an Ingress using the NGINX Ingress Controller.
+Currently, routing is managed through an Ingress using the **NGINX Ingress Controller**.
 
-Your goal is to migrate this setup to the Gateway API using NGINX Gateway Fabric, while enabling TLS termination using cert-manager or manually generated certificates with OpenSSL.
+Your goal is to migrate this setup to the Gateway API using **NGINX Gateway Fabric**, while enabling **TLS** termination using **cert-manager** or manually generated certificates with **OpenSSL**.
 
 Current setup includes:
 
