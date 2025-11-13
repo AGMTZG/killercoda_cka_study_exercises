@@ -4,7 +4,7 @@ In this step, you will update the **Deployment** with the optimized memory reque
 
 Tasks:
 
-- Edit the `deploy.yaml` file located in the home folder to update the **resources.requests** and **resources.limits** for the container.
+- Edit the `deploy.yaml` file located in the **home** folder to update the **resources.requests** and **resources.limits** for the container.
 - Apply the updated Deployment to the cluster.
 - Verify that all **3 Pods** are running by checking the Deployment and Pod status.
 
@@ -20,6 +20,9 @@ Observe how Kubernetes **schedules** Pods correctly when resources are properly 
 <p>
 
 ```bash
+# Delete the current deployment
+kubectl delete deploy heavy-deployment
+
 # With this, we should modify the requests and the limits of the deployment
 # deploy.yaml
 apiVersion: apps/v1
@@ -56,7 +59,7 @@ spec:
             memory: "750Mi"
             cpu: "200m"
 
-# A limit around 750 Mi provides a reasonable buffer.
+# We set the limit slightly higher—750 Mi—to allow room for normal spikes.
 # We apply the new deployment and it should work!
 
 kubectl get deploy -w

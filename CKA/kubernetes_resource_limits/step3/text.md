@@ -38,8 +38,9 @@ Requests:
 
 2,048.375Mi  / 2 (number of replicas) = 1.024,1875 Mi (maximum limit per replica)
 
-# To avoid resource pressure on the node, memory requests should leave enough room for system components and normal workload variation.
-# Reducing the calculated value by ~30% gives:
+# The per-replica value is only a theoretical maximum. Real usage varies, so pods need a safety margin.
+# Reduce the value by 10%, 20%, or 30% depending on how bursty the workload is.
+# Example using a 30% reduction:
 
 1.024,1875 * .70 = 716,93125 Mi per pod
 ```
