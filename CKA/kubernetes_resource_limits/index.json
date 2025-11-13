@@ -12,20 +12,16 @@
       { "title": "Calculate Safe Memory Requests and Limits", "text": "step3/text.md" },
       { "title": "Update Deployment and Verify", "text": "step4/text.md", "verify": "step4/verify.sh" }
     ],
+    "assets": {
+      "host01": [
+        {"file": "kubernetes.sh", "target": "~/", "chmod": "+x"}
+      ]
+    },
     "finish": {
       "text": "finish.md"
     }
   },
   "backend": {
     "imageid": "kubernetes-kubeadm-2nodes"
-  },
-  "assets": {
-    "host01": [
-      {
-        "file": "deploy.yaml",
-        "target": "~/",
-        "chmod": "+w"
-      }
-    ]
   }
 }
