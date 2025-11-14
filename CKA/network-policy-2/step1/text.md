@@ -94,7 +94,7 @@ Labels: pod-template-hash=b5465c746
         service=redis
 ```
 
-# Same with backend
+Same with `backend`
 ```bash
 kubectl describe po backend-59dc864466-ddd5b -n webapp | grep -i labels -A10
 
