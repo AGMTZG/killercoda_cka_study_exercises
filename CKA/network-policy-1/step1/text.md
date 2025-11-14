@@ -23,20 +23,20 @@ Ensure that only the required traffic is allowed while maintaining existing rest
 Once done, you can test connectivity by executing from the client pod:
 
 ```bash
-kubectl exec -n mercury client -- curl -s http://server-service:5678
-kubectl exec -n mercury client -- curl -s http://logger-service:9880
+kubectl exec -n mercury client-xxx-xxx -- curl -s http://server-service:5678
+kubectl exec -n mercury client-xxx-xxx -- curl -s http://logger-service:9880
 ```
 
 <details>
 <summary>Show commands / answers</summary>
 <p>
 
+In the `mercury` namespace, the `client` pod was unable to communicate with the `backend` (**server-service:5678**) and `logger` (**logger-service:9880**) using their service names, even though it could reach the pods by IP.
+The root cause was that an existing `egress-blocker` NetworkPolicy blocked all outgoing traffic from the `client` pod, including requests to the cluster DNS, preventing service name resolution.
+The following NetworkPolicy fixes the issue:
+
+
 ```bash
-
-# In the mercury namespace, the client pod was unable to communicate with the backend (server-service:5678) and logger (logger-service:9880) using their service names, even though it could reach the pods by IP.
-# The root cause was that an existing egress-blocker NetworkPolicy blocked all outgoing traffic from the client pod, including requests to the cluster DNS, preventing service name resolution.
-# The following NetworkPolicy fixes the issue:
-
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
