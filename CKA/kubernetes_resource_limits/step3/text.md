@@ -1,13 +1,13 @@
 ### Calculate Safe Memory Requests and Limits
 
-Since the Deployment requests **1.5 GB** per Pod and we have two nodes with **2 GB** each, one Pod is **scheduled** on each node. This leaves only **0.5 GB** free per node, which is insufficient to schedule the third Pod, so it remains **pending**.
+Since the Deployment requests **1.5 GB** of memory per Pod, and we have one node with **2 GB** and another with **1.8 GB**, only one Pod can be scheduled on each node. This leaves very little free memory per node, which is insufficient to accommodate the **third** Pod, causing it to remain in a **Pending** state.
+Since your manager asked you not to reduce the number of replicas, the only option is to adjust the memory requests per Pod. So, we need to determine the maximum memory request that can be allocated on the node.
+We always schedule Pods on the node with the most **available memory**, so with this context:
 
-There are two possible approaches: 
+Your tasks: 
 - Reduce the number of replicas.
 - Adjust the memory requests for each Pod to ensure all **3 replicas** can be scheduled.
 
-Since your manager asked you not to reduce the number of replicas, the only option is to adjust the memory requests per Pod.
-So, we need to determine the maximum memory request that can be allocated on the node. 
 
 ```bash
 # Controlplane available memory:

@@ -1,6 +1,6 @@
 ### Check Node Resource Capacity
 
-In this step, we will inspect the available resources on each node in a Kubernetes cluster. Understanding **node capacity** and **allocatable resources** is crucial for diagnosing why some Pods might remain in a Pending state.
+In this step, we will inspect the available resources on each node in a Kubernetes cluster. Understanding node **capacity** and **allocatable resources** is crucial for diagnosing why some Pods might remain in a **Pending** state. In the previous step, we observed that the pod from the `heavy-deployment` was failing because the replicas were consuming more memory than the node could handle, which prevented the scheduler from placing all pods successfully. With this context, we are now ready to investigate the resources available on the node.
 
 Tasks:
 - List all nodes in the cluster to see their status and roles.
