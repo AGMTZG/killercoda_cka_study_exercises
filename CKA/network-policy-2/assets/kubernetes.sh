@@ -18,10 +18,10 @@ kubeadm init --cri-socket=unix:///var/run/containerd/containerd.sock --pod-netwo
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
+kubectl taint nodes ubuntu node-role.kubernetes.io/control-plane:NoSchedule-
 echo -e "\033[91m[INFO] Waiting for Calico pods to be ready...\033[0m"
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/calico.yaml \
 && kubectl wait --for=condition=Ready pod -l k8s-app=calico-node -n kube-system --timeout=180s \
 && kubectl wait --for=condition=Available deployment/calico-kube-controllers -n kube-system --timeout=180s
-kubectl taint nodes ubuntu node-role.kubernetes.io/control-plane:NoSchedule-
 kubectl create -f setup.yaml
 echo -e "\033[93m[INFO] Environment Ready \033[0m"
