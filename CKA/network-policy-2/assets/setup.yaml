@@ -91,7 +91,7 @@ spec:
       containers:
       - name: backend
         image: busybox
-        command: ["sh", "-c", "sleep 1h"]
+        command: ["sh", "-c", "nc -lk -p 4570"]
 
 ---
 
@@ -202,25 +202,17 @@ spec:
           component: alpha
           role: internal
           service: backend
+    ports:
+    - protocol: TCP
+      port: 6379
+    - protocol: TCP
+      port: 3306
+  - ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
 
----
-
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: internal-service-policy
-  namespace: webapp
-spec:
-  podSelector:
-    matchLabels:
-      service: database
-  policyTypes:
-  - Ingress
-  ingress:
-  - from:
-    - podSelector:
-        matchLabels:
-          service: backend
 ---
 
 apiVersion: networking.k8s.io/v1
@@ -239,3 +231,11 @@ spec:
     - podSelector:
         matchLabels:
           app: frontend
+    ports:
+    - port: 4570
+      protocol: TCP
+  - ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
