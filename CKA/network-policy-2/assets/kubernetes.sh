@@ -19,6 +19,8 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 kubectl taint nodes ubuntu node-role.kubernetes.io/control-plane:NoSchedule-
+sudo mkdir -p /mnt/disks/local
+sudo chmod -R 777 /mnt/disks/local
 echo -e "\033[91m[INFO] Waiting for Calico pods to be ready...\033[0m"
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/calico.yaml \
 && kubectl wait --for=condition=Ready pod -l k8s-app=calico-node -n kube-system --timeout=180s \
