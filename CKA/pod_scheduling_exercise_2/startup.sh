@@ -1,7 +1,6 @@
 #!/bin/sh
 
-set -e
-
+kubectl taint node controlplane node-role.kubernetes.io/control-plane:NoSchedule-
 kubectl taint node controlplane role=admin:NoExecute
 kubectl label node controlplane kubernetes.io/os=linux
 kubectl label node node01 tier=testing
