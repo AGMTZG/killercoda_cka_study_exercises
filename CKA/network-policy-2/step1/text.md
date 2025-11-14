@@ -18,7 +18,7 @@ Your task is to investigate the resources, labels, and NetworkPolicies to identi
 
 - Verify that connectivity is restored.
 
-## Important: Do not add more NetworkPolicies. You may only edit existing NetworkPolicies.
+## Important: Do not create or modify any NetworkPolicies.
 
 <details>
 <summary>Show commands / answers</summary>
@@ -110,46 +110,54 @@ List all network policies in the `webapp` namespace
 ```bash
 kubectl describe netpol -n webapp
 
-Name:         http-access
+Name:         deny-all
 Namespace:    webapp
-Created on:   2025-10-10 12:24:50 -0600 CST
-Labels:       <none>
-Annotations:  <none>
-Spec:
-  PodSelector:     tier=presentation
-  Allowing ingress traffic:
-    To Port: 80/TCP
-    From: <any> (traffic not restricted by source)
-  Not affecting egress traffic
-  Policy Types: Ingress
-
-
-Name:         ingress-from-local-environment
-Namespace:    webapp
-Created on:   2025-10-10 12:24:50 -0600 CST
+Created on:   2025-11-14 23:05:50 +0000 UTC
 Labels:       <none>
 Annotations:  <none>
 Spec:
   PodSelector:     <none> (Allowing the specific traffic to all pods in this namespace)
   Allowing ingress traffic:
-    To Port: <any> (traffic allowed to all ports)
+    <none> (Selected pods are isolated for ingress connectivity)
+  Not affecting egress traffic
+  Policy Types: Ingress
+
+
+Name:         internal-ops-policy
+Namespace:    webapp
+Created on:   2025-11-14 23:05:50 +0000 UTC
+Labels:       <none>
+Annotations:  <none>
+Spec:
+  PodSelector:     service=backend
+  Allowing ingress traffic:
+    To Port: 4570/TCP
     From:
-      NamespaceSelector: kubernetes.io/metadata.name in (webapp)
+      PodSelector: app=frontend
+    ----------
+    To Port: 53/TCP
+    To Port: 53/UDP
+    From: <any> (traffic not restricted by source)
   Not affecting egress traffic
   Policy Types: Ingress
 
 
 Name:         internal-role-access
 Namespace:    webapp
-Created on:   2025-10-10 12:24:50 -0600 CST
+Created on:   2025-11-14 23:05:50 +0000 UTC
 Labels:       <none>
 Annotations:  <none>
 Spec:
   PodSelector:     component=alpha
   Allowing ingress traffic:
-    To Port: <any> (traffic allowed to all ports)
+    To Port: 6379/TCP
+    To Port: 3306/TCP
     From:
       PodSelector: component=alpha,role=internal,service=backend
+    ----------
+    To Port: 53/TCP
+    To Port: 53/UDP
+    From: <any> (traffic not restricted by source)
   Not affecting egress traffic
   Policy Types: Ingress
 ```
@@ -157,6 +165,7 @@ Spec:
 Observing `internal-role-access` network policy:
 - spec.PodSelector: component=alpha
 - ingress.from.podSelector: matches all labels of backend pods
+- It can be accessed on ports 6379 and 3306
 - Redis pods need 'component: alpha' to allow access from backend pods
 
 ```bash
