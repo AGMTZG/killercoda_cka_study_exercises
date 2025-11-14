@@ -25,5 +25,7 @@ echo -e "\033[91m[INFO] Waiting for Calico pods to be ready...\033[0m"
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/calico.yaml \
 && kubectl wait --for=condition=Ready pod -l k8s-app=calico-node -n kube-system --timeout=180s \
 && kubectl wait --for=condition=Available deployment/calico-kube-controllers -n kube-system --timeout=180s
+echo -e "\033[91m[INFO]  Please wait 10 seconds... \033[0m"
+sleep 10
 kubectl create -f setup.yaml
 echo -e "\033[93m[INFO] Environment Ready \033[0m"
