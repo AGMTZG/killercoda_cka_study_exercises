@@ -41,10 +41,10 @@ Check the pods and deployments specifically in the 'webapp' namespace for the ba
 ```bash
 kubectl get po,deploy -n webapp | grep backend
 
-pod/backend-59dc864466-ddd5b   1/1     Running   0          10m
-pod/backend-59dc864466-tfxnd   1/1     Running   0          10m
-pod/backend-59dc864466-wlr44   1/1     Running   0          11m
-deployment.apps/backend    3/3     3            3           11m
+pod/backend-*****-*****   1/1     Running   0          10m
+pod/backend-*****-*****   1/1     Running   0          10m
+pod/backend-*****-*****   1/1     Running   0          11m
+deployment.apps/backend    3/3    3         3          11m
 ```
 
 Verify the image used by the `backend` deployment:
@@ -61,10 +61,10 @@ Get IP addresses of redis pods in the `webapp` namespace:
 ```bash
 kubectl get po,deploy -n webapp -o wide | grep -i redis
 
-pod/redis-b5465c746-dvzpj      1/1     Running   0          19m   10.244.120.76   minikube   <none>           <none>
-pod/redis-b5465c746-gs722      1/1     Running   0          19m   10.244.120.73   minikube   <none>           <none>
-pod/redis-b5465c746-lc6x6      1/1     Running   0          19m   10.244.120.75   minikube   <none>           <none>
-deployment.apps/redis      3/3     3            3           19m   redis        redis:alpine   service=redis
+pod/redis-*****-*****      1/1     Running   0          19m   <ip redis>  kubernetes-admin@kubernetes  <none>           <none>
+pod/redis-*****-*****      1/1     Running   0          19m   <ip redis>  kubernetes-admin@kubernetes  <none>           <none>
+pod/redis-*****-*****      1/1     Running   0          19m   <ip redis>  kubernetes-admin@kubernetes  <none>           <none>
+deployment.apps/redis      3/3     3         3          19m   redis       redis:alpine                 service=redis
 ```
 
 Confirm the port that the `redis` deployment is using:
@@ -77,10 +77,10 @@ Port:       6379/TCP
 Attempt to connect from a `backend` pod to a `redis` pod
 
 ```bash
-kubectl exec -it backend-59dc864466-ddd5b -n webapp -- nc -vz 10.244.120.79 6379
+kubectl exec -it backend-*****-***** -n webapp -- nc -vz <ip redis> 6379
 
 # We get:
-nc: connect to 10.244.120.79 port 6379 (tcp) failed: Connection refused
+nc: connect to <ip redis> port 6379 (tcp) failed: Connection refused
 command terminated with exit code 1
 # Connection fails -> likely blocked by a NetworkPolicy
 ```
@@ -88,18 +88,18 @@ command terminated with exit code 1
 Check labels on `redis` pods
 
 ```bash
-kubectl describe po redis-b5465c746-dvzpj -n webapp | grep -i labels -A10
+kubectl describe po redis-******-***** -n webapp | grep -i labels -A10
 
-Labels: pod-template-hash=b5465c746
+Labels: pod-template-hash=*****
         service=redis
 ```
 
 Same with `backend`
 ```bash
-kubectl describe po backend-59dc864466-ddd5b -n webapp | grep -i labels -A10
+kubectl describe po backend-*****-***** -n webapp | grep -i labels -A10
 
 Labels: component=alpha
-        pod-template-hash=59dc864466
+        pod-template-hash=*****
         role=internal
         service=backend
 ```
@@ -180,10 +180,10 @@ kubectl edit deploy redis -n webapp
 After updating, try connecting again from the `backend` pod
 
 ```bash
-kubectl exec -it backend-59dc864466-ddd5b -n webapp -- nc -vz 10.244.120.79 6379
+kubectl exec -it backend-*****-***** -n webapp -- nc -vz <ip redis> 6379
 
 # We get:
-10.244.120.79 (10.244.120.79:6379) open
+<ip redis> (<ip redis>:6379) open
 
 # Connection succeeds -> NetworkPolicy allows traffic now
 ```
