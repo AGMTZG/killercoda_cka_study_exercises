@@ -15,11 +15,6 @@
           "file": "setup.yaml",
           "target": "~/",
           "chmod": "+w"
-        },
-        {
-          "file": "kubernetes.sh",
-          "target": "~/",
-          "chmod": "+x"
         }
       ]
     },
@@ -28,6 +23,6 @@
     }
   },
   "backend": {
-    "imageid": "ubuntu"
+    "imageid": "kubernetes-kubeadm-1node"
   }
 }

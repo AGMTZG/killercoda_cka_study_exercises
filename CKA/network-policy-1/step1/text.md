@@ -1,6 +1,6 @@
 ### Allow Pod-to-Pod Communication in a Restricted Environment
 
-You are working in the mercury namespace, where several NetworkPolicies have already been applied to restrict pod communication.
+You are working in the `mercury` namespace, where several NetworkPolicies have already been applied to restrict pod communication.
 
 The system includes:
 
