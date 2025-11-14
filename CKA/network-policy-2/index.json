@@ -9,18 +9,18 @@
     "steps": [
       { "title": "Investigate and Fix NetworkPolicy Configuration",  "text": "step1/text.md", "verify": "step1/verify.sh" }
     ],
+    "assets": {
+      "host01": [
+        {
+          "file": "setup.yaml",
+          "target": "~/",
+          "chmod": "+w"
+        }
+      ]
+    },
     "finish": {
       "text": "finish.md"
     }
-  },
-  "assets": {
-    "host01": [
-      {
-        "file": "setup.yaml",
-        "target": "/root",
-        "chmod": "+w"
-      }
-    ]
   },
   "backend": {
     "imageid": "kubernetes-kubeadm-1node"

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-kubectl create -f /root/setup.yaml
+kubectl create -f setup.yaml
