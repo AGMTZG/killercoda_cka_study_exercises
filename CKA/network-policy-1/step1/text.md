@@ -16,7 +16,7 @@ Your task is to:
 
 - Create a new NetworkPolicy that allows the client pod to reach the backend and logger services using their service names (ClusterIP).
 
-**Do not modify or delete any existing NetworkPolicies**
+## Do not modify or delete any existing NetworkPolicies
 
 Ensure that only the required traffic is allowed while maintaining existing restrictions.
 
@@ -72,6 +72,13 @@ spec:
       port: 53
     - protocol: UDP
       port: 53
+```
+
+Now, we can test the connections:
+
+```bash
+kubectl exec -n mercury client-xxx-xxx -- curl -s http://server-service:5678
+kubectl exec -n mercury client-xxx-xxx -- curl -s http://logger-service:9880
 ```
 
 </p>
