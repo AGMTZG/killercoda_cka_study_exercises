@@ -4,7 +4,7 @@
   "details": {
     "intro": {
       "text": "intro.md",
-      "background": "startup.sh"
+      "foreground": "startup.sh"
     },
     "steps": [
       { "title": "Investigate and Fix NetworkPolicy Configuration",  "text": "step1/text.md", "verify": "step1/verify.sh" }
@@ -15,6 +15,11 @@
           "file": "setup.yaml",
           "target": "~/",
           "chmod": "+w"
+        },
+        {
+          "file": "kubernetes.sh",
+          "target": "~/",
+          "chmod": "+x"
         }
       ]
     },
@@ -23,6 +28,6 @@
     }
   },
   "backend": {
-    "imageid": "kubernetes-kubeadm-1node"
+    "imageid": "ubuntu"
   }
 }
