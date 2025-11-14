@@ -10,4 +10,4 @@ These exercises will help you practice defining policies that:
 
 You will be creating and applying policies without modifying existing configurations, testing how traffic flows under different restrictions.
 
-Press Next to start working with NetworkPolicies.
+Press **Next** to start working with NetworkPolicies.

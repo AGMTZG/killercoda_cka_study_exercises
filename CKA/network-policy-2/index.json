@@ -4,7 +4,7 @@
   "details": {
     "intro": {
       "text": "intro.md",
-      "foreground": "startup.sh"
+      "background": "startup.sh"
     },
     "steps": [
       { "title": "Investigate and Fix NetworkPolicy Configuration",  "text": "step1/text.md", "verify": "step1/verify.sh" }
