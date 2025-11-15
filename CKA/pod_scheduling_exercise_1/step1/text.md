@@ -7,17 +7,17 @@ You have a two-node cluster:
 - **controlplane**: Tainted with `role=backend:NoSchedule`
 - **node01**: Labeled with `env=dev`
 
-Your goal is to deploy four pods with specific placement rules:
+You need to deploy four pods, each with specific placement requirements:
 
-- **frontend**: Should try to be scheduled on the same node as the backend pod. The scheduler will prefer this placement with a weight of 100, and it can tolerate the taint on controlplane so the pod can run alongside backend if necessary. This ensures the preference can actually be satisfied.
+- **frontend**: Should prefer to be scheduled on the same node as the `backend` pod. This preference has a **weight** of `100`. Additionally, it can tolerate the taint on `controlplane` so it can run there if necessary.
 
-- **backend**: Should tolerate the restriction on controlplane (role=backend:NoSchedule) so it can be scheduled there. No other changes needed.
+- **backend**: Must tolerate the `role=backend:NoSchedule` taint on `controlplane` to allow scheduling there. Placement on `controlplane` is mandatory.
 
-- **cache**: Should avoid nodes labeled env=dev but can tolerate the taint on controlplane. This way, it can still be scheduled if controlplane is the only node left, avoiding un-schedulable pods.
+- **cache**: Should avoid nodes labeled `env=dev`, but it can tolerate the taint on `controlplane`. This ensures it can still be scheduled if `controlplane` is the only available node.
 
-- **db**: Must run on node01 and cannot be scheduled on any other node. No special tolerations are required.
+- **db**: Must run on `node01` and cannot be scheduled on any other node. No special tolerations are required.
 
-The YAML files can be found in the home directory.
+The YAML files can be found in the `home` directory.
 
 <details>
 <summary>Show commands / answers</summary>
