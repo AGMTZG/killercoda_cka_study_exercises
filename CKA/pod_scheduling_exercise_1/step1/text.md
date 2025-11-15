@@ -34,7 +34,7 @@ metadata:
 spec:
   tolerations:
   - key: role
-    operator: Equals
+    operator: Equal
     value: backend
     effect: NoSchedule
   affinity:
@@ -44,7 +44,7 @@ spec:
         podAffinityTerm:
           labelSelector:
             matchLabels:
-              app:backend
+              app: backend
           topologyKey: kubernetes.io/hostname
   containers:
   - name: frontend
@@ -64,7 +64,7 @@ metadata:
 spec:
   tolerations:
   - key: role
-    operator: Equals
+    operator: Equal
     value: backend
     effect: NoSchedule
   containers:
@@ -86,13 +86,13 @@ metadata:
 spec:
   tolerations:
   - key: role
-    operator: Equals
+    operator: Equal
     value: backend
     effect: NoSchedule
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerm:
+        nodeSelectorTerms:
         - matchExpressions:
           - key: env
             operator: NotIn
@@ -118,7 +118,7 @@ spec:
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerm:
+        nodeSelectorTerms:
         - matchExpressions:
           - key: env
             operator: In
