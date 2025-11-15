@@ -27,7 +27,6 @@ kind: Deployment
 metadata:
   name: signal-deploy
 spec:
-  priorityClass: signal-frame
   replicas: 3
   selector:
     matchLabels:
@@ -37,6 +36,7 @@ spec:
       labels:
         app: signal-deploy
     spec:
+      priorityClassName: signal-frame
       containers:
       - name: nginx
         image: nginx
