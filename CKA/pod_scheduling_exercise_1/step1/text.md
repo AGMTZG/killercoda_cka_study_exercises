@@ -9,13 +9,13 @@ You have a two-node cluster:
 
 You need to deploy four pods, each with specific placement requirements:
 
-- **frontend**: Should prefer to be scheduled on the same node as the `backend` pod. This preference has a **weight** of `100`. Additionally, it can tolerate the taint on `controlplane` so it can run there if necessary.
+- **frontend** (`app: frontend`): Should prefer to be scheduled on the same node as the `backend` pod. This preference has a **weight** of `100`. Additionally, it can tolerate the taint on `controlplane` so it can run there if necessary.
 
-- **backend**: Must tolerate the `role=backend:NoSchedule` taint on `controlplane` to allow scheduling there. Placement on `controlplane` is mandatory.
+- **backend** (`app: backend`): Must tolerate the `role=backend:NoSchedule` taint on `controlplane` to allow scheduling there. Placement on `controlplane` is mandatory.
 
-- **cache**: Should avoid nodes labeled `env=dev`, but it can tolerate the taint on `controlplane`. This ensures it can still be scheduled if `controlplane` is the only available node.
+- **cache** (`app: cache`): Should avoid nodes labeled `env=dev`, but it can tolerate the taint on `controlplane`. This ensures it can still be scheduled if `controlplane` is the only available node.
 
-- **mysql**: Must run on `node01` and cannot be scheduled on any other node. No special tolerations are required.
+- **mysql** (`app: mysql`): Must run on `node01` and cannot be scheduled on any other node. No special tolerations are required.
 
 The YAML files can be found in the `home` directory.
 

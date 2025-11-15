@@ -9,13 +9,13 @@ You have a two-node cluster:
 
 You need to deploy four pods with specific placement rules:
 
-- **api**(service=api): Should prefer to be scheduled on the same node as the `auth` pod, with a **preference** weight of `100`. It can tolerate the taint on `controlplane` to allow colocation with `auth` if necessary. Additionally, it should avoid nodes running the `logger` pod using a soft **anti-affinity** rule.
+- **api** (`service: api`): Should prefer to be scheduled on the same node as the `auth` pod, with a **preference** weight of `100`. It can tolerate the taint on `controlplane` to allow colocation with `auth` if necessary. Additionally, it should avoid nodes running the `logger` pod using a soft **anti-affinity** rule.
 
-- **auth**(service=auth): Must tolerate the `role=admin:NoExecute` taint on `controlplane` to allow scheduling there. Placement on `controlplane` is mandatory.
+- **auth** (`service: auth`): Must tolerate the `role=admin:NoExecute` taint on `controlplane` to allow scheduling there. Placement on `controlplane` is mandatory.
 
-- **logger**(service=logger): Should avoid nodes labeled `tier=testing`, but can tolerate the taint on `controlplane`. It must run on **Linux nodes** only.
+- **logger** (`service: logger`): Should avoid nodes labeled `tier=testing`, but can tolerate the taint on `controlplane`. It must run on **Linux nodes** only.
 
-- **db**(service=db): Preferred to run on `node01` with a **weight** of `100`.
+- **db** (`service: db`): Preferred to run on `node01` with a **weight** of `100`.
 
 The YAML files can be found in the **home** directory.
 
