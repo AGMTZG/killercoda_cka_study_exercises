@@ -26,7 +26,8 @@ RUNNING=$(kubectl get pods -l app=signal-deploy --no-headers | grep -c "Running"
 if [[ "$RUNNING" -eq 3 ]]; then
   echo "All 3 pods are running."
 else
-  echo "Some pods are not running. Checking for evicted pods..."
+  echo "Pods are not running."
+  exit 1
 fi
 
 # Check for evicted pods
@@ -35,4 +36,5 @@ if [[ "$EVICTED" -gt 0 ]]; then
   echo "Found $EVICTED evicted pods. This indicates scheduling preemption due to resource pressure."
 else
   echo "No pods were evicted during scheduling."
+  exit 1
 fi
