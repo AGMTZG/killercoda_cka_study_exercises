@@ -10,14 +10,14 @@
       { "title": "Create the new PriorityClass and save the priority lookup command for audit", "text": "step1/text.md", "verify": "step1/verify.sh" },
       { "title": "Deploy an application using the new PriorityClass and verify evicted pods", "text": "step2/text.md", "verify": "step2/verify.sh"}
     ],
+    "assets": {
+      "host01": [
+        {"file": "setup.yaml", "target": "~/", "chmod": "+w"}
+      ]
+    },
     "finish": {
       "text": "finish.md"
     }
-  },
-  "assets": {
-    "host01": [
-      {"file": "setup.yaml", "target": "~/", "chmod": "+w"}
-    ]
   },
   "backend": {
     "imageid": "kubernetes-kubeadm-1node"
