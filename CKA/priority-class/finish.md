@@ -12,6 +12,16 @@ In this exercise, you learned how to:
 
 - Inspect and verify priority assignments across running pods.
 
-Mastering these concepts helps you maintain predictable behavior when your cluster faces resource pressure, ensuring critical workloads get the capacity they need.
+**Important**
+
+It’s important to recognize that **preempt** and **evicted** refer to different behaviors in Kubernetes:
+
+**Preempt**:
+The scheduler terminates a lower-priority pod to free space so a higher-priority pod can be scheduled.
+
+**Evicted**:
+The kubelet removes a running pod because the node runs out of resources (memory, disk, etc.), regardless of priority.
+
+Understanding this distinction helps you reason more clearly about why pods disappear and who is responsible(the scheduler or the kubelet).
 
 You solved this challenge!
