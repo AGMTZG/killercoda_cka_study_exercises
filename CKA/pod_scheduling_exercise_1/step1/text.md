@@ -67,6 +67,15 @@ spec:
     operator: Equal
     value: backend
     effect: NoSchedule
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - controlplane
   containers:
   - name: backend
     image: busybox
