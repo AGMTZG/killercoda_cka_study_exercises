@@ -15,7 +15,7 @@ You need to deploy four pods, each with specific placement requirements:
 
 - **cache**: Should avoid nodes labeled `env=dev`, but it can tolerate the taint on `controlplane`. This ensures it can still be scheduled if `controlplane` is the only available node.
 
-- **db**: Must run on `node01` and cannot be scheduled on any other node. No special tolerations are required.
+- **mysql**: Must run on `node01` and cannot be scheduled on any other node. No special tolerations are required.
 
 The YAML files can be found in the `home` directory.
 
@@ -116,13 +116,13 @@ spec:
   dnsPolicy: ClusterFirst
   restartPolicy: Never
 
-# Db
+# mysql
 apiVersion: v1
 kind: Pod
 metadata:
   name: mysql
   labels:
-    app: db
+    app: mysql
 spec:
   affinity:
     nodeAffinity:
