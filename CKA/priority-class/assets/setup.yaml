@@ -46,7 +46,40 @@ spec:
   priorityClassName: nebula-phase
   containers:
   - name: core-unit
-    image: nginx
+    image: alpine:latest
+    command: ["sh", "-c"]
+    args:
+      - |
+        echo "eating memory...";
+        MEM="";
+        while true; do
+          MEM="$MEM$(head -c 500M </dev/zero)";
+          sleep 2;
+        done
+    resources:
+      requests:
+        memory: "200Mi"
+      limits:
+        memory: "272Mi"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-drift-one
+spec:
+  priorityClassName: drift-sequence
+  containers:
+  - name: drift-core
+    image: alpine:latest
+    command: ["sh", "-c"]
+    args:
+      - |
+        echo "eating memory...";
+        MEM="";
+        while true; do
+          MEM="$MEM$(head -c 500M </dev/zero)";
+          sleep 2;
+        done
     resources:
       requests:
         memory: "200Mi"
@@ -57,32 +90,27 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-drift-one
-spec:
-  priorityClassName: drift-sequence
-  containers:
-  - name: drift-core
-    image: nginx
-    resources:
-      requests:
-        memory: "200Mi"
-      limits:
-        memory: "272Mi"
----
-apiVersion: v1
-kind: Pod
-metadata:
   name: pod-drift-two
 spec:
   priorityClassName: drift-sequence
   containers:
   - name: drift-core
-    image: nginx
+    image: alpine:latest
+    command: ["sh", "-c"]
+    args:
+      - |
+        echo "eating memory...";
+        MEM="";
+        while true; do
+          MEM="$MEM$(head -c 500M </dev/zero)";
+          sleep 2;
+        done
     resources:
       requests:
         memory: "200Mi"
       limits:
         memory: "272Mi"
+
 ---
 apiVersion: v1
 kind: Pod
@@ -92,12 +120,22 @@ spec:
   priorityClassName: echo-frame
   containers:
   - name: echo-unit
-    image: nginx
+    image: alpine:latest
+    command: ["sh", "-c"]
+    args:
+      - |
+        echo "eating memory...";
+        MEM="";
+        while true; do
+          MEM="$MEM$(head -c 500M </dev/zero)";
+          sleep 2;
+        done
     resources:
       requests:
         memory: "200Mi"
       limits:
         memory: "272Mi"
+
 ---
 apiVersion: v1
 kind: Pod
@@ -107,12 +145,22 @@ spec:
   priorityClassName: echo-frame
   containers:
   - name: echo-unit
-    image: nginx
+    image: alpine:latest
+    command: ["sh", "-c"]
+    args:
+      - |
+        echo "eating memory...";
+        MEM="";
+        while true; do
+          MEM="$MEM$(head-c 500M </dev/zero)";
+          sleep 2;
+        done
     resources:
       requests:
         memory: "200Mi"
       limits:
         memory: "272Mi"
+
 ---
 apiVersion: v1
 kind: Pod
@@ -122,12 +170,22 @@ spec:
   priorityClassName: pulse-node
   containers:
   - name: pulse-unit
-    image: nginx
+    image: alpine:latest
+    command: ["sh", "-c"]
+    args:
+      - |
+        echo "eating memory...";
+        MEM="";
+        while true; do
+          MEM="$MEM$(head -c 500M </dev/zero)";
+          sleep 2;
+        done
     resources:
       requests:
         memory: "200Mi"
       limits:
         memory: "272Mi"
+
 ---
 apiVersion: v1
 kind: Pod
@@ -137,7 +195,16 @@ spec:
   priorityClassName: shade-pattern
   containers:
   - name: shade-core
-    image: nginx
+    image: alpine:latest
+    command: ["sh", "-c"]
+    args:
+      - |
+        echo "eating memory...";
+        MEM="";
+        while true; do
+          MEM="$MEM$(head -c 500M </dev/zero)";
+          sleep 2;
+        done
     resources:
       requests:
         memory: "200Mi"
