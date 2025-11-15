@@ -4,20 +4,20 @@
 
 You have a two-node cluster:
 
-- **controlplane**: Linux node (kubernetes.io/os=linux) tainted with role=admin:NoExecute.
+- **controlplane**: Linux node (`kubernetes.io/os=linux`) tainted with `role=admin:NoExecute`.
 - **node01**: Labeled with `tier=testing`
 
-Your goal is to deploy four pods with specific placement rules:
+You need to deploy four pods with specific placement rules:
 
-- **api**(service=api): Should try to be scheduled together with the auth pod. The scheduler will prefer this placement with weight 100, and it can tolerate the taint on controlplane so it can be colocated with auth if needed. Should avoid nodes running the logger pod using a soft anti-affinity.
+- **api**(service=api): Should prefer to be scheduled on the same node as the `auth` pod, with a **preference** weight of `100`. It can tolerate the taint on `controlplane` to allow colocation with `auth` if necessary. Additionally, it should avoid nodes running the `logger` pod using a soft **anti-affinity** rule.
 
-- **auth**(service=auth): Should tolerate the role=admin:NoExecute taint on controlplane so it can run there.
+- **auth**(service=auth): Must tolerate the `role=admin:NoExecute` taint on `controlplane` to allow scheduling there. Placement on `controlplane` is mandatory.
 
-- **logger**(service=logger): Should avoid nodes labeled tier=testing, but can tolerate the taint on controlplane. Should only run on Linux nodes.
+- **logger**(service=logger): Should avoid nodes labeled `tier=testing`, but can tolerate the taint on `controlplane`. It must run on **Linux nodes** only.
 
-- **db**(service=db): Preferred to run on node01 with a weight of 100.
+- **db**(service=db): Preferred to run on `node01` with a **weight** of `100`.
 
-The YAML files can be found in the home directory.
+The YAML files can be found in the **home** directory.
 
 <details>
 <summary>Show commands / answers</summary>
@@ -34,7 +34,7 @@ metadata:
 spec:
   tolerations:
   - key: role
-    operator: Equals
+    operator: Equal
     value: admin
     effect: NoExecute
   affinity:
@@ -70,9 +70,18 @@ metadata:
 spec:
   tolerations:
   - key: role
-    operator: Equals
+    operator: Equal
     value: admin
     effect: NoExecute
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - controlplane
   containers:
   - name: auth
     image: busybox
@@ -90,21 +99,22 @@ metadata:
 spec:
   tolerations:
   - key: role
-    operator: Equals
+    operator: Equal
     value: admin
     effect: NoExecute
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerm:
+        nodeSelectorTerms:
         - matchExpressions:
           - key: tier
             operator: NotIn
             values:
             - testing
-          - key: "kubernetes.io/os"
-            operator: "In"
-            values: ["linux"]
+          - key: kubernetes.io/os
+            operator: In
+            values:
+            - linux
   containers:
   - name: logger
     image: busybox
