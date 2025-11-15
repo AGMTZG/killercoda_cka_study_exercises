@@ -1,7 +1,7 @@
-### Create the new PriorityClass and save the priority lookup command for audit
+### Create a new PriorityClass
 
 The cluster currently hosts multiple workloads assigned to different **PriorityClasses**: `nebula-phase`, `drift-sequence`, `echo-frame`, `pulse-node`, and `shade-pattern`.
-Each class defines the importance of its workloads when Kubernetes decides which pods to schedule or evict under resource pressure.
+Each class defines how important its workloads are when Kubernetes selects which pods should be scheduled or replaced during resource contention.
 
 You’ve been tasked with introducing a new scheduling tier that fits precisely between two existing priority levels.
 

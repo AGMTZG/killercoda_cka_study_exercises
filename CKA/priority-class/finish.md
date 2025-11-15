@@ -1,13 +1,17 @@
 Well done! 
 
-You’ve successfully explored how Kubernetes uses `PriorityClass` objects to manage workload scheduling and eviction under resource constraints. By defining and applying custom priority levels, you observed how the scheduler determines which pods should remain active and which are evicted when resources become scarce.
+You’ve explored how Kubernetes uses **PriorityClass** to influence scheduling behavior when resources are limited. By defining and applying custom priority levels, you observed how the scheduler decides which workloads stay running and which ones get preempted to make room for higher-priority pods.
 
-Throughout this exercise, you learned:
-- How to create and register new `PriorityClass` resources.  
-- How pod scheduling decisions change based on assigned priorities.  
-- How eviction occurs when higher-priority workloads need space on limited nodes.  
-- How to inspect and verify the priorities of pods running in the cluster.  
+In this exercise, you learned how to:
 
-Understanding these concepts is essential for maintaining a stable and efficient Kubernetes environment, especially when dealing with production workloads that compete for limited cluster resources.  
+- Create and register new **PriorityClass** objects.
+
+- See how scheduling decisions shift based on pod priority.
+
+- Observe **preemption** when higher-priority workloads require node capacity.
+
+- Inspect and verify priority assignments across running pods.
+
+Mastering these concepts helps you maintain predictable behavior when your cluster faces resource pressure, ensuring critical workloads get the capacity they need.
 
 You solved this challenge!

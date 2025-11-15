@@ -30,11 +30,10 @@ else
   exit 1
 fi
 
-# Check for evicted pods
-EVICTED=$(kubectl get pods --all-namespaces --no-headers 2>/dev/null | grep -c "Evicted")
-if [[ "$EVICTED" -gt 0 ]]; then
-  echo "Found $EVICTED evicted pods. This indicates scheduling preemption due to resource pressure."
+PREEMPTED=$(kubectl get events --all-namespaces --no-headers 2>/dev/null | grep -c "Preempted")
+if [[ "$PREEMPTED" -gt 0 ]]; then
+  echo "Detected $PREEMPTED preemption event(s). Lower-priority pods were removed to make room for higher-priority workloads."
 else
-  echo "No pods were evicted during scheduling."
+  echo "No preemption events detected."
   exit 1
 fi
