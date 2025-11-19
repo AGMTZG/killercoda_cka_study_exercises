@@ -15,8 +15,6 @@ Key components you’ll work with:
 - **Gateway**: Specifies where and how traffic enters a namespace.  
 - **HTTPRoute**: Routes traffic from a Gateway to one or more backend services.  
 
-**Important: Using Minikube requires `minikube tunnel` to expose Gateways with LoadBalancer IPs, allowing you to test external traffic routing locally.**
-
 In this scenario, you’ll install the required **CRDs**, **NGINX Gateway Fabric**, and **MetalLB**, then create a Gateway and HTTPRoute.
 
 Press **Next** to start setting up your Gateway.
