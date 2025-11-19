@@ -1,6 +1,6 @@
 {
   "title": "Install and Configure a Simple Gateway in Kubernetes",
-  "description": "Install required CRDs, NGINX Fabric, MetalLB, and configure a Gateway API to route HTTP traffic to a backend service called webapp in the production namespace.",
+  "description": "Install required CRDs, NGINX Fabric, MetalLB, and configure a Gateway API to route HTTP traffic to a backend service called webapp.",
   "details": {
     "intro": {
       "text": "intro.md"
