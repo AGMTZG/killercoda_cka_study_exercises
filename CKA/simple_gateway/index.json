@@ -1,0 +1,23 @@
+{
+  "title": "Install and Configure a Simple Gateway in Kubernetes",
+  "description": "Install required CRDs, NGINX Fabric, MetalLB, and configure a Gateway API to route HTTP traffic to a backend service called webapp in the production namespace.",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      { "title": "Install Gateway CRDs", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "Install NGINX Gateway Fabric", "text": "step2/text.md", "verify": "step2/verify.sh" },
+      { "title": "Install MetalLB and Configure LoadBalancer", "text": "step3/text.md", "verify": "step3/verify.sh" },
+      { "title": "Create a Nginx Deployment with a clusterIP Service", "text": "step4/text.md", "verify": "step4/verify.sh" },
+      { "title": "Create a Gateway", "text": "step5/text.md", "verify": "step5/verify.sh" },
+      { "title": "Create HTTPRoute for webapp and test the connection", "text": "step6/text.md", "verify": "step6/verify.sh" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-minikube-1node"
+  }
+}
