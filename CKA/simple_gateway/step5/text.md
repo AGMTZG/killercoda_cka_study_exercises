@@ -27,7 +27,7 @@ kind: Gateway
 metadata:
   name: my-gateway
 spec:
-  gatewayClassName: my-gateway
+  gatewayClassName: nginx
   listeners:
   - protocol: HTTP
     port: 80
