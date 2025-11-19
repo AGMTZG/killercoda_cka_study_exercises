@@ -12,3 +12,5 @@ By installing NGINX Gateway Fabric, your cluster can handle HTTP and HTTPS traff
 kubectl apply --server-side -f https://raw.githubusercontent.com/nginx/nginx-gateway-fabric/v2.1.0/deploy/crds.yaml
 kubectl apply -f https://raw.githubusercontent.com/nginx/nginx-gateway-fabric/v2.1.0/deploy/default/deploy.yaml
 ```
+
+Note: Wait briefly before moving to the next step to ensure that NginxGatewayFabric has initialized successfully.
