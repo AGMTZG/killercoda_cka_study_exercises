@@ -10,16 +10,17 @@ MetalLB assigns external IPs from a defined IP pool. Without this pool, it would
 
 **Tasks:**
 
-1. Apply the MetalLB manifests and wait for the pods to be ready. You can monitor their status in the `metallb-system` namespace, Use the following command to apply MetalLB manifests.
+1. Apply the MetalLB manifests and wait for the pods to become ready. You can monitor their status in the `metallb-system namespace`. Use the following command to deploy MetalLB. Make sure all MetalLB pods are running before proceeding.
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.9/config/manifests/metallb-native.yaml
 ```
 
-2. Find the network interface used by your Minikube or kubeadm cluster.
+2. Find the network interface used by your kubeadm cluster.
 
 ```bash
-Run `ip addr show` to check your network interfaces.
+# Run this command to check your network interfaces.
+ip addr show
 
 # Example output for the main network interface:
 enp1s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
@@ -27,8 +28,8 @@ enp1s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group
     inet 172.30.1.2/24 brd 172.30.1.255 scope global dynamic noprefixroute enp1s0
     inet6 fe80::434:4cd3:e11f:8178/64 scope link
 
-# The main network interface is `enp1s0` with IP `172.30.1.2/24`.
-# This means your local network is in the `172.30.1.0/24` subnet.
+# The main network interface is: enp1s0 with IP: 172.30.1.2/24.
+# This means your local network is in the 172.30.1.0/24 subnet.
 # Choose a small block of free IP addresses within this range for MetalLB, for example:
 
 172.30.1.240-172.30.1.250

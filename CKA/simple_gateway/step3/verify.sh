@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check if the IPAddressPool lb-pool exists in metallb-system namespace
-POOL=$(kubectl get ippools -n metallb-system lb-pool --no-headers 2>/dev/null)
+POOL=$(kubectl get ipaddresspools.metallb.io -n metallb-system lb-pool --no-headers 2>/dev/null)
 
 if [[ -n "$POOL" ]]; then
   echo "IPAddressPool 'lb-pool' exists."
