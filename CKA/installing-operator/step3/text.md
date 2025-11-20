@@ -19,6 +19,8 @@ Tasks:
 
 - You will create a **PodMonitor** named `nginx-monitor` in the namespace `monitoring`, labeled `release=prometheus`, which instructs Prometheus to scrape metrics directly from the Nginx Pod.
 
+Note: It may take a moment for the monitoring resource to be created, so please wait a bit.
+
 <details>
 <summary>Show commands / answers</summary>
 <p>
