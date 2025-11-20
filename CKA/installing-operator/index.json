@@ -1,0 +1,21 @@
+{
+  "title": "Install Prometheus Operator on Kubernetes",
+  "description": "In this scenario, you will install the Prometheus Operator on a Kubernetes cluster using Helm.",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      { "title": "Create a Monitoring Namespace and Add the Kube Prometheus Stack Helm Repository", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "Set Up ClusterRole, ServiceAccount, and ClusterRoleBinding for Prometheus", "text": "step2/text.md", "verify": "step2/verify.sh" },
+      { "title": "Deploy a Monitoring Resource for an Nginx Pod", "text": "step3/text.md", "verify": "step3/verify.sh" },
+      { "title": "Access the Prometheus Pod and Verify Metrics Exposure", "text": "step4/text.md", "verify": "step4/verify.sh" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
