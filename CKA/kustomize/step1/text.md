@@ -4,6 +4,7 @@ In this step, you will customize the development environment for the database us
 
 You will:
 
+- Create a `kustomization.yaml` file inside the base folder and add the `headless-service.yaml` and `statefulset.yaml` files under resources in the `kustomization.yaml`.
 - In your home directory, inside the `app` folder, create an `overlays` folder with a `subfolder dev`. Place the `kustomization.yaml` file inside `overlays/dev`.
 - Update the MySQL image to `mysql:dev`.
 - Add the label `env: dev` to all resources.
@@ -19,6 +20,17 @@ After completing these tasks, your **dev** overlay will be ready for deployment.
 <p>
 
 ```bash
+~/app
+└── base
+    └── headless-service.yaml
+    └── statefulset.yaml
+    └── kustomization.yaml
+
+# kustomization.yaml
+resources:
+- statefulset.yaml
+- service.yaml
+
 ~/app
 └── overlays
     └── dev
