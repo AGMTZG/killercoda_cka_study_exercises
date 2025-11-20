@@ -5,13 +5,13 @@ Before installing the Prometheus Operator, we need to prepare our Kubernetes clu
 
 Tasks:
 - Create a namespace called `monitoring` to keep all monitoring resources organized.
-- Add the Prometheus community Helm repository using the following link and update your local Helm chart list.
+- Add the Prometheus community Helm repository, making sure to register it under the name `prometheus-community`, using the URL below, and then update your local chart index.
 
 ```bash
 https://prometheus-community.github.io/helm-charts
 ```
 
-- Search for and install the **Kube Prometheus Stack** as `kube-prometheus-stack` in the `monitoring` namespace.
+- Install the **Kube Prometheus Stack** by selecting the chart `kube-prometheus-stack` from the `prometheus-community` repository, and deploy it under the release name `prometheus` in the `monitoring` namespace.
 - Verify that the Prometheus pods are running correctly.
 
 <details>
