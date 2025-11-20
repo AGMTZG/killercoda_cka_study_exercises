@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 # Verify ClusterRole
 if ! kubectl get clusterrole prometheus &> /dev/null; then
