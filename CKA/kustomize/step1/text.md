@@ -4,13 +4,20 @@ In this step, you will customize the development environment for the database us
 
 You will:
 
-- Create a `kustomization.yaml` file inside the base folder and add the `headless-service.yaml` and `statefulset.yaml` files under resources in the `kustomization.yaml`.
-- In your home directory, inside the `app` folder, create an `overlays` folder with a `subfolder dev`. Place the `kustomization.yaml` file inside `overlays/dev`.
+- Create a `kustomization.yaml` file inside the `base` folder, which is located in the `app` folder in your **home directory** and add the `headless-service.yaml` and `statefulset.yaml` files under resources in the `kustomization.yaml`.
+
+- In your **home directory**, inside the `app` folder, create an `overlays` folder with a `subfolder dev`. Place the `kustomization.yaml` file inside `overlays/dev`.
+
 - Update the MySQL image to `mysql:dev`.
+
 - Add the label `env: dev` to all resources.
+
 - Create a `patch.json` file to set the environment variable `DEBUG=true`.
+
 - In the same `patch.json`, define an initContainer using the BusyBox image to adjust permissions on `/var/lib/mysql`.
+
 - Create a ConfigMap named `db_host` with database host and password.
+
 - Create a Secret named `db_secret` with username and password.
 
 After completing these tasks, your **dev** overlay will be ready for deployment.
