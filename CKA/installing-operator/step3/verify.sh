@@ -3,132 +3,88 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-DEBUG=${DEBUG:-0}
+NAMESPACE_POD="default"
+NAMESPACE_MON="monitoring"
+POD_NAME="nginx"
+PODMON_NAME="nginx-monitor"
 
-info() { [ "$DEBUG" -eq 1 ] && echo "[DEBUG] $*"; }
-
+# -----------------------------
 # Check Pod exists
-kubectl get pod nginx -n default >/dev/null 2>&1 || {
-  echo "Nginx pod not found in default namespace"
+# -----------------------------
+kubectl get pod "$POD_NAME" -n "$NAMESPACE_POD" >/dev/null 2>&1 || {
+  echo "Pod '$POD_NAME' not found in namespace '$NAMESPACE_POD'."
   exit 1
 }
 
-# Check pod port name using YAML + awk (handles "- name: ..." and "name: ...")
-PORT_NAME=$(kubectl get pod nginx -n default -o yaml \
+PORT_NAME=$(kubectl get pod "$POD_NAME" -n "$NAMESPACE_POD" -o jsonpath='{.spec.containers[0].ports[0].name}')
+
+# -----------------------------
+# Check PodMonitor exists
+# -----------------------------
+kubectl get podmonitor "$PODMON_NAME" -n "$NAMESPACE_MON" >/dev/null 2>&1 || {
+  echo "PodMonitor '$PODMON_NAME' not found in namespace '$NAMESPACE_MON'."
+  exit 1
+}
+
+LABEL=$(kubectl get podmonitor "$PODMON_NAME" -n "$NAMESPACE_MON" -o jsonpath='{.metadata.labels.release}')
+SELECTOR=$(kubectl get podmonitor "$PODMON_NAME" -n "$NAMESPACE_MON" -o jsonpath='{.spec.selector.matchLabels.run}')
+
+# -----------------------------
+# Check namespaceSelector robusto
+# -----------------------------
+NS=$(kubectl get podmonitor "$PODMON_NAME" -n "$NAMESPACE_MON" -o yaml \
   | awk '
-    /ports:/ {in_ports=1; next}
-    in_ports {
-      # stop if new top-level section starts (same or less indent than "ports")
-      if ($0 ~ /^[^[:space:]]/) exit
-      # strip leading "- " or spaces
-      line = $0
-      sub(/^[[:space:]]*-?[[:space:]]*/, "", line)
-      if (line ~ /^name:[[:space:]]*/) {
-        sub(/^name:[[:space:]]*/, "", line)
+      /namespaceSelector:/ {in_ns=1}
+      in_ns && /matchNames:/ {in_match=1; next}
+      in_match {
+        if ($1 !~ /^-/) { in_match=0; next }
+        line=$0
+        sub(/^[[:space:]]*-[[:space:]]*/, "", line)
         print line
         exit
       }
-    }
-  ' | tr -d '"' )
+    ' | tr -d '"')
 
-info "Port name read: '$PORT_NAME'"
-
-if [ "$PORT_NAME" != "nginx" ]; then
-  echo "The container port name must be 'nginx' but found '$PORT_NAME'"
-  exit 1
-fi
-
-# Check PodMonitor exists
-kubectl get podmonitor nginx-monitor -n monitoring >/dev/null 2>&1 || {
-  echo "PodMonitor 'nginx-monitor' not found."
-  exit 1
-}
-
-# Check release label
-LABEL=$(kubectl get podmonitor nginx-monitor -n monitoring -o yaml \
-  | awk '
-    /labels:/ {f=1; next}
-    f {
-      if ($0 ~ /^[^[:space:]]/) exit
-      line=$0; sub(/^[[:space:]]*-?[[:space:]]*/, "", line)
-      if (line ~ /^release:[[:space:]]*/) {
-        sub(/^release:[[:space:]]*/, "", line)
-        print line; exit
-      }
-    }
-  ' | tr -d '"' )
-
-info "Label read: '$LABEL'"
-
-if [ "$LABEL" != "prometheus" ]; then
-  echo "PodMonitor missing required release=prometheus label"
-  exit 1
-fi
-
-# Check selector label
-SELECTOR=$(kubectl get podmonitor nginx-monitor -n monitoring -o yaml \
-  | awk '
-    /matchLabels:/ {f=1; next}
-    f {
-      if ($0 ~ /^[^[:space:]]/) exit
-      line=$0; sub(/^[[:space:]]*-?[[:space:]]*/, "", line)
-      if (line ~ /^run:[[:space:]]*/) {
-        sub(/^run:[[:space:]]*/, "", line)
-        print line; exit
-      }
-    }
-  ' | tr -d '"' )
-
-info "Selector read: '$SELECTOR'"
-
-if [ "$SELECTOR" != "nginx" ]; then
-  echo "PodMonitor selector must be run=nginx"
-  exit 1
-fi
-
-# Check namespaceSelector
-NS=$(kubectl get podmonitor nginx-monitor -n monitoring -o yaml \
-  | awk '
-    /matchNames:/ {f=1; next}
-    f {
-      if ($0 ~ /^[^[:space:]]/) exit
-      # handle "- default" or " - default"
-      line=$0; sub(/^[[:space:]]*-?[[:space:]]*/, "", line)
-      if (length(line)>0) { print line; exit }
-    }
-  ' | tr -d '"' )
-
-info "Namespace read: '$NS'"
-
-if [ "$NS" != "default" ]; then
-  echo "PodMonitor must target namespace default"
-  exit 1
-fi
-
-# Check podMetricsEndpoints port (handles "- port: nginx" and "port: nginx")
+# -----------------------------
+# Check podMetricsEndpoints port
+# -----------------------------
 PM_PORT=$(
-  kubectl get podmonitor nginx-monitor -n monitoring -o yaml |
+  kubectl get podmonitor "$PODMON_NAME" -n "$NAMESPACE_MON" -o yaml |
   awk '
     /podMetricsEndpoints:/ {in_block=1; next}
     in_block {
-      # if indentation stops (new top-level or sibling), exit
       if ($0 ~ /^[^[:space:]]/) exit
-      # strip leading "- " and spaces
-      line=$0; sub(/^[[:space:]]*-?[[:space:]]*/, "", line)
+      line=$0
+      sub(/^[[:space:]]*-?[[:space:]]*/, "", line)
       if (line ~ /^port:[[:space:]]*/) {
         sub(/^port:[[:space:]]*/, "", line)
         print line
         exit
       }
     }
-  ' | tr -d '"' 
+  ' | tr -d '"'
 )
 
-info "PodMetricsEndpoints port read: '$PM_PORT'"
+# -----------------------------
+# Print summary
+# -----------------------------
+echo "===== PodMonitor Validation Summary ====="
+echo "Pod name: $POD_NAME"
+echo "Pod container port: $PORT_NAME"
+echo "PodMonitor name: $PODMON_NAME"
+echo "Release label: $LABEL"
+echo "Selector label: $SELECTOR"
+echo "NamespaceSelector: $NS"
+echo "podMetricsEndpoints port: $PM_PORT"
+echo "========================================"
 
-if [ "$PM_PORT" != "nginx" ]; then
-  echo "podMetricsEndpoints.port must be 'nginx' but found '$PM_PORT'"
-  exit 1
-fi
+# -----------------------------
+# Validation checks
+# -----------------------------
+[[ "$PORT_NAME" == "nginx" ]] || { echo "❌ Pod container port must be 'nginx'"; exit 1; }
+[[ "$LABEL" == "prometheus" ]] || { echo "❌ PodMonitor release label must be 'prometheus'"; exit 1; }
+[[ "$SELECTOR" == "$POD_NAME" ]] || { echo "❌ PodMonitor selector must be run=$POD_NAME"; exit 1; }
+[[ "$NS" == "$NAMESPACE_POD" ]] || { echo "❌ PodMonitor must target namespace $NAMESPACE_POD"; exit 1; }
+[[ "$PM_PORT" == "nginx" ]] || { echo "❌ podMetricsEndpoints port must be 'nginx'"; exit 1; }
 
-echo "All checks passed."
+echo "✅ All checks passed."
