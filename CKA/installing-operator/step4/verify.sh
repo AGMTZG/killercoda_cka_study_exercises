@@ -1,31 +1,29 @@
-#!/bin/bash
-
-NAMESPACE="monitoring"
-
-# Get Prometheus pod using YAML + awk (safe)
-PROM_POD=$(kubectl get pods -n $NAMESPACE -l app.kubernetes.io/name=prometheus -o yaml \
-  | awk '/metadata:/ {met=1} met && /name:/ {print $2; exit}')
-
-if [ -z "$PROM_POD" ]; then
-  echo "Prometheus pod not found."
-  exit 1
-fi
-
-# Get first PodMonitor name safely
-PODMON=$(kubectl get podmonitor -n $NAMESPACE -o yaml 2>/dev/null \
-  | awk '/metadata:/ {met=1} met && /name:/ {print $2; exit}')
-
-if [ -z "$PODMON" ]; then
-  echo "No PodMonitor found in namespace '$NAMESPACE'."
-  exit 1
-fi
-
-# Query Prometheus API for the target
-TARGETS=$(kubectl exec -n $NAMESPACE $PROM_POD -- \
-  wget -qO- http://localhost:9090/api/v1/targets 2>/dev/null \
-  | grep -i "$PODMON")
-
-if [ -z "$TARGETS" ]; then
-  echo "Prometheus API does not show any target for PodMonitor '$PODMON'."
-  exit 1
-fi
+#!/bin/bash 
+ 
+NAMESPACE="monitoring" 
+ 
+# Get the Prometheus pod name 
+PROM_POD=$(kubectl get pods -n $NAMESPACE -l app.kubernetes.io/name=prometheus -o jsonpath='{.items[0].metadata.name}') 
+ 
+if [ -z "$PROM_POD" ]; then 
+    echo "No Prometheus pod found in namespace $NAMESPACE." 
+    exit 1 
+fi 
+ 
+# Check that port 9090 is open 
+PORT=$(kubectl exec -n $NAMESPACE $PROM_POD -- sh -c "echo | nc -zv localhost 9090 2>&1 || true") 
+if [[ "$PORT" == *succeeded* ]] || [[ "$PORT" == *open* ]]; then 
+    echo "Prometheus port 9090 is reachable inside the pod." 
+else 
+    echo "Prometheus port 9090 might not be reachable." 
+fi 
+ 
+# Query Prometheus API for active targets 
+TARGETS=$(kubectl exec -n $NAMESPACE $PROM_POD -- wget -qO- http://localhost:9090/api/v1/targets) 
+ 
+if echo "$TARGETS" | grep -q "nginx-monitor"; then 
+    echo "PodMonitor nginx-monitor detected by Prometheus." 
+else 
+    echo "PodMonitor nginx-monitor NOT detected in Prometheus targets." 
+    exit 1 
+fi 
