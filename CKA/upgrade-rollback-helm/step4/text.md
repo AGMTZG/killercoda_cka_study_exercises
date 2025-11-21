@@ -1,8 +1,16 @@
 ### Remove the release and clean up all associated resources
 
-After successfully rolling back to the previous stable version, your manager decided that the Nginx release should be completely removed from the cluster to prevent leftover configurations or confusion with future tests. You will now delete the release and ensure that all related Kubernetes resources are fully cleaned up.
+After successfully rolling back to the previous stable version, you waited for further instructions from your manager. As no additional testing or configuration changes were requested, it was clear that the best course of action was to **delete the temporary Nginx release**, freeing cluster resources and preventing leftover configurations from causing confusion in future tests.
 
-Once the release is deleted, confirm that no pods, services, or Helm references remain in the cluster(also delete the folder `/opt/helm/nginx`).
+Tasks:
+
+- Uninstall the Helm release `my-nginx-release`.
+
+- Verify that the release is no longer listed by Helm.
+
+- Ensure that no pods, services, or other Kubernetes resources remain related to the release.
+
+- Delete the folder `/opt/helm/nginx` containing saved manifests and status files.
 
 <details>
 <summary>Show commands / answers</summary>

@@ -1,10 +1,19 @@
 ### Upgrade the chart configuration, then inspect the changes and troubleshoot any issues
 
-After the initial deployment, your manager has requested that the Nginx release be upgraded to enable TLS using certificates stored in your home directory. This will modify the existing release configuration to include the TLS secrets and update the corresponding Kubernetes resources, such as deployments, services, and pods.
+In this step, the Nginx release will be upgraded to apply a pre-prepared custom server configuration, and you will verify that the changes are correctly applied to the deployment and that the server continues to operate as expected.
 
-Once the upgrade is applied, you will inspect the release to ensure that the new TLS configuration is correctly applied, verify that all pods are running as expected, and troubleshoot any issues that may arise during the upgrade.
+Tasks:
 
-The updated manifests (**manifest-tls.yaml**), and release status (**status-tls.txt**) should be saved in `/opt/helm/nginx` as well.
+- Review the installed **bitnami/nginx** Helm chart values and locate the `serverBlock` section to understand how to provide a custom configuration through chart parameters.
+
+- Use the pre-prepared file `custom-server-blocks.conf` located in your **home directory** to upgrade the **Nginx** release `my-nginx-release` by setting the `serverBlock` parameter.
+
+- Inspect the release and pods to verify that the configuration is applied correctly and working as expected.
+
+- Save the updated manifests `manifest-custom.yaml` in `/opt/helm/nginx`.
+
+- Save the release status `status-custom.txt` in `/opt/helm/nginx`.
+
 
 <details>
 <summary>Show commands / answers</summary>
@@ -12,20 +21,19 @@ The updated manifests (**manifest-tls.yaml**), and release status (**status-tls.
 
 ```bash
 # Display the default configuration values of the Bitnami Nginx chart
-# and review the TLS section to understand available parameters.
 helm show values bitnami/nginx
 
-# Upgrade the release
-helm upgrade my-nginx-release bitnami/nginx --set tls.enabled=true --set-file tls.cert=./cert.pem --set-file tls.key=./certKeyA.pem
+# Upgrade the release using the pre-prepared custom server block file
+helm upgrade my-nginx-release bitnami/nginx --set-file serverBlock=./custom-server-blocks.conf
 
-# Verify that the values were applied correctly
+# Verify the applied values
 helm get values my-nginx-release
 
-# Display detailed status of the Helm release
-helm status my-nginx-release > /opt/helm/nginx/status-tls.txt
+# Inspect release status to check for pod failures due to the intentional error
+helm status my-nginx-release > /opt/helm/nginx/status-custom.txt
 
-# Retrieve the complete manifest generated for the release
-helm get manifest my-nginx-release > /opt/helm/nginx/manifest-tls.yaml
+# Retrieve the complete manifest for reference
+helm get manifest my-nginx-release > /opt/helm/nginx/manifest-custom.yaml
 ```
 
 </p>

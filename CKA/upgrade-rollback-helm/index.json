@@ -16,16 +16,7 @@
     },
     "assets": {
       "host01": [
-        {
-          "file": "cert.pem",
-          "target": "~/",
-          "chmod": "+w"
-        },
-        {
-          "file": "certkeyA.pem",
-          "target": "~/",
-          "chmod": "+w"
-        }
+        { "file": "custom-server-blocks.conf", "target": "~/", "chmod": "+w" }
       ]
     }
   },

@@ -1,8 +1,22 @@
 ### Deploy the chart to the cluster and verify the release, along with all associated pods and services
 
-First, add and update the Bitnami Helm repository(https://charts.bitnami.com/bitnami). Then, deploy the Nginx chart (version 13.2.22) as `my-nginx-release` to the Kubernetes cluster using Helm.
+You will deploy the **Nginx** chart from the **Bitnami** Helm repository to create the initial release in your Kubernetes cluster. This deployment will generate all required resources, including deployments, services, and pods. After deployment, you will verify that the application is running correctly and save the generated manifests, notes, and release status for reference.
 
-This will create the initial release, generating all required Kubernetes resources, including deployments, services, and pods. Once deployed, you will verify that the application is running properly by checking pod statuses, reviewing the overall release status, and retrieving the manifests and chart notes created by Helm. The manifests(**manifest.yaml**), notes(**notes.txt**) and release status(**status.txt**) should be saved in `/opt/helm/nginx`
+Tasks:
+
+- Add the **Bitnami** Helm repository: `https://charts.bitnami.com/bitnami`.
+
+- Update the **Helm repositories** to ensure the latest charts are available.
+
+- Deploy the **Nginx** chart version `13.2.22` as `my-nginx-release` using Helm.
+
+- Verify that all pods are running and the application is functioning correctly and retrieve the release status, generated manifests and Helm notes.
+
+- Save the **manifests** as `manifest.yaml` in `/opt/helm/nginx`.
+
+- Save the **Helm notes** as `notes.txt` in `/opt/helm/nginx`.
+
+- Save the **release status** as `status.txt` in `/opt/helm/nginx`.
 
 <details>
 <summary>Show commands / answers</summary>

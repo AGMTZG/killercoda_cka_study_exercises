@@ -1,7 +1,7 @@
 WELL DONE!
 
-After completing this scenario, you successfully deployed an application using Helm, tested TLS configuration, handled an upgrade that introduced issues, and performed a rollback to restore stability.
+You successfully applied the new configuration by upgrading the release, reviewed the changes, and resolved any issues that occurred.
 
-You also removed the release and cleaned up all associated resources from the cluster.
+You completed the full Helm workflow, validating Nginx configuration changes in a realistic and practical scenario.
 
 You solved this challenge!
