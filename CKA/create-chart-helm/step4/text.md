@@ -15,6 +15,31 @@ Now that the Helm chart templates for MongoDB are prepared, the next step is to 
 The template is provided below to help you create the `values.yaml` file.
 
 <details>
+<summary>Click here to see helpers.tpl</summary>
+<p>
+
+```bash
+{{- define "database-app.labels" -}}
+app.kubernetes.io/name: {{ include "database-app.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{- define "database-app.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "database-app.name" . }}
+{{- end }}
+
+{{- define "database-app.fullname" -}}
+{{ .Release.Name }}-{{ .Chart.Name }}
+{{- end }}
+
+{{- define "database-app.name" -}}
+{{ .Chart.Name }}
+{{- end }}
+```
+</p>
+</details>
+
+<details>
 <summary>Click here to see .yaml</summary>
 <p>
 
@@ -48,9 +73,9 @@ spec:
             {{- end }}
           env:
           - name: MONGO_INITDB_ROOT_USERNAME
-            value: mongoadmin
+            value: "mongoadmin"
           - name: MONGO_INITDB_ROOT_PASSWORD
-            value: 123456789
+            value: "123456789"
 {{- end }}
 
 # templates/headless-service.yaml
@@ -74,7 +99,6 @@ spec:
 ```
 </p>
 </details>
-
 
 <details>
 <summary>Show commands / answers</summary>
