@@ -1,6 +1,6 @@
 ### Roll back the release to the previous stable version
 
-During the upgrade to apply the **custom server configuration**, a minor intentional misconfiguration in the `custom-server-blocks.conf` file caused the Nginx pods to fail, preventing the deployment from running correctly. To quickly restore a stable environment, you will roll back the Nginx release to the previous version that worked before applying the custom server block.
+During the upgrade to apply the **custom server configuration**, a minor misconfiguration in the `custom-server-blocks.conf` file caused the Nginx pods to fail, preventing the deployment from running correctly. To quickly restore a stable environment, you will roll back the Nginx release to the previous version that worked before applying the custom server block.
 
 After performing the rollback, confirm that all pods are running properly and that the configuration has returned to its original state.
 
