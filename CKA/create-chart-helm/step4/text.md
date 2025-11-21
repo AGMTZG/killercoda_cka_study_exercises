@@ -16,7 +16,11 @@ The template is provided below to help you create the `values.yaml` file.
 
 <details>
 <summary>Click here to see .yaml</summary>
+<p>
+
 ```bash
+# templates/statefulset.yaml
+
 {{- if .Values.statefulset.enabled }}
 apiVersion: apps/v1
 kind: StatefulSet
@@ -37,9 +41,9 @@ spec:
     spec:
       containers:
         - name: mongo
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.statefulset.image.repository }}:{{ .Values.statefulset.image.tag }}"
           ports:
-            {{- with .Values.service.port }}
+            {{- with .Values.statefulset.port }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
           env:
@@ -49,7 +53,7 @@ spec:
             value: 123456789
 {{- end }}
 
-# templates/service.yaml
+# templates/headless-service.yaml
 
 {{- if .Values.statefulset.enabled }}
 apiVersion: v1

@@ -5,14 +5,14 @@ The next step is to create Helm helper templates. These helpers will allow you t
 Tasks:
 
 - Delete the `_helpers.tpl` file in the `templates/` directory and create a new one.
-- Define a function `database-app.fullname` that generates a unique name for your resources by combining the **release name**, a **hyphen**, and the **chart name**.
+- In the new `_helpers.tpl`, create a helper function `database-app.fullname` that generates a unique name for your resources by combining the **release name**, a **hyphen**, and the **chart name**.
 
 ```bash
 # Example
 <release-name>-<chart-name>
 ```
 
-- Define a function `database-app.labels` that generates a consistent set of labels for all resources, using the following keys: `app.kubernetes.io/name` for the application name and `app.kubernetes.io/instance` for the release name.
+- In the same file, create another helper function `database-app.labels` that generates a consistent set of labels for all resources, using the following keys: `app.kubernetes.io/name` for the application name and `app.kubernetes.io/instance` for the release name.
 
 ```bash
 # Example
@@ -20,12 +20,14 @@ app.kubernetes.io/name: <applicacion-name>
 app.kubernetes.io/instance: <application-version>
 ```
 
-- Define a function `database-app.selectorLabels` that provides the minimal set of labels for resource selectors, using the key: `app.kubernetes.io/name` for the application name.
+- In the same file, add one more helper function `database-app.selectorLabels` that provides the minimal set of labels for resource selectors, using the key: `app.kubernetes.io/name` for the application name.
 
 ```bash
 # Example
 app.kubernetes.io/name: <applicacion-name>
 ```
+
+- In the same file, add a final helper called database-app.name that returns the chart name.
 
 
 <details>
@@ -39,6 +41,8 @@ cd database-app/templates
 # Remove the existing _helpers.tpl if it exists and create a new one
 rm -f _helpers.tpl
 touch _helpers.tpl
+
+vim _helpers.tpl
 
 # _helpers.tpl
 
@@ -54,9 +58,11 @@ app.kubernetes.io/name: {{ include "database-app.name" . }}
 {{- define "database-app.fullname" -}}
 {{ .Release.Name }}-{{ .Chart.Name }}
 {{- end }}
+
+{{- define "database-app.name" -}}
+{{ .Chart.Name }}
+{{- end }}
 ```
 
 </p>
 </details>
-
-

@@ -22,7 +22,7 @@ helm create database-app
 cd database-app
 
 # We open the chart.yaml using vim
-vim chart.yaml
+vim Chart.yaml
 
 # Update the chart metadata using the values provided above
 apiVersion: v2

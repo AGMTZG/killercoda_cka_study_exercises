@@ -40,6 +40,10 @@ app.kubernetes.io/name: {{ include "database-app.name" . }}
 {{- define "database-app.fullname" -}}
 {{ .Release.Name }}-{{ .Chart.Name }}
 {{- end }}
+
+{{- define "database-app.name" -}}
+{{ .Chart.Name }}
+{{- end }}
 ```
 </p>
 </details>
@@ -53,10 +57,13 @@ app.kubernetes.io/name: {{ include "database-app.name" . }}
 cd database-app/templates
 
 # Remove the default templates
-rm deployment.yaml service.yaml hpa.yaml httproute.yaml ingress.yaml serviceaccout.yaml
+rm deployment.yaml service.yaml hpa.yaml httproute.yaml ingress.yaml serviceaccount.yaml
+
+# Return to the home directory
+cd
 
 # Move the provided templates to the templates/ directory
-mv statefulset.yaml headless-service database-app/templates/
+mv statefulset.yaml headless-service.yaml database-app/templates/
 
 # templates/statefulset.yaml
 
@@ -80,7 +87,7 @@ spec:
     spec:
       containers:
         - name: mongo
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.statefulset.image.repository }}:{{ .Values.statefulset.image.tag }}"
           ports:
             {{- with .Values.statefulset.port }}
             {{- toYaml . | nindent 12 }}
@@ -92,7 +99,7 @@ spec:
             value: 123456789
 {{- end }}
 
-# templates/service.yaml
+# templates/headless-service.yaml
 
 {{- if .Values.statefulset.enabled }}
 apiVersion: v1
