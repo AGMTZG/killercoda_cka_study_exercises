@@ -4,7 +4,7 @@ After generating the base chart, tailor it for a MongoDB database:
 
 Inside the templates/ directory:
 
-- Remove default templates: `deployment.yaml`, `service.yaml`, `hpa.yaml`, `httproute.yaml`, `ingress.yaml`, `serviceaccount.yaml`, and also remove `Notes.txt`
+- Remove default templates: `deployment.yaml`, `service.yaml`, `hpa.yaml`, `httproute.yaml`, `ingress.yaml`, `serviceaccount.yaml`, and also remove `NOTES.txt`
 
 - Move all provided YAML files from the `~/` (home directory) into `templates/`.
 
@@ -57,7 +57,7 @@ app.kubernetes.io/name: {{ include "database-app.name" . }}
 cd database-app/templates
 
 # Remove the default templates
-rm deployment.yaml service.yaml hpa.yaml httproute.yaml ingress.yaml serviceaccount.yaml Notes.txt
+rm deployment.yaml service.yaml hpa.yaml httproute.yaml ingress.yaml serviceaccount.yaml NOTES.txt
 
 # Return to the home directory
 cd

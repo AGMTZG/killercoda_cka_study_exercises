@@ -12,7 +12,7 @@ Task:
 
 ```bash
 # Install chart
-helm install my-database-release ./database-app
+helm install my-database-release ./
 
 # To check that the resources are running correctly
 kubectl get statefulsets
