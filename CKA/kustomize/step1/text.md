@@ -36,7 +36,7 @@ After completing these tasks, your **dev** overlay will be ready for deployment.
 # kustomization.yaml
 resources:
 - statefulset.yaml
-- service.yaml
+- headless-service.yaml
 
 ~/app
 └── overlays
@@ -45,37 +45,39 @@ resources:
         └── patch.json
 
 # kustomization.yaml
-resources:
-- ../../base
-
-images:
-  - name: mysql
-    newName: mysql
-    newTag: dev
-
-commonLabels:
-  env: dev
-
-configMapGenerator:
-- name: db-config
-  literals:
-    - DB_HOST=localhost
-    - DB_PORT=3306
-
-secretGenerator:
-- name: db-secret
-  literals:
-    - USERNAME=admin
-    - PASSWORD=asdfqwerty
-
-patches:
-- target:
-    group: apps
-    version: v1
-    kind: StatefulSet
-    name: mysql
+resources: 
+- ../../base 
+ 
+images: 
+  - name: mysql 
+    newName: mysql 
+    newTag: dev 
+ 
+labels: 
+- pairs: 
+    env: dev 
+  includeSelectors: true 
+  includeTemplates: true 
+ 
+configMapGenerator: 
+- name: db-config 
+  literals: 
+    - DB_HOST=localhost 
+    - DB_PORT=3306 
+ 
+secretGenerator: 
+- name: db-secret 
+  literals: 
+    - USERNAME=admin 
+    - PASSWORD=asdfqwerty 
+ 
+patches: 
+- target: 
+    group: apps 
+    version: v1 
+    kind: StatefulSet 
+    name: mysql 
   path: patch.json
-  type: json6902
 
 # patch.json
 [
