@@ -8,7 +8,7 @@ Tasks:
 
 - Update the **Helm repositories** to ensure the latest charts are available.
 
-- Deploy the **Nginx** chart version `13.2.22` as `my-nginx-release` using Helm.
+- Deploy the latest available Nginx chart as `my-nginx-release` using Helm.
 
 - Verify that all pods are running and the application is functioning correctly and retrieve the release status, generated manifests and Helm notes.
 
@@ -29,8 +29,8 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 # Update the local Helm repository to get the latest charts
 helm repo update
 
-# Install the Nginx chart (version 13.2.22) as 'my-nginx-release' in the Kubernetes cluster
-helm install my-nginx-release bitnami/nginx --version 13.2.22
+# Install the Nginx chart in the Kubernetes cluster
+helm install my-nginx-release bitnami/nginx
 
 # Check the status of Pods to verify that Nginx is running
 kubectl get pods
