@@ -27,38 +27,39 @@ After completing these tasks, your **prod** overlay will be ready for deployment
         └── patch-prod.json
 
 # kustomization.yaml
-resources:
-- ../../base
-
-images:
-  - name: mysql
-    newName: mysql
-    newTag: prod
-
-commonLabels:
-  env: prod
-
-configMapGenerator:
-- name: db-config
-  literals:
-    - DB_HOST=mysql-prod.company.local
-    - DB_PORT=3306
-
-secretGenerator:
-- name: db-secret
-  literals:
-    - USERNAME=prod_admin
-    - PASSWORD=G7hT9pX2!zQ4
-
-
-patches:
-- target:
-    group: apps
-    version: v1
-    kind: StatefulSet
-    name: mysql_app
+resources:  
+- ../../base  
+  
+images:  
+  - name: mysql  
+    newName: mysql  
+    newTag: prod 
+  
+labels:  
+- pairs:  
+    env: prod 
+  includeSelectors: true  
+  includeTemplates: true  
+  
+configMapGenerator:  
+- name: db_host  
+  literals:  
+    - DB_HOST=mysql-prod.company.local 
+    - DB_PORT=3306 
+  
+secretGenerator:  
+- name: db_secret
+  literals:  
+    - USERNAME=prod_admin 
+    - PASSWORD=G7hT9pX2!zQ4 
+ 
+patches:  
+- target:  
+    group: apps  
+    version: v1  
+    kind: StatefulSet  
+    name: mysql  
   path: patch-prod.json
-  type: json6902
 
 # patch-prod
 [

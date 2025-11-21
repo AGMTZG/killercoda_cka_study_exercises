@@ -12,57 +12,80 @@ if [[ ! -f "$BASE_DIR/patch-prod.json" ]]; then
     exit 1
 fi
 
-grep -q "mysql.*prod" "$BASE_DIR/kustomization.yaml" || {
-    echo "MySQL image not set to 'prod' in kustomization.yaml"
+GENERATED_YAML=$(kubectl kustomize "$BASE_DIR")
+if [[ $? -ne 0 ]]; then
+    echo "Error: kustomize build failed."
     exit 1
-}
-
-grep -q "env: prod" "$BASE_DIR/kustomization.yaml" || {
-    echo "Common label 'env: prod' not set"
-    exit 1
-}
-
-grep -q "DB_HOST=mysql-prod.company.local" "$BASE_DIR/kustomization.yaml" || {
-    echo "ConfigMap DB_HOST not set correctly"
-    exit 1
-}
-
-grep -q "USERNAME=prod_admin" "$BASE_DIR/kustomization.yaml" || {
-    echo "Secret USERNAME not set correctly"
-    exit 1
-}
-
-grep -q "PASSWORD=G7hT9pX2!zQ4" "$BASE_DIR/kustomization.yaml" || {
-    echo "Secret PASSWORD not set correctly"
-    exit 1
-}
-
-grep -q "prod" "$BASE_DIR/patch-prod.json" || {
-    echo "Toleration for prod nodes missing in patch-prod.json"
-    exit 1
-}
-
-grep -q "500m" "$BASE_DIR/patch-prod.json" || {
-    echo "CPU requests missing or incorrect in patch-prod.json"
-    exit 1
-}
-
-grep -q "1Gi" "$BASE_DIR/patch-prod.json" || {
-    echo "Memory requests missing or incorrect in patch-prod.json"
-    exit 1
-}
-
-grep -q "\"cpu\": \"1\"" "$BASE_DIR/patch-prod.json" || {
-    echo "CPU limits missing or incorrect in patch-prod.json"
-    exit 1
-}
-
-grep -q "\"memory\": \"2Gi\"" "$BASE_DIR/patch-prod.json" || {
-    echo "Memory limits missing or incorrect in patch-prod.json"
-    exit 1
-}
-
-if ! kustomize build ~/app/overlays/prod >/dev/null 2>&1; then
-  echo "Error: kustomize build failed."
-  exit 1
 fi
+
+echo "$GENERATED_YAML" | grep -q "image: mysql:prod" || {
+    echo "MySQL image not set to 'prod'"
+    exit 1
+}
+
+echo "$GENERATED_YAML" | grep -q "env: prod" || {
+    echo "Label 'env: prod' missing"
+    exit 1
+}
+
+CONFIG_DB_HOST=$(echo "$GENERATED_YAML" | yq eval 'select(.kind=="ConfigMap" and .metadata.name|test("db_host")) | .data.DB_HOST' -)
+CONFIG_DB_PORT=$(echo "$GENERATED_YAML" | yq eval 'select(.kind=="ConfigMap" and .metadata.name|test("db_host")) | .data.DB_PORT' -)
+
+if [[ "$CONFIG_DB_HOST" != "mysql-prod.company.local" ]]; then
+    echo "ConfigMap DB_HOST not correct"
+    exit 1
+fi
+
+if [[ "$CONFIG_DB_PORT" != "3306" ]]; then
+    echo "ConfigMap DB_PORT not correct"
+    exit 1
+fi
+
+SECRET_USERNAME=$(echo "$GENERATED_YAML" | yq eval 'select(.kind=="Secret" and .metadata.name|test("db_secret")) | .data.USERNAME' -)
+SECRET_PASSWORD=$(echo "$GENERATED_YAML" | yq eval 'select(.kind=="Secret" and .metadata.name|test("db_secret")) | .data.PASSWORD' -)
+
+DECODED_USERNAME=$(echo "$SECRET_USERNAME" | base64 --decode)
+DECODED_PASSWORD=$(echo "$SECRET_PASSWORD" | base64 --decode)
+
+if [[ "$DECODED_USERNAME" != "prod_admin" ]]; then
+    echo "Secret USERNAME not correct"
+    exit 1
+fi
+
+if [[ "$DECODED_PASSWORD" != "G7hT9pX2!zQ4" ]]; then
+    echo "Secret PASSWORD not correct"
+    exit 1
+fi
+
+TOLERATIONS=$(echo "$GENERATED_YAML" | yq eval 'select(.kind=="StatefulSet") | .spec.template.spec.tolerations[]? | .key' -)
+if [[ "$TOLERATIONS" != *"prod"* ]]; then
+    echo "Toleration for prod nodes missing"
+    exit 1
+fi
+
+CPU_REQUEST=$(echo "$GENERATED_YAML" | yq eval 'select(.kind=="StatefulSet") | .spec.template.spec.containers[0].resources.requests.cpu' -)
+MEM_REQUEST=$(echo "$GENERATED_YAML" | yq eval 'select(.kind=="StatefulSet") | .spec.template.spec.containers[0].resources.requests.memory' -)
+CPU_LIMIT=$(echo "$GENERATED_YAML" | yq eval 'select(.kind=="StatefulSet") | .spec.template.spec.containers[0].resources.limits.cpu' -)
+MEM_LIMIT=$(echo "$GENERATED_YAML" | yq eval 'select(.kind=="StatefulSet") | .spec.template.spec.containers[0].resources.limits.memory' -)
+
+if [[ "$CPU_REQUEST" != "500m" ]]; then
+    echo "CPU request not correct"
+    exit 1
+fi
+
+if [[ "$MEM_REQUEST" != "1Gi" ]]; then
+    echo "Memory request not correct"
+    exit 1
+fi
+
+if [[ "$CPU_LIMIT" != "1" ]]; then
+    echo "CPU limit not correct"
+    exit 1
+fi
+
+if [[ "$MEM_LIMIT" != "2Gi" ]]; then
+    echo "Memory limit not correct"
+    exit 1
+fi
+
+echo "All checks passed for prod overlay!"
