@@ -22,13 +22,13 @@ Validates that:
 
 You can use this table for reference when building expressions:
 
-| Command / Expression                           | Purpose                                                                  |
-|------------------------------------------------|--------------------------------------------------------------------------|
-| `has(object.metadata.labels[])`                | Checks if a Pod has a specific label.                                    |
-| `[].exists(e, e == object.metadata.labels[])`  | Checks if a label exists and its value matches one of the allowed values.|
-| `object.metadata.namespace == 'namespace'`     | Ensures that Pods belong to a specific namespace.                        |
-| `&&` (AND)                                     | Returns `true` only if all combined expressions are `true`.              |
-| `||` (OR)                                      | Returns `true` if at least one of the expressions is `true`.             |
+| Command / Expression                                      | Purpose                                                                  |
+|-----------------------------------------------------------|--------------------------------------------------------------------------|
+| `has(object.metadata.labels.<label name>)`                | Checks if a Pod has a specific label.                                    |
+| `[].exists(e, e == object.metadata.labels.<label name>)`  | Checks if a label exists and its value matches one of the allowed values.|
+| `object.metadata.namespace == 'namespace'`                | Ensures that Pods belong to a specific namespace.                        |
+| `&&` (AND)                                                | Returns `true` only if all combined expressions are `true`.              |
+| `||` (OR)                                                 | Returns `true` if at least one of the expressions is `true`.             |
 
 <details>
 <summary>Show commands / answers</summary>
@@ -47,18 +47,18 @@ spec:
     - apiGroups: [""]
       apiVersions: ["v1"]
       operations: ["CREATE", "UPDATE"]
-      resources: ["pods"]  
+      resources: ["pods"]
   validations:
   - expression: >
-      has(object.metadata.labels['owner']) &&
-      ['saturn','mercury'].exists(e, e == object.metadata.labels['owner']) &&
+      has(object.metadata.labels.owner) &&
+      ['saturn','mercury'].exists(e, e == object.metadata.labels.owner) &&
       (
-       (object.metadata.namespace == 'dev' && has(object.metadata.labels['env']) && ['dev'].exists(e, e == object.metadata.labels['env'])) ||
-       (object.metadata.namespace == 'staging' && has(object.metadata.labels['env']) && ['staging'].exists(e, e == object.metadata.labels['env'])) ||
-       (object.metadata.namespace == 'prod' && has(object.metadata.labels['env']) && ['prod'].exists(e, e == object.metadata.labels['env']))
+       (object.metadata.namespace == 'dev' && has(object.metadata.labels.env) && ['dev'].exists(e, e == object.metadata.labels.env)) ||
+       (object.metadata.namespace == 'staging' && has(object.metadata.labels.env) && ['staging'].exists(e, e == object.metadata.labels.env)) ||
+       (object.metadata.namespace == 'prod' && has(object.metadata.labels.env) && ['prod'].exists(e, e == object.metadata.labels.env))
       )
     message: >
-      Pod validation failed: 
+      Pod validation failed:
       - 'owner' label is required
       - 'owner' label must be one of ['saturn','mercury']
       - 'env' label is required
