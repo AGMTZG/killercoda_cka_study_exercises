@@ -22,13 +22,36 @@ Validates that:
 
 You can use this table for reference when building expressions:
 
-| Command / Expression                                      | Purpose                                                                  |
-|-----------------------------------------------------------|--------------------------------------------------------------------------|
-| `has(object.metadata.labels.<label name>)`                | Checks if a Pod has a specific label.                                    |
-| `[].exists(e, e == object.metadata.labels.<label name>)`  | Checks if a label exists and its value matches one of the allowed values.|
-| `object.metadata.namespace == 'namespace'`                | Ensures that Pods belong to a specific namespace.                        |
-| `&&` (AND)                                                | Returns **true** only if all combined expressions are **true**.          |
-| `||` (OR)                                                 | Returns **true** if at least one of the expressions is **true**.         |
+<table>
+  <thead>
+    <tr>
+      <th>Command / Expression</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>has(object.metadata.labels.&lt;label name&gt;)</code></td>
+      <td>Checks if a Pod has a specific label.</td>
+    </tr>
+    <tr>
+      <td><code>[] .exists(e, e == object.metadata.labels.&lt;label name&gt;)</code></td>
+      <td>Checks if a label exists and its value matches one of the allowed values.</td>
+    </tr>
+    <tr>
+      <td><code>object.metadata.namespace == 'namespace'</code></td>
+      <td>Ensures that Pods belong to a specific namespace.</td>
+    </tr>
+    <tr>
+      <td><code>&amp;&amp; (AND)</code></td>
+      <td>Returns <strong>true</strong> only if all combined expressions are <strong>true</strong>.</td>
+    </tr>
+    <tr>
+      <td><code>|| (OR)</code></td>
+      <td>Returns <strong>true</strong> if at least one of the expressions is <strong>true</strong>.</td>
+    </tr>
+  </tbody>
+</table>
 
 <details>
 <summary>Show commands / answers</summary>
