@@ -1,0 +1,21 @@
+{
+  "title": "Enforce Multi-Label Governance with Conditional Validation",
+  "description": "Learn how to create a ValidatingAdmissionPolicy to enforce mandatory and conditional labels on Pods across all namespaces.",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      { "title": "Enable ValidatingAdmissionPolicy Feature Gate", "text": "step1/text.md", "verify": "step1/verify.sh" },
+      { "title": "Create the ValidatingAdmissionPolicy", "text": "step2/text.md", "verify": "step2/verify.sh" },
+      { "title": "Bind the Policy Cluster-wide", "text": "step3/text.md", "verify": "step3/verify.sh" },
+      { "title": "Test the Policy with Pods", "text": "step4/text.md" }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
