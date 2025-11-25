@@ -14,11 +14,11 @@ You will:
 
 - Create a `patch.json` file to set the environment variable `DEBUG=true`.
 
-- In the same `patch.json`, define an initContainer using the BusyBox image to adjust permissions on `/var/lib/mysql`.
+- In the same `patch.json`, add an initContainer using the BusyBox image to set the appropriate `mysql:mysql` ownership on `/var/lib/mysql` prior to starting the main container..
 
-- Create a ConfigMap named `db_host` with database host and password.
+- Generate a ConfigMap named `db-config` that includes the literals `DB_HOST=localhost` and `DB_PORT=3306`.
 
-- Create a Secret named `db_secret` with username and password.
+- Create a Secret named `db_secret` that includes the literals `USERNAME=admin` and `PASSWORD=asdfqwerty`.
 
 After completing these tasks, your **dev** overlay will be ready for deployment.
 

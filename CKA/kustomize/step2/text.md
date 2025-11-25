@@ -5,10 +5,15 @@ In this step, you will customize the production environment for the database usi
 You will:
 
 - Update the MySQL image to `mysql:prod`.
+
 - Add the label `env: prod` to all resources.
-- Create a ConfigMap named `db_host` with the host `mysql-prod.company.local` and port `3306`.
-- Create a Secret named `db_secret` with the username `prod_admin` and password `G7hT9pX2!zQ4`.
+
+- Create a ConfigMap named `db_host` that includes the literals `DB_HOST=mysql-prod.company.local` and `DB_PORT=3306`.
+
+- Create a Secret named `db_secret` that includes the literals `USERNAME=prod_admin` and `PASSWORD=G7hT9pX2!zQ4`.
+
 - Use `patch-prod.json` to add tolerations for nodes with the taint `prod=true:NoSchedule`.
+
 - In the same `patch-prod.json`, define resource requests and limits for CPU and memory:
   - Requests: cpu: `500m`, memory: `1Gi`
   - Limits: cpu: `1`, memory: `2Gi`
