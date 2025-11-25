@@ -1,37 +1,62 @@
 ### Create and Verify the StorageClass
 
-Your manager has requested you to configure a custom StorageClass that meets specific performance and retention requirements.
-The goal is to create a StorageClass that ensures persistent volumes are retained after deletion, support volume expansion, and are provisioned only when pods are scheduled.
+Your manager has requested you to configure a custom **StorageClass** that meets specific performance and retention requirements.
+The goal is to create a **StorageClass** that ensures persistent volumes are retained after deletion, support volume expansion, and are provisioned only when pods are scheduled.
 
-After creating it, you must also verify which StorageClass is currently set as default and store the result in a specific directory for auditing purposes.
+After creating it, you must also verify which **StorageClass** is currently set as default and store the result in a specific directory for auditing purposes.
 
 Requirements
 
-- Create a StorageClass named `csi-retain-sc` with the following specifications:
+- Create a **StorageClass** named `csi-retain-sc` with the following specifications:
 
-  - Provisioner: `csi-driver.example-vendor.example` (not dynamic — it does not automatically create PersistentVolumes)
+  - **Provisioner**: `csi-driver.example-vendor.example` (not dynamic — it does not automatically create PersistentVolumes)
 
-  - Reclaim policy: `Retain`
+  - **Reclaim policy**: `Retain`
 
-  - Volume expansion: `Allow`
+  - **Volume expansion**: `True`
 
-  - Mount option: `discard`
+  - **Mount option**: `discard`
 
-  - Volume binding mode: `WaitForFirstConsumer`
+  - **Volume binding mode**: `WaitForFirstConsumer`
 
-  - Parameter: `guaranteedReadWriteLatency: "true"`
+  - **Parameter**: `guaranteedReadWriteLatency: "true"`
 
-  - Set this StorageClass as default
+  - Set this **StorageClass** as `default`
+
+**Important**: Before setting this **StorageClass** as `default`, you must remove the `default` annotation from the current default **StorageClass**.
 
 Save the configuration and apply it to the cluster.
 
 Finally:
 
-  - Run the proper command to determine which StorageClass is the default.
+Run the appropriate command to determine which **StorageClass** is marked as default and save the output to `/opt/storage/default-sc.txt`.
 
-  - Save the command output into `/opt/storage/default-sc.txt`.
+Requirements for the file `/opt/storage/default-sc.txt`:
 
-  Note: You can use variations of the command, with or without headers, as long as the output clearly shows the default StorageClass.
+- The command output must show only one **StorageClass** that is set as default.
+
+- You may include headers or not, as long as the default StorageClass can be identified.
+
+Examples:
+
+```bash
+
+# Example 1: using the annotation as a column
+NAME               DEFAULT
+csi-retain-sc      true
+
+# Example 2: using "default" as a human-readable value
+NAME               DEFAULT
+csi-retain-sc      default
+
+# Example 3: without headers, just the information
+csi-retain-sc      true
+
+# Example 4: variation with short headers
+NAME           DEFAULT
+csi-retain-sc  default
+
+```
 
 <details>
 <summary>Show commands / answers</summary>
