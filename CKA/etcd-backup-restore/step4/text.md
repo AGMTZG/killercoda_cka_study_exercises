@@ -1,8 +1,10 @@
-### Restore etcd from the backup snapshot
+### Restore the static pod manifests and the etcd datastore using the backup snapshot
 
-Next, restore the static pod manifests for the API Server and Controller Manager, then restore etcd from the snapshot to revert the cluster to its state prior to the disaster.
+Next, restore the static pod manifests for the **API Server** and **Controller Manager**, then restore **etcd** from the snapshot to revert the cluster to its state prior to the disaster.
 
-Note that restoring etcd only brings back the cluster state, not the deleted manifest files in /etc/kubernetes/manifests/.
+Note that restoring etcd only brings back the cluster state, not the deleted manifest files in `/etc/kubernetes/manifests/`.
+
+Tasks:
 
 - Restore the static pods for the API Server and Controller Manager.
 
@@ -10,7 +12,7 @@ Note that restoring etcd only brings back the cluster state, not the deleted man
 
 - The restored data directory will be: `/mnt/etcd-data`
 
-Note: You need to wait until the kubelet has started the API server and the Controller Manager.
+Note: The checks may fail until the kubelet has started the **API server** and the **Controller Manager**, so wait for them to be fully running before proceeding.
 
 <details>
 <summary>Show commands / answers</summary>

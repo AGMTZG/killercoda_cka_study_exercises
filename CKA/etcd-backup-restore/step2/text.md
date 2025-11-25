@@ -11,6 +11,8 @@ Now that you know where etcd is running, create a snapshot of the datastore at `
 --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt
 ```
 
+Note: The `/backup` directory does not exist, so you must create it before generating the snapshot.
+
 <details>
 <summary>Show commands / answers</summary>
 <p>
