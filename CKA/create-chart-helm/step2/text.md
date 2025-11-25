@@ -12,7 +12,7 @@ Tasks:
 <release-name>-<chart-name>
 ```
 
-- In the same file, create another helper function `database-app.labels` that generates a consistent set of labels for all resources, using the following keys: `app.kubernetes.io/name` for the application name and `app.kubernetes.io/instance` for the release name.
+- In the **same** file, create another helper function `database-app.labels` that generates a consistent set of labels for all resources, using the following keys: `app.kubernetes.io/name` for the application name and `app.kubernetes.io/instance` for the release name.
 
 ```bash
 # Example
@@ -20,14 +20,14 @@ app.kubernetes.io/name: <applicacion-name>
 app.kubernetes.io/instance: <release-name>
 ```
 
-- In the same file, add one more helper function `database-app.selectorLabels` that provides the minimal set of labels for resource selectors, using the key: `app.kubernetes.io/name` for the application name.
+- In the **same** file, add one more helper function `database-app.selectorLabels` that provides the minimal set of labels for resource selectors, using the key: `app.kubernetes.io/name` for the application name.
 
 ```bash
 # Example
 app.kubernetes.io/name: <applicacion-name>
 ```
 
-- In the same file, add a final helper called database-app.name that returns the chart name.
+- In the **same** file, add a final helper called `database-app.name` that returns the chart name.
 
 
 <details>

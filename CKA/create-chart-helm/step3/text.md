@@ -4,13 +4,13 @@ After generating the base chart, tailor it for a MongoDB database:
 
 Inside the templates/ directory:
 
-- Remove default templates: `deployment.yaml`, `service.yaml`, `hpa.yaml`, `httproute.yaml`, `ingress.yaml`, `serviceaccount.yaml`, and also remove `NOTES.txt`
+- Remove all default templates: `deployment.yaml`, `service.yaml`, `hpa.yaml`, `httproute.yaml`, `ingress.yaml`, `serviceaccount.yaml`, and also remove `NOTES.txt`
 
 - Move all provided YAML files from the `~/` (home directory) into `templates/`.
 
 **StatefulSet**:
 
-- Use the values defined in `_helpers.tpl` for the resource name, `metadata.labels`, `spec.selector.matchLabels`, and `template.metadata.labels`.
+- Use the values defined in `_helpers.tpl`: **metadata.labels** (`database-app.labels`), **spec.selector.matchLabels** (`database-app.selectorLabels`), and **template.metadata.labels** (`database-app.labels`).
 
 - Configure **replicas** (`.Values.replicaCount`), **container image** (`.Values.image.repository`) and **tag** (`.Values.image.tag`), **port container** (use with + toYaml for the ports section, `.Values.statefulset.port`) via `values.yaml`.
 
