@@ -52,10 +52,6 @@ csi-retain-sc      default
 # Example 3: without headers, just the information
 csi-retain-sc      true
 
-# Example 4: variation with short headers
-NAME           DEFAULT
-csi-retain-sc  default
-
 ```
 
 <details>
