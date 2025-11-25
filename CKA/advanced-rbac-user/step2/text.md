@@ -1,12 +1,11 @@
 ### Approve and Retrieve the Signed Certificate
 
-In this step, you will approve the CertificateSigningRequest (CSR) you previously created and then retrieve the signed certificate for the user alice.
-
+In this step, you will review and approve the **CertificateSigningRequest (CSR)** named `alice-certificate` that you previously created. Once approved, you will retrieve the signed certificate issued for the user **alice**.
 Specifically, you will:
 
 - Approve the CSR to allow Kubernetes to generate a signed certificate.
 
-- Extract the signed certificate from the approved CSR and save it locally as alice.crt.
+- Extract the signed certificate from the approved CSR and save it locally as `alice.crt`.
 
 - Verify that the certificate file exists and is ready for use to authenticate the user to the cluster.
 
