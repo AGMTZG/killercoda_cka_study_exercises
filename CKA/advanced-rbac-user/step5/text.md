@@ -14,10 +14,13 @@ Use her **kubeconfig** to attempt operations on pods.
 kubectl config use-context alice-context
 
 # Try to create a pod (allowed)
-kubectl create pod nginx --image=nginx --port=80
+kubectl run pod nginx --image=nginx --port=80
 
 # Try to create a deployment (denied)
 kubectl create deployment nginx --image=nginx --replicas=3 --port=80
+
+# If you are going to run kubectl auth tests, make sure to switch back to the default admin context
+kubectl config use-context kubernetes-admin@kubernetes
 
 # Check if alice can list pods (allowed)
 kubectl auth can-i list pods -n projectx --as alice

@@ -1,7 +1,7 @@
 ### Create the Role with pod permissions and bind alice to the Role using RoleBinding
 
-In this step, you’ll create a Role named `alice-developer` that grants the **list**, **get**, **create**, **update**, and **delete** permissions required to manage pods in the `projectx` namespace.
-Then, you’ll bind this role to the user alice using a RoleBinding named `alice-developer-binding`.
+In this step, you’ll create a Role named `alice-developer` that grants the `list`, `get`, `create`, `update`, and `delete` permissions required to manage pods in the `projectx` namespace.
+Then, you’ll bind this role to the user **alice** using a RoleBinding named `alice-developer-binding`.
 Both names should clearly reference the user alice to maintain consistency and make it easy to identify which resources belong to her.
 
 <details>
