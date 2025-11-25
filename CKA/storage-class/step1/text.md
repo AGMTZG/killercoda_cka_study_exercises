@@ -31,6 +31,8 @@ Finally:
 
 Run the appropriate command to determine which **StorageClass** is marked as default and save the output to `/opt/storage/default-sc.txt`.
 
+**Note**: the directory `/opt/storage` may not exist yet, so make sure to create it before saving the file:
+
 Requirements for the file `/opt/storage/default-sc.txt`:
 
 - The command output must show only one **StorageClass** that is set as default.
