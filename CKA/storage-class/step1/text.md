@@ -35,7 +35,7 @@ Run the appropriate command to determine which **StorageClass** is marked as def
 
 Requirements for the file `/opt/storage/default-sc.txt`:
 
-- The command output must show only one **StorageClass** that is set as default.
+- The output must display only one **StorageClass** and include exactly two columns: `NAME` (the name of the **StorageClass**) and `DEFAULT` (indicating whether it is set as default).
 
 - You may include headers or not, as long as the default StorageClass can be identified.
 
