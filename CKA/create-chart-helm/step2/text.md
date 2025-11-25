@@ -17,7 +17,7 @@ Tasks:
 ```bash
 # Example
 app.kubernetes.io/name: <applicacion-name>
-app.kubernetes.io/instance: <application-version>
+app.kubernetes.io/instance: <release-name>
 ```
 
 - In the same file, add one more helper function `database-app.selectorLabels` that provides the minimal set of labels for resource selectors, using the key: `app.kubernetes.io/name` for the application name.
