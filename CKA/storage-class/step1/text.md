@@ -76,7 +76,7 @@ kind: StorageClass
 metadata:
   name: csi-retain-sc
   annotations:
-    storageclass.kubernetes.io/is-default-class: "true"   # Use this annotation to mark the StorageClass as the default. (Remember to remove the annotation from any existing default StorageClass to avoid conflicts.)
+    storageclass.kubernetes.io/is-default-class: "true"
 provisioner: csi-driver.example-vendor.example
 reclaimPolicy: Retain
 allowVolumeExpansion: true
